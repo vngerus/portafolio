@@ -1,0 +1,5 @@
+export { default as spotlight1 } from './spotlight1.png'
+export { default as spotlight2 } from './spotlight2.png'
+export { default as spotlight3 } from './spotlight3.png'
+export { default as spotlight4 } from './spotlight4.png'
+export { default as spotlight5 } from './spotlight5.png'
