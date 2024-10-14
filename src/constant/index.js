@@ -2,21 +2,21 @@ export const calculateResponsiveSizes = (deviceType) => {
   switch (deviceType) {
     case 'mobile':
       return {
-        catScale: 2,
-        catPosition: [0.0, 0.99, 1.1],  
+        catScale: 3,
+        catPosition: [0.0, -1.0, 1.1],  
         cameraPosition: [0, 0, 20],    
       };
     case 'tablet':
       return {
-        catScale: 3,
-        catPosition: [0.0, -1, 1.2],
+        catScale: 5,
+        catPosition: [0.0, -6.0, 0],
         cameraPosition: [0, 0, 25],
       };
     case 'desktop':
     default:
       return {
-        catScale: 5,
-        catPosition: [-0.2, -1.2, -5.0],
+        catScale: 9,
+        catPosition: [-0.0, -10.2, -0.0],
         cameraPosition: [0, 0, 30],
       };
   }
