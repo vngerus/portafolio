@@ -195,3 +195,27 @@ body {
     transform: rotate(0deg);
   }
 }
+
+@font-face {
+  font-family: 'GothamBold';
+  src: url('/src/assets/fonts/gotham-bold.woff2') format('woff2'),
+       url('/src/assets/fonts/gotham-bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GothamBook';
+  src: url('/src/assets/fonts/gotham-book.woff2') format('woff2'),
+       url('/src/assets/fonts/gotham-book.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GothamMedium';
+  src: url('/src/assets/fonts/gotham-medium.woff2') format('woff2'),
+       url('/src/assets/fonts/gotham-medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
