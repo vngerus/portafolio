@@ -3,7 +3,7 @@ import { useGLTF, useAnimations } from '@react-three/drei';
 
 const BananaCat = (props) => {
   const group = useRef();
-  const { nodes, materials, animations } = useGLTF('/src/assets/models/bananacat.glb');
+  const { nodes, materials, animations } = useGLTF('/public/bananacat.glb');
   const { actions } = useAnimations(animations, group);
 
   useEffect(() => {
@@ -43,5 +43,5 @@ const BananaCat = (props) => {
   );
 };
 
-useGLTF.preload('/src/assets/models/bananacat.glb');
+useGLTF.preload('/public/bananacat.glb');
 export default BananaCat;
