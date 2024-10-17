@@ -1,13 +1,13 @@
-import { About, Experience, Footer, Hero, Navbar, Projects } from './components';
+import { Footer, Hero, Navbar } from './components';
 
 const App = () => {
   return (
     <main className="max-w-7xl mx-auto ">
       <Navbar />
       <Hero />
-      <About />
+      {/*       <About />
       <Experience />
-      <Projects />
+      <Projects /> */}
       <Footer />
     </main>
   );

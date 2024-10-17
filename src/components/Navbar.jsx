@@ -18,8 +18,8 @@ const Navbar = () => {
             <span className="group-hover:blur-[1px] transition-all duration-300 ease-in-out">Contact</span>
             <span className="absolute top-1/2 left-0 w-0 h-[3px] bg-purple-500 group-hover:w-full transition-all duration-500 ease-in-out transform -translate-y-1/2"></span>
           </a>
-          <a href="/details" className="relative group transform lg:rotate-[-90deg]">
-            <span className="group-hover:blur-[1px] transition-all duration-300 ease-in-out">Details</span>
+          <a href="/about" className="relative group transform lg:rotate-[-90deg]">
+            <span className="group-hover:blur-[1px] transition-all duration-300 ease-in-out">about</span>
             <span className="absolute top-1/2 left-0 w-0 h-[3px] bg-purple-500 group-hover:w-full transition-all duration-500 ease-in-out transform -translate-y-1/2"></span>
           </a>
           <a href="/projects" className="relative group transform lg:rotate-[-90deg]">
@@ -56,8 +56,8 @@ const Navbar = () => {
             <span className="group-hover:blur-[1px] transition-all duration-300 ease-in-out">Projects</span>
             <span className="absolute top-1/2 left-0 w-0 h-[3px] bg-purple-500 group-hover:w-full transition-all duration-500 ease-in-out transform -translate-y-1/2"></span>
           </a>
-          <a href="/details" className="hover:text-gray-300 text-lg relative group">
-            <span className="group-hover:blur-[1px] transition-all duration-300 ease-in-out">Details</span>
+          <a href="/about" className="hover:text-gray-300 text-lg relative group">
+            <span className="group-hover:blur-[1px] transition-all duration-300 ease-in-out">about</span>
             <span className="absolute top-1/2 left-0 w-0 h-[3px] bg-purple-500 group-hover:w-full transition-all duration-500 ease-in-out transform -translate-y-1/2"></span>
           </a>
           <a href="/articles" className="hover:text-gray-300 text-lg relative group">
