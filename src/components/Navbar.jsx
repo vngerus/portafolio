@@ -15,16 +15,16 @@ const Navbar = () => {
         <img src={Logo} alt="VNGERUS" className="w-10 h-10 lg:w-12 lg:h-12" />
         <div className="flex flex-col space-y-20 text-m text-center font-gothamBook ">
           <a href="/contact" className="relative group transform lg:rotate-[-90deg]">
-            <span className="group-hover:blur-[1px] transition-all duration-300 ease-in-out">Contact</span>
-            <span className="absolute top-1/2 left-0 w-0 h-[3px] bg-purple-500 group-hover:w-full transition-all duration-500 ease-in-out transform -translate-y-1/2"></span>
+            <span className="group-hover:text-purple-500 transition-all duration-300 ease-in-out">Contact</span>
+            <span className="absolute bottom-0 left-0 w-0 h-[3px] bg-purple-500 group-hover:w-full transition-all duration-500 ease-in-out"></span>
           </a>
           <a href="/about" className="relative group transform lg:rotate-[-90deg]">
-            <span className="group-hover:blur-[1px] transition-all duration-300 ease-in-out">about</span>
-            <span className="absolute top-1/2 left-0 w-0 h-[3px] bg-purple-500 group-hover:w-full transition-all duration-500 ease-in-out transform -translate-y-1/2"></span>
+            <span className="group-hover:text-purple-500 transition-all duration-300 ease-in-out">About</span>
+            <span className="absolute bottom-0 left-0 w-0 h-[3px] bg-purple-500 group-hover:w-full transition-all duration-500 ease-in-out"></span>
           </a>
           <a href="/projects" className="relative group transform lg:rotate-[-90deg]">
-            <span className="group-hover:blur-[1px] transition-all duration-300 ease-in-out">Projects</span>
-            <span className="absolute top-1/2 left-0 w-0 h-[3px] bg-purple-500 group-hover:w-full transition-all duration-500 ease-in-out transform -translate-y-1/2"></span>
+            <span className="group-hover:text-purple-500 transition-all duration-300 ease-in-out">Projects</span>
+            <span className="absolute bottom-0 left-0 w-0 h-[3px] bg-purple-500 group-hover:w-full transition-all duration-500 ease-in-out"></span>
           </a>
         </div>
       </div>
@@ -47,26 +47,26 @@ const Navbar = () => {
       </div>
 
       <div
-        className={`lg:hidden fixed inset-0 bg-black/100 backdrop-blur-md z-40 flex flex-col justify-between items-center transition-transform duration-300 ease-in-out ${
+        className={`lg:hidden fixed inset-0 bg-black/100 z-40 flex flex-col justify-between items-center transition-transform duration-300 ease-in-out ${
           isOpen ? 'translate-y-0' : '-translate-y-full'
         }`}>
         <div className="flex flex-col items-center space-y-10 mt-32">
           <img src={Logo} alt="VNGERUS" className="w-12 h-12" />
-          <a href="/projects" className="hover:text-gray-300 text-lg relative group">
-            <span className="group-hover:blur-[1px] transition-all duration-300 ease-in-out">Projects</span>
-            <span className="absolute top-1/2 left-0 w-0 h-[3px] bg-purple-500 group-hover:w-full transition-all duration-500 ease-in-out transform -translate-y-1/2"></span>
+          <a href="/projects" className="hover:text-purple-500 text-lg relative group">
+            <span className="group-hover:text-purple-500 transition-all duration-300 ease-in-out">Projects</span>
+            <span className="absolute bottom-0 left-0 w-0 h-[3px] bg-purple-500 group-hover:w-full transition-all duration-500 ease-in-out"></span>
           </a>
-          <a href="/about" className="hover:text-gray-300 text-lg relative group">
-            <span className="group-hover:blur-[1px] transition-all duration-300 ease-in-out">about</span>
-            <span className="absolute top-1/2 left-0 w-0 h-[3px] bg-purple-500 group-hover:w-full transition-all duration-500 ease-in-out transform -translate-y-1/2"></span>
+          <a href="/about" className="hover:text-purple-500 text-lg relative group">
+            <span className="group-hover:text-purple-500 transition-all duration-300 ease-in-out">About</span>
+            <span className="absolute bottom-0 left-0 w-0 h-[3px] bg-purple-500 group-hover:w-full transition-all duration-500 ease-in-out"></span>
           </a>
-          <a href="/articles" className="hover:text-gray-300 text-lg relative group">
-            <span className="group-hover:blur-[1px] transition-all duration-300 ease-in-out">Articles</span>
-            <span className="absolute top-1/2 left-0 w-0 h-[3px] bg-purple-500 group-hover:w-full transition-all duration-500 ease-in-out transform -translate-y-1/2"></span>
+          <a href="/articles" className="hover:text-purple-500 text-lg relative group">
+            <span className="group-hover:text-purple-500 transition-all duration-300 ease-in-out">Articles</span>
+            <span className="absolute bottom-0 left-0 w-0 h-[3px] bg-purple-500 group-hover:w-full transition-all duration-500 ease-in-out"></span>
           </a>
-          <a href="/contact" className="hover:text-gray-300 text-lg relative group">
-            <span className="group-hover:blur-[1px] transition-all duration-300 ease-in-out">Contact</span>
-            <span className="absolute top-1/2 left-0 w-0 h-[3px] bg-purple-500 group-hover:w-full transition-all duration-500 ease-in-out transform -translate-y-1/2"></span>
+          <a href="/contact" className="hover:text-purple-500 text-lg relative group">
+            <span className="group-hover:text-purple-500 transition-all duration-300 ease-in-out">Contact</span>
+            <span className="absolute bottom-0 left-0 w-0 h-[3px] bg-purple-500 group-hover:w-full transition-all duration-500 ease-in-out"></span>
           </a>
         </div>
 
