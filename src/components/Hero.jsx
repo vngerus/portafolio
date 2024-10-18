@@ -18,8 +18,36 @@ const Hero = () => {
 
   const [developerType, setDeveloperType] = useState('Full Stack');
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [name, setName] = useState(' •エンジェル スミス •');
+  const [currentName, setCurrentName] = useState('• エンジェル スミス •');
 
   const webGLSupported = isWebGLSupported();
+
+  const japaneseName = '• エンジェル スミス ';
+  const englishName = 'Angel Smith';
+
+  useEffect(() => {
+    let currentIndex = 0;
+
+    const changeToEnglish = () => {
+      const intervalId = setInterval(() => {
+        if (currentIndex < englishName.length) {
+          setCurrentName((prev) => englishName.slice(0, currentIndex + 1) + japaneseName.slice(currentIndex + 1));
+          currentIndex += 1;
+        } else {
+          clearInterval(intervalId);
+        }
+      }, 100);
+    };
+
+    const delayBeforeChange = setTimeout(() => {
+      changeToEnglish();
+    }, 1500);
+
+    return () => {
+      clearTimeout(delayBeforeChange);
+    };
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -27,43 +55,61 @@ const Hero = () => {
       setTimeout(() => {
         setDeveloperType((prevType) => (prevType === 'Full Stack' ? 'Front-end' : 'Full Stack'));
       }, 800);
-
       setTimeout(() => {
         setIsTransitioning(false);
       }, 1600);
     }, 4000);
-
     return () => clearInterval(interval);
   }, []);
+
+  const letterVariant = {
+    hidden: { opacity: 0, y: -20 },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.05 },
+    }),
+  };
+
+  const textVariant = {
+    hidden: { opacity: 0, x: -20 },
+    visible: (i) => ({
+      opacity: 1,
+      x: 0,
+      transition: { delay: i * 0.05 },
+    }),
+  };
 
   return (
     <section className="min-h-screen w-full flex flex-col justify-center items-center relative">
       <div className="w-full flex flex-col items-start text-left z-10 mt-[-300px]">
-        <div className="text-xl uppercase text-gray-400 ml-[25%]">Angel Smith</div>
+        <div className="text-xl uppercase text-gray-400 ml-[25%] flex space-x-2">
+          {currentName.split('').map((letter, index) => (
+            <motion.span key={index} custom={index} initial="hidden" animate="visible" variants={letterVariant}>
+              {letter === ' ' ? '\u00A0' : letter}
+            </motion.span>
+          ))}
+        </div>
 
         <div className="text-6xl sm:text-8xl font-medium text-white leading-tight relative inline-block ml-[25%] mt-2">
           <div className="relative inline-block overflow-hidden">
             <AnimatePresence mode="wait">
               <motion.div
                 key={developerType}
-                initial={{ opacity: 1 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
+                initial={{ opacity: 0, y: -50 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 50 }}
                 transition={{ duration: 0.8 }}
                 className="inline-block relative z-20">
-                <span className="text-purple-500">+</span> {developerType}
+                <span className="text-purple-500">+</span>{' '}
+                {developerType.split('').map((letter, index) => (
+                  <motion.span key={index} custom={index} initial="hidden" animate="visible" variants={textVariant}>
+                    {letter}
+                  </motion.span>
+                ))}
               </motion.div>
             </AnimatePresence>
           </div>
-
-          <motion.div
-            className="absolute bottom-0 left-0 h-full bg-purple-500 z-50"
-            style={{ width: `${developerType === 'Full Stack' ? 11 : 10}ch` }}
-            initial={{ width: 0 }}
-            animate={{ width: isTransitioning ? `${developerType === 'Full Stack' ? 11 : 10}ch` : 0 }}
-            exit={{ width: 0 }}
-            transition={{ duration: 1, ease: 'easeInOut' }}
-          />
         </div>
 
         <div className="flex items-center justify-start mt-4 ml-[25%]">
