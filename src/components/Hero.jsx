@@ -7,6 +7,7 @@ import { useMediaQuery } from 'react-responsive';
 import { calculateResponsiveSizes } from '../constant';
 import CanvasLoader from '../tools/CanvasLoader';
 import BananaCatHi from '../model/BananaCat';
+import { isWebGLSupported } from '../tools/webglSupport';
 
 const Hero = () => {
   const isMobile = useMediaQuery({ maxWidth: 768 });
@@ -17,6 +18,8 @@ const Hero = () => {
 
   const [developerType, setDeveloperType] = useState('Full Stack');
   const [isTransitioning, setIsTransitioning] = useState(false);
+
+  const webGLSupported = isWebGLSupported();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -69,21 +72,27 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="w-full h-full absolute inset-0">
-        <Canvas style={{ width: '100%', height: '100%' }}>
-          <Suspense fallback={<CanvasLoader />}>
-            <PerspectiveCamera makeDefault position={cameraPosition} />
-            <BananaCatHi
-              position={catPosition}
-              rotation={[3.5, -3.1, 3.14]}
-              scale={[catScale, catScale, catScale]}
-              ActionName={BananaCatHi}
-            />
-            <ambientLight intensity={1} />
-            <directionalLight position={[10, 10, 10]} intensity={0.5} />
-          </Suspense>
-        </Canvas>
-      </div>
+      {webGLSupported ? (
+        <div className="w-full h-full absolute inset-0">
+          <Canvas style={{ width: '100%', height: '100%' }}>
+            <Suspense fallback={<CanvasLoader />}>
+              <PerspectiveCamera makeDefault position={cameraPosition} />
+              <BananaCatHi
+                position={catPosition}
+                rotation={[3.5, -3.1, 3.14]}
+                scale={[catScale, catScale, catScale]}
+                ActionName={BananaCatHi}
+              />
+              <ambientLight intensity={1} />
+              <directionalLight position={[10, 10, 10]} intensity={0.5} />
+            </Suspense>
+          </Canvas>
+        </div>
+      ) : (
+        <div className="w-full h-full flex justify-center items-center text-white text-xl">
+          Your browser does not support WebGL. Please update your browser to view this content.
+        </div>
+      )}
     </section>
   );
 };
