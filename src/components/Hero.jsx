@@ -72,7 +72,7 @@ const Hero = () => {
   };
 
   const textVariant = {
-    hidden: { opacity: 0, x: -20 },
+    hidden: { opacity: 0, x: -30 },
     visible: (i) => ({
       opacity: 1,
       x: 0,
@@ -96,9 +96,9 @@ const Hero = () => {
             <AnimatePresence mode="wait">
               <motion.div
                 key={developerType}
-                initial={{ opacity: 0, y: -50 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 50 }}
                 transition={{ duration: 0.8 }}
                 className="inline-block relative z-20">
                 <span className="text-purple-500">+</span>{' '}
