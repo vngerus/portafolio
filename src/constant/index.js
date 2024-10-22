@@ -3,7 +3,7 @@ export const calculateResponsiveSizes = (deviceType) => {
     case 'mobile':
       return {
         catScale: 3,
-        catPosition: [0.0, -1.0, 1.1],
+        catPosition: [0.0, -4.0, 1.1],
         cameraPosition: [0, 0, 20],
       };
     case 'tablet':

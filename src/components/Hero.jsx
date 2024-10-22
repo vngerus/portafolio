@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, React } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PerspectiveCamera } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
@@ -82,8 +82,8 @@ const Hero = () => {
 
   return (
     <section className="min-h-screen w-full flex flex-col justify-center items-center relative">
-      <div className="w-full flex flex-col items-start text-left z-10 mt-[-300px]">
-        <div className="text-xl uppercase text-gray-400 ml-[25%] flex space-x-2">
+      <div className="w-full flex flex-col items-center text-center z-10 mt-[-150px] md:mt-[-200px] lg:mt-[-300px]">
+        <div className="text-lg md:text-2xl lg:text-xl uppercase text-gray-400 flex space-x-2">
           {currentName.split('').map((letter, index) => (
             <motion.span key={index} custom={index} initial="hidden" animate="visible" variants={letterVariant}>
               {letter === ' ' ? '\u00A0' : letter}
@@ -91,7 +91,7 @@ const Hero = () => {
           ))}
         </div>
 
-        <div className="text-6xl sm:text-8xl font-medium text-white leading-tight relative inline-block ml-[25%] mt-2">
+        <div className="text-4xl md:text-6xl lg:text-8xl font-medium text-white leading-tight relative inline-block mt-4 md:mt-6 lg:mt-8">
           <div className="relative inline-block overflow-hidden">
             <AnimatePresence mode="wait">
               <motion.div
@@ -112,9 +112,9 @@ const Hero = () => {
           </div>
         </div>
 
-        <div className="flex items-center justify-start mt-4 ml-[25%]">
-          <div className="h-1 w-32 bg-purple-500"></div>
-          <h1 className="text-6xl sm:text-8xl font-medium text-white leading-tight ml-4">Developer</h1>
+        <div className="flex items-center justify-center mt-6 mb-16 md:mb-20 lg:mb-28 md:ml-6">
+          <div className="h-4 w-4 bg-purple-500 rounded-full mr-4 md:mr-12"></div>
+          <h1 className="text-4xl md:text-6xl lg:text-8xl font-medium text-white leading-tight">Developer</h1>
         </div>
       </div>
 
