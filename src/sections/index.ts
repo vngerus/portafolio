@@ -1,0 +1,7 @@
+export { default as Header } from '@/sections/Header'
+export { default as About } from '@/sections/About'
+export { default as Contact } from '@/sections/Contact'
+export { default as Experiences } from '@/sections/Experiences'
+export { default as Footer } from '@/sections/Footer'
+export { default as Hero } from '@/sections/Hero'
+export { default as Projects } from '@/sections/Projects'
