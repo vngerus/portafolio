@@ -8,16 +8,16 @@ const config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  darkMode: "class", // Habilitar modo oscuro basado en clases
+  darkMode: "class", 
   theme: {
     extend: {
       colors: {
-        background: "var(--background)", // Variables personalizadas para colores
+        background: "var(--background)", 
         foreground: "var(--foreground)",
       },
       animation: {
         spotlight: "spotlight 2s ease .75s 1 forwards",
-        aurora: "aurora 60s linear infinite", // Nueva animación
+        aurora: "aurora 60s linear infinite",
       },
       keyframes: {
         spotlight: {
