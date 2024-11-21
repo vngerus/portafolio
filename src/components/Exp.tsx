@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Timeline } from './ui/timeline';
 import { MotionValue } from 'framer-motion';
 
@@ -20,10 +20,8 @@ interface ExpProps {
 }
 
 const Exp: React.FC<ExpProps> = ({ data }) => {
-    const ref = useRef<HTMLDivElement | null>(null);
-
     return (
-        <div ref={ref} className="relative max-w-7xl mx-auto pb-8">
+        <div className="relative max-w-7xl mx-auto pb-8">
             {data && data.length > 0 ? (
                 <Timeline
                     data={data.map((item) => ({
@@ -52,7 +50,8 @@ const Exp: React.FC<ExpProps> = ({ data }) => {
                                         {item.skills.map((skill, idx) => (
                                             <span
                                                 key={idx}
-                                                className="px-3 py-1 bg-gray-800 text-white text-xs md:text-sm lg:text-base rounded-full border border-gray-700">
+                                                className="px-3 py-1 bg-gray-800 text-white text-xs md:text-sm lg:text-base rounded-full border border-gray-700"
+                                            >
                                                 {skill}
                                             </span>
                                         ))}
