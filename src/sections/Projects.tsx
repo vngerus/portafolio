@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { PinContainer } from "@/components/ui/3d-pin";
 import { workProjects, personalProjects, tags } from "@/constant";
+import { HiBriefcase, HiUserCircle, HiEye } from "react-icons/hi";
 
 interface Project {
     title: string;
@@ -76,7 +77,7 @@ const Projects: React.FC = () => {
 
     return (
         <div className="z-40 mx-auto max-w-screen-lg px-4 sm:px-6 md:px-8 mt-24">
-            <div className="flex justify-center items-center mb-6">
+            <div className="flex justify-left items-center mb-6">
                 <div className="relative flex bg-purple-900 rounded-full p-1 space-x-2">
                     <motion.div
                         layout
@@ -91,23 +92,21 @@ const Projects: React.FC = () => {
                             damping: 30,
                         }}
                     />
-                    {["work", "personal", "all"].map((category) => (
+                    {[
+                        { key: "work", label: "Trabajo", icon: <HiBriefcase size={18} /> },
+                        { key: "personal", label: "Personal", icon: <HiUserCircle size={18} /> },
+                        { key: "all", label: "Ver Todos", icon: <HiEye size={18} /> },
+                    ].map(({ key, label, icon }) => (
                         <button
-                            key={category}
+                            key={key}
                             onClick={() => {
-                                setSelectedCategory(category as "work" | "personal" | "all");
+                                setSelectedCategory(key as "work" | "personal" | "all");
                                 setCurrentIndex(0);
                             }}
-                            className={`flex items-center justify-center px-6 py-2 rounded-full text-sm font-medium z-10 ${selectedCategory === category
-                                ? "text-white"
-                                : "text-gray-300"
+                            className={`flex items-center gap-2 justify-center px-6 py-2 rounded-full text-sm font-medium z-10 ${selectedCategory === key ? "text-white" : "text-gray-300"
                                 }`}
                         >
-                            {category === "work"
-                                ? "💼 Trabajo"
-                                : category === "personal"
-                                    ? "👨‍💻 Personal"
-                                    : "👀 Ver Todos"}
+                            {icon} {label}
                         </button>
                     ))}
                 </div>
