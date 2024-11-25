@@ -1,6 +1,3 @@
-import { Avida, AvidaBack, CIB, CibBack } from "../../public/project";
-import { framer, reactlogo, tailwind, tsc } from "../../public/stack";
-
 
 export const workExperience = [
   {
@@ -102,23 +99,23 @@ export const certifications = [
 export const tags = [
   {
     id: 1,
-    name: 'React.js',
-    path: reactlogo, 
+    name: "React.js",
+    path: "/stack/react.svg",
   },
   {
     id: 2,
-    name: 'TailwindCSS',
-    path: tailwind,
+    name: "TailwindCSS",
+    path: "/stack/tailwindcss.png",
   },
   {
     id: 3,
-    name: 'TypeScript',
-    path: tsc,
+    name: "TypeScript",
+    path: "/stack/typescript.png",
   },
   {
     id: 4,
-    name: 'Framer Motion',
-    path: framer,
+    name: "Framer Motion",
+    path: "/stack/framer.svg",
   },
 ];
 
@@ -130,8 +127,8 @@ export const workProjects = [
     date: "Marzo 2024 - Actualmente",
     link: "https://.app",
     description: "Desarrollo de una plataforma de inteligencia artificial para mejorar procesos empresariales.",
-    imgback: CibBack,
-    imglogo: CIB,
+    imgback: "/project/CibBack.webp",
+    imglogo: "/project/Cib.webp",
     logoStyle: {
       backgroundColor: '#0E1F38',
       border: '0.2px solid #0E2D58',
@@ -146,8 +143,8 @@ export const workProjects = [
     date: "Marzo 2024 - Actualmente",
     link: "https://.app",
     description: "Plataforma web para la gestión eficiente de datos y visualización de métricas.",
-    imgback: '/src/assets/logobackground/backavida.webp',
-    imglogo: '/src/assets/logoproject/Avida.webp',
+    imgback: "/project/CibBack.webp",
+    imglogo: "/project/Cib.webp",
     logoStyle: {
       backgroundColor: '#0E1F38',
       border: '0.2px solid #0E2D58',
@@ -163,8 +160,8 @@ export const personalProjects = [
     title: "Avida",
     link: "https://avida.vercel.app",
     description: "Proyecto personal de plataforma web para la gestión de la vida diaria.",
-    imgback: AvidaBack,
-    imglogo: Avida,
+    imgback: "/project/AvidaBack.webp",
+    imglogo: "/project/Avida.webp",
     logoStyle: {
       backgroundColor: '#0E1F38',
       border: '0.2px solid #0E2D58',
@@ -180,8 +177,8 @@ export const challenges = [
     title: "HA Challenge Empresas",
     link: "https://ha-challengev2.vercel.app/empresas",
     description: "Desafío técnico enfocado en la creación de una interfaz para gestión de empresas.",
-    imgback: AvidaBack,
-    imglogo: Avida,
+    imgback: "/project/CibBack.webp",
+    imglogo: "/project/Cib.webp",
     logoStyle: {
       backgroundColor: '#0E1F38',
       border: '0.2px solid #0E2D58',
