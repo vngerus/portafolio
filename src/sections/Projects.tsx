@@ -101,7 +101,7 @@ const Projects: React.FC = () => {
     if (!isMounted) return null;
 
     return (
-        <div className="z-40 mx-auto max-w-screen-lg px-4 sm:px-6 md:px-8 mt-24 bg-black">
+        <div className="z-40 mx-auto max-w-screen-lg px-4 sm:px-6 md:px-8 mt-24">
             <div className="flex justify-center space-x-8 mb-6">
                 {["work", "personal", "challenge"].map((category) => (
                     <button
