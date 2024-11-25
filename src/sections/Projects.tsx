@@ -66,8 +66,8 @@ const Projects: React.FC = () => {
                 <PinContainer
                     title={project.title}
                     href={project.link}
-                    backgroundImage={project.imgback || "/default-background.jpg"}
-                    imgLogo={project.imglogo || "/default-logo.png"}
+                    backgroundImage={project.imgback}
+                    imgLogo={project.imglogo}
                 />
             </div>
         </div>
