@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 
 interface PinContainerProps {
     children?: React.ReactNode;
@@ -90,8 +91,10 @@ const PinPerspective: React.FC<PinPerspectiveProps> = ({
             <div className="w-full h-full -mt-7 flex-none inset-0">
                 <div className="absolute top-0 inset-x-0 flex justify-center">
                     {imgLogo && (
-                        <img
+                        <Image
                             src={imgLogo}
+                            width={20}
+                            height={20}
                             alt="Logo"
                             className="relative z-20 w-20 h-20 object-contain rounded-full shadow-md"
                         />
