@@ -93,8 +93,8 @@ const PinPerspective: React.FC<PinPerspectiveProps> = ({
                     {imgLogo && (
                         <Image
                             src={imgLogo}
-                            width={20}
-                            height={20}
+                            width={100}
+                            height={100}
                             alt="Logo"
                             className="relative z-20 w-20 h-20 object-contain rounded-full shadow-md"
                         />
