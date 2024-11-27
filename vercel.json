@@ -6,12 +6,6 @@
             "destination": "/api/:path*"
         }
     ],
-    "routes": [
-        {
-            "src": "/api/send",
-            "dest": "/api/send"
-        }
-    ],
     "headers": [
         {
             "source": "/api/(.*)",
