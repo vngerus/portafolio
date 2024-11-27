@@ -39,7 +39,7 @@ const ContactForm: React.FC = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg space-y-6"
+            className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg space-y-6 mt-24"
         >
             <h2 className="text-2xl font-bold text-gray-700 text-center">Contáctame</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
