@@ -39,12 +39,12 @@ const ContactForm: React.FC = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg space-y-6 mt-24"
+            className="max-w-lg mx-auto p-6 bg-[#0A0825] border shadow-md rounded-lg space-y-6 mt-24"
         >
-            <h2 className="text-2xl font-bold text-gray-700 text-center">Contáctame</h2>
+            <h2 className="text-2xl font-bold text-white text-center">Contáctame</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="name" className="block text-sm font-medium text-white">
                         Nombre
                     </label>
                     <input
@@ -58,7 +58,7 @@ const ContactForm: React.FC = () => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="email" className="block text-sm font-medium text-white">
                         Correo Electrónico
                     </label>
                     <input
@@ -72,7 +72,7 @@ const ContactForm: React.FC = () => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="message" className="block text-sm font-medium text-white">
                         Mensaje
                     </label>
                     <textarea

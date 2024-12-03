@@ -69,7 +69,7 @@ const PinContainer: React.FC<PinContainerProps> = ({
 
             </div>
 
-            <PinPerspective imgLogo={imgLogo} title={title} href={href} />+
+            <PinPerspective imgLogo={imgLogo} title={title} href={href} />
 
         </Link>
 
