@@ -39,7 +39,7 @@ const ContactForm: React.FC = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="max-w-lg mx-auto p-6 bg-[#0A0825] border shadow-md rounded-lg space-y-6 mt-24"
+            className="max-w-lg mx-auto p-6 bg-[#0A0825] border border-gray-600 shadow-md rounded-lg space-y-6 mt-24"
         >
             <h2 className="text-2xl font-bold text-white text-center">Contáctame</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -89,7 +89,7 @@ const ContactForm: React.FC = () => {
                     <button
                         type="submit"
                         disabled={status === "sending"}
-                        className={`w-full py-2 px-4 text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none ${status === "sending" ? "opacity-50 cursor-not-allowed" : ""
+                        className={`w-full py-2 px-4 text-white bg-purple-500 rounded-md hover:bg-purple-700 focus:outline-none ${status === "sending" ? "opacity-50 cursor-not-allowed" : ""
                             }`}
                     >
                         {status === "sending" ? "Enviando..." : "Enviar"}

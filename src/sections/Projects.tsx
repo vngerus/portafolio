@@ -45,7 +45,7 @@ const Projects: React.FC = () => {
 
     const renderProject = (project: Project) => (
         <div key={project.title} className="relative flex flex-col md:flex-row gap-6 w-full">
-            <div className="relative flex flex-col w-full h-[350px] mt-[15px] md:w-1/2 p-6 rounded-2xl shadow-md border transition duration-700 overflow-hidden">
+            <div className="relative flex flex-col w-full h-[350px] mt-[15px] md:w-1/2 p-6 rounded-2xl shadow-md border border-gray-500 transition duration-700 overflow-hidden">
                 <h3 className="text-2xl font-bold text-white md:text-3xl">{project.title}</h3>
                 <p className="text-lg text-gray-400 mt-2 md:text-xl">{project.description}</p>
                 <div className="flex flex-wrap gap-4 mt-8">
