@@ -8,12 +8,17 @@ const config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  darkMode: "class", 
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
-        background: "var(--background)", 
-        foreground: "var(--foreground)",
+        background: "#0A0825",
+        buttonSelected: "#6D448A",
+        buttonUnselected: "#2D0E41",
+        titles: "#D28FFF",
+        textPrimary: "#D28FFF",
+        textSecondary: "#6D448A",
+        accentWhite: "#FFFFFF",
       },
       animation: {
         spotlight: "spotlight 2s ease .75s 1 forwards",

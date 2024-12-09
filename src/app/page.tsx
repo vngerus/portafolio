@@ -3,7 +3,7 @@ import { Header, Hero, About, Projects, Experiences, Contact, Footer } from '@/s
 
 export default function Home() {
   return (
-    <div className=" min-h-screen text-white bg-[#0A0825]
+    <div className=" min-h-screen text-white bg-background
 ">
       <Header />
       <Hero />
