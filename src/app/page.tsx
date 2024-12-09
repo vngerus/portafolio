@@ -7,9 +7,9 @@ export default function Home() {
 ">
       <Header />
       <Hero />
-      <About />
       <Experiences />
       <Projects />
+      <About />
       <Contact />
       <Footer />
     </div>
