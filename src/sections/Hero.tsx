@@ -19,7 +19,7 @@ const Hero: React.FC = () => {
         <h2
             key="2"
             className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight">
-            Angel Smith
+            Angel Smith.
         </h2>,
         <h3
             key="3"
