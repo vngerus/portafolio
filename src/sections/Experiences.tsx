@@ -12,8 +12,6 @@ const Experiences: React.FC = () => {
         const handleResize = () => {
             if (window.innerWidth < 768) {
                 setViewMode('expanded');
-            } else {
-                setViewMode('standard');
             }
         };
 
@@ -27,6 +25,7 @@ const Experiences: React.FC = () => {
 
     return (
         <div className="flex flex-col items-center mx-auto max-w-[1000px] px-4 py-12 min-h-screen mt-12">
+
             <div className="flex items-center w-full mb-8">
                 <span className="text-primary font-mono text-lg mr-4">02.</span>
                 <h2 className="text-3xl font-bold text-white whitespace-nowrap">
@@ -35,7 +34,7 @@ const Experiences: React.FC = () => {
                 <div className="flex-1 h-[1px] bg-gray-700 ml-4"></div>
             </div>
 
-            {viewMode !== 'expanded' && (
+            {window.innerWidth >= 768 && (
                 <ExpControls viewMode={viewMode} setViewMode={setViewMode} />
             )}
 
