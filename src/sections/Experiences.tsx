@@ -38,7 +38,7 @@ const Experiences: React.FC = () => {
     return (
         <div className="flex flex-col items-center mx-auto max-w-[1000px] px-4 py-12 min-h-screen mt-12">
             <div className="flex items-center w-full mb-8">
-                <span className="text-primary font-mono text-lg mr-4">02.</span>
+                <span className="text-primary font-mono text-lg mr-4">01.</span>
                 <h2 className="text-3xl font-bold text-white whitespace-nowrap">
                     Donde he trabajado
                 </h2>
@@ -46,15 +46,22 @@ const Experiences: React.FC = () => {
             </div>
 
             {!isMobile && (
-                <ExpControls viewMode={viewMode} setViewMode={setViewMode} />
+                <div className="w-full mb-8 transition-all duration-300 ease-in-out">
+                    <ExpControls viewMode={viewMode} setViewMode={setViewMode} />
+                </div>
             )}
 
-            <ExpContex
-                experiences={experiences}
-                viewMode={viewMode}
-                selectedCompany={selectedCompany}
-                setSelectedCompany={setSelectedCompany}
-            />
+            <div
+                className={`w-full transition-all duration-300 ease-in-out ${viewMode === 'standard' ? 'h-auto' : 'h-full'
+                    }`}
+            >
+                <ExpContex
+                    experiences={experiences}
+                    viewMode={viewMode}
+                    selectedCompany={selectedCompany}
+                    setSelectedCompany={setSelectedCompany}
+                />
+            </div>
         </div>
     );
 };
