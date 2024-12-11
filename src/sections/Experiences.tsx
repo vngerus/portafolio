@@ -6,14 +6,20 @@ import { ExpContex, ExpControls } from '@/components';
 
 const Experiences: React.FC = () => {
     const [viewMode, setViewMode] = useState<'standard' | 'expanded'>('standard');
+    const [isMobile, setIsMobile] = useState(false);
     const [selectedCompany, setSelectedCompany] = useState(0);
 
     useEffect(() => {
         const handleResize = () => {
-            if (typeof window !== 'undefined' && window.innerWidth < 768) {
-                setViewMode('expanded');
-            } else {
-                setViewMode('standard');
+            if (typeof window !== 'undefined') {
+                const isMobileView = window.innerWidth < 768;
+                setIsMobile(isMobileView);
+
+                if (isMobileView) {
+                    setViewMode('expanded');
+                } else {
+                    setViewMode('standard');
+                }
             }
         };
 
@@ -34,12 +40,12 @@ const Experiences: React.FC = () => {
             <div className="flex items-center w-full mb-8">
                 <span className="text-primary font-mono text-lg mr-4">02.</span>
                 <h2 className="text-3xl font-bold text-white whitespace-nowrap">
-                    Where I’ve Worked
+                    Donde he trabajado
                 </h2>
                 <div className="flex-1 h-[1px] bg-gray-700 ml-4"></div>
             </div>
 
-            {viewMode !== 'expanded' && (
+            {!isMobile && (
                 <ExpControls viewMode={viewMode} setViewMode={setViewMode} />
             )}
 

@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Projets: React.FC = () => {
+const Projects: React.FC = () => {
     return (
         <div>
-            Projets
+            Projects
         </div>
     );
 };
 
-export default Projets;
+export default Projects;
