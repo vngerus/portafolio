@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
@@ -15,7 +15,6 @@ interface Project {
     imgback: string;
     imglogo: string;
 }
-
 
 const Projects: React.FC = () => {
     const [selectedCategory, setSelectedCategory] = useState<"work" | "personal" | "all">("work");
@@ -78,36 +77,34 @@ const Projects: React.FC = () => {
 
     return (
         <div className="z-40 mx-auto max-w-screen-lg px-4 sm:px-6 md:px-8 mt-24">
-            <div className="flex justify-left items-center mb-6">
-                <div className="relative flex bg-purple-900 rounded-full p-1 space-x-2">
+            <div className="flex justify-start items-center mb-6">
+                <div className="relative flex bg-purple-900 rounded-full w-[300px] h-10">
                     <motion.div
                         layout
-                        className="absolute top-0 bottom-0 rounded-full bg-purple-500"
+                        className="absolute top-0 bottom-0 bg-purple-500 rounded-full"
                         style={{
-                            width: "33%",
-                            left: selectedCategory === "work" ? "0%" : selectedCategory === "personal" ? "33%" : "66%",
+                            width: `calc(100% / 3)`,
+                            left: `calc(${["work", "personal", "all"].indexOf(selectedCategory)} * 100% / 3)`,
                         }}
                         transition={{
-                            type: "spring",
-                            stiffness: 500,
-                            damping: 30,
+                            duration: 0.3,
+                            ease: [0.4, 0, 0.2, 1],
                         }}
-                    />
+                    ></motion.div>
+
                     {[
-                        { key: "work", label: "Trabajo", icon: <HiBriefcase size={18} /> },
-                        { key: "personal", label: "Personal", icon: <HiUserCircle size={18} /> },
-                        { key: "all", label: "Ver Todos", icon: <HiEye size={18} /> },
+                        { key: "work", label: "Trabajo", icon: <HiBriefcase size={16} /> },
+                        { key: "personal", label: "Personal", icon: <HiUserCircle size={16} /> },
+                        { key: "all", label: "Ver Todos", icon: <HiEye size={16} /> },
                     ].map(({ key, label, icon }) => (
                         <button
                             key={key}
-                            onClick={() => {
-                                setSelectedCategory(key as "work" | "personal" | "all");
-                                setCurrentIndex(0);
-                            }}
-                            className={`flex items-center gap-2 justify-center px-6 py-2 rounded-full text-sm font-medium z-10 ${selectedCategory === key ? "text-white" : "text-gray-300"
+                            onClick={() => setSelectedCategory(key as "work" | "personal" | "all")}
+                            className={`relative z-10 flex items-center justify-center w-1/3 text-sm font-medium transition ${selectedCategory === key ? "text-white" : "text-gray-300"
                                 }`}
                         >
-                            {icon} {label}
+                            {icon}
+                            <span className="ml-2">{label}</span>
                         </button>
                     ))}
                 </div>

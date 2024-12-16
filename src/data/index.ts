@@ -34,92 +34,92 @@ export const experiences = [
 
 export const tags = [
     {
-      id: 1,
-      name: "React.js",
-      path: "/stack/react.svg",
+        id: 1,
+        name: "React.js",
+        path: "/stack/react.svg",
     },
     {
-      id: 2,
-      name: "TailwindCSS",
-      path: "/stack/tailwindcss.png",
+        id: 2,
+        name: "TailwindCSS",
+        path: "/stack/tailwindcss.png",
     },
     {
-      id: 3,
-      name: "TypeScript",
-      path: "/stack/typescript.png",
+        id: 3,
+        name: "TypeScript",
+        path: "/stack/typescript.png",
     },
     {
-      id: 4,
-      name: "Framer Motion",
-      path: "/stack/framer.svg",
+        id: 4,
+        name: "Framer Motion",
+        path: "/stack/framer.svg",
     },
-  ];
-  
-  export const workProjects = [
+];
+
+export const workProjects = [
     {
-      category: "work",
-      title: "CIB AI",
-      company: "CIB",
-      date: "Marzo 2024 - Actualmente",
-      link: "https://.app",
-      description: "Desarrollo de una plataforma de inteligencia artificial para mejorar procesos empresariales.",
-      imgback: "/project/CibBack.webp",
-      imglogo: "/project/Cib.webp",
-      logoStyle: {
-        backgroundColor: '#0E1F38',
-        border: '0.2px solid #0E2D58',
-        boxShadow: '0px 0px 60px 0px #2F67B64D',
-      },
-      techStack: [1, 2, 3, 4], 
+        category: "work",
+        title: "CIB AI",
+        company: "CIB",
+        date: "Marzo 2024 - Actualmente",
+        link: "https://.app",
+        description: "Desarrollo de una plataforma de inteligencia artificial para mejorar procesos empresariales.",
+        imgback: "/project/CibBack.webp",
+        imglogo: "/project/Cib.webp",
+        logoStyle: {
+            backgroundColor: '#0E1F38',
+            border: '0.2px solid #0E2D58',
+            boxShadow: '0px 0px 60px 0px #2F67B64D',
+        },
+        techStack: [1, 2, 3, 4],
     },
     {
-      category: "work",
-      title: "INY",
-      company: "CIB",
-      date: "Marzo 2024 - Actualmente",
-      link: "https://.app",
-      description: "Plataforma web para la gestión eficiente de datos y visualización de métricas.",
-      imgback: "/project/CibBack.webp",
-      imglogo: "/project/Cib.webp",
-      logoStyle: {
-        backgroundColor: '#0E1F38',
-        border: '0.2px solid #0E2D58',
-        boxShadow: '0px 0px 60px 0px #2F67B64D',
-      },
-      techStack: [1, 3], 
+        category: "work",
+        title: "INY",
+        company: "CIB",
+        date: "Marzo 2024 - Actualmente",
+        link: "https://.app",
+        description: "Plataforma web para la gestión eficiente de datos y visualización de métricas.",
+        imgback: "/project/CibBack.webp",
+        imglogo: "/project/Cib.webp",
+        logoStyle: {
+            backgroundColor: '#0E1F38',
+            border: '0.2px solid #0E2D58',
+            boxShadow: '0px 0px 60px 0px #2F67B64D',
+        },
+        techStack: [1, 3],
     },
-  ];
-  
-  export const personalProjects = [
+];
+
+export const personalProjects = [
     {
-      category: "personal",
-      title: "Avida",
-      link: "https://avida.vercel.app",
-      description: "Proyecto personal de plataforma web para la gestión de la vida diaria.",
-      imgback: "/project/AvidaBack.webp",
-      imglogo: "/project/Avida.webp",
-      logoStyle: {
-        backgroundColor: '#0E1F38',
-        border: '0.2px solid #0E2D58',
-        boxShadow: '0px 0px 60px 0px #2F67B64D',
-      },
-      techStack: [1, 2, 3, 4], 
+        category: "personal",
+        title: "Avida",
+        link: "https://avida.vercel.app",
+        description: "Proyecto personal de plataforma web para la gestión de la vida diaria.",
+        imgback: "/project/AvidaBack.webp",
+        imglogo: "/project/Avida.webp",
+        logoStyle: {
+            backgroundColor: '#0E1F38',
+            border: '0.2px solid #0E2D58',
+            boxShadow: '0px 0px 60px 0px #2F67B64D',
+        },
+        techStack: [1, 2, 3, 4],
     },
-  ];
-  
-  export const challenges = [
+];
+
+export const challenges = [
     {
-      category: "challenge",
-      title: "HA Challenge Empresas",
-      link: "https://ha-challengev2.vercel.app/empresas",
-      description: "Desafío técnico enfocado en la creación de una interfaz para gestión de empresas.",
-      imgback: "/project/CibBack.webp",
-      imglogo: "/project/Cib.webp",
-      logoStyle: {
-        backgroundColor: '#0E1F38',
-        border: '0.2px solid #0E2D58',
-        boxShadow: '0px 0px 60px 0px #2F67B64D',
-      },
-      techStack: [1, 3], 
+        category: "challenge",
+        title: "HA Challenge Empresas",
+        link: "https://ha-challengev2.vercel.app/empresas",
+        description: "Desafío técnico enfocado en la creación de una interfaz para gestión de empresas.",
+        imgback: "/project/CibBack.webp",
+        imglogo: "/project/Cib.webp",
+        logoStyle: {
+            backgroundColor: '#0E1F38',
+            border: '0.2px solid #0E2D58',
+            boxShadow: '0px 0px 60px 0px #2F67B64D',
+        },
+        techStack: [1, 3],
     },
-  ];
+];
