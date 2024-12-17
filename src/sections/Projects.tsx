@@ -1,132 +1,67 @@
-'use client';
+'use client'
 
-import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import { motion } from "framer-motion";
-import { PinContainer } from "@/components/ui/3d-pin";
-import { workProjects, personalProjects, tags } from "@/data";
-import { HiBriefcase, HiUserCircle, HiEye } from "react-icons/hi";
-
-interface Project {
-    title: string;
-    description: string;
-    techStack: number[];
-    link: string;
-    imgback: string;
-    imglogo: string;
-}
+import React from 'react';
+import { FiGithub, FiExternalLink } from 'react-icons/fi';
+import { workProjects, tags } from '@/data';
+import { PinContainer } from '@/components/ui/3d-pin';
 
 const Projects: React.FC = () => {
-    const [selectedCategory, setSelectedCategory] = useState<"work" | "personal" | "all">("work");
-    const [currentIndex, setCurrentIndex] = useState<number>(0);
-    const [isMounted, setIsMounted] = useState(false);
-
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
-
-    const getData = (): Project[] => {
-        if (selectedCategory === "all") {
-            return [...workProjects, ...personalProjects];
-        }
-        if (selectedCategory === "work") return workProjects;
-        return personalProjects;
-    };
-
-    const data = getData();
-
-    const handleNext = () => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % data.length);
-    };
-
-    const handlePrev = () => {
-        setCurrentIndex((prevIndex) => (prevIndex - 1 + data.length) % data.length);
-    };
-
-    const renderProject = (project: Project) => (
-        <div key={project.title} className="relative flex flex-col md:flex-row gap-6 w-full">
-            <div className="relative flex flex-col w-full h-[350px] mt-[15px] md:w-1/2 p-6 rounded-2xl shadow-md border border-gray-500 transition duration-700 overflow-hidden">
-                <h3 className="text-2xl font-bold text-white md:text-3xl">{project.title}</h3>
-                <p className="text-lg text-gray-400 mt-2 md:text-xl">{project.description}</p>
-                <div className="flex flex-wrap gap-4 mt-8">
-                    {project.techStack.map((id) => {
-                        const tag = tags.find((tag) => tag.id === id);
-                        return (
-                            tag && (
-                                <div key={tag.id} className="flex items-center space-x-2 p-2 rounded-lg">
-                                    <Image src={tag.path} alt={`Tecnología: ${tag.name}`} width={24} height={24} />
-                                    <span className="text-sm text-white">{tag.name}</span>
-                                </div>
-                            )
-                        );
-                    })}
-                </div>
-            </div>
-            <div className="relative flex w-full md:w-1/2 justify-center">
-                <PinContainer
-                    title={project.title}
-                    href={project.link}
-                    backgroundImage={project.imgback}
-                    imgLogo={project.imglogo}
-                />
-            </div>
-        </div>
-    );
-
-    if (!isMounted) return null;
-
     return (
-        <div className="z-40 mx-auto max-w-screen-lg px-4 sm:px-6 md:px-8 mt-24">
-            <div className="flex justify-start items-center mb-6">
-                <div className="relative flex bg-purple-900 rounded-full w-[300px] h-10">
-                    <motion.div
-                        layout
-                        className="absolute top-0 bottom-0 bg-purple-500 rounded-full"
-                        style={{
-                            width: `calc(100% / 3)`,
-                            left: `calc(${["work", "personal", "all"].indexOf(selectedCategory)} * 100% / 3)`,
-                        }}
-                        transition={{
-                            duration: 0.3,
-                            ease: [0.4, 0, 0.2, 1],
-                        }}
-                    ></motion.div>
-
-                    {[
-                        { key: "work", label: "Trabajo", icon: <HiBriefcase size={16} /> },
-                        { key: "personal", label: "Personal", icon: <HiUserCircle size={16} /> },
-                        { key: "all", label: "Ver Todos", icon: <HiEye size={16} /> },
-                    ].map(({ key, label, icon }) => (
-                        <button
-                            key={key}
-                            onClick={() => setSelectedCategory(key as "work" | "personal" | "all")}
-                            className={`relative z-10 flex items-center justify-center w-1/3 text-sm font-medium transition ${selectedCategory === key ? "text-white" : "text-gray-300"
-                                }`}
-                        >
-                            {icon}
-                            <span className="ml-2">{label}</span>
-                        </button>
-                    ))}
-                </div>
+        <div className="flex flex-col mx-auto max-w-[1000px] px-4 py-12 min-h-screen mt-12">
+            <div className="flex items-center w-full mb-8">
+                <span className="text-primary font-mono text-lg mr-4">02.</span>
+                <h2 className="text-3xl font-bold text-white whitespace-nowrap">Proyectos destacables</h2>
+                <div className="flex-1 h-[1px] bg-gray-700 ml-4"></div>
             </div>
 
-            {selectedCategory === "all" ? (
-                <div className="grid grid-cols-1 gap-8 mt-12">
-                    {data.map((project) => renderProject(project))}
-                </div>
-            ) : (
-                <div className="flex flex-col items-center mt-12">
-                    {data.length > 0 && renderProject(data[currentIndex])}
-                    <div className="flex mt-4 space-x-4">
-                        <button onClick={handlePrev} className="text-gray-500 hover:text-gray-300">
-                            Anterior
-                        </button>
-                        <button onClick={handleNext} className="text-gray-500 hover:text-gray-300">
-                            Siguiente
-                        </button>
+            {workProjects.map((project, index) => (
+                <div
+                    key={index}
+                    className="relative flex flex-col md:flex-row items-start gap-8 mb-16"
+                >
+                    <div className="w-full md:w-[50%] h-[20rem] rounded-md overflow-hidden">
+                        <PinContainer
+                            href={project.link}
+                            backgroundImage={project.imgback}
+                            title={project.title}
+                            imgLogo={project.imglogo}
+                        />
+                    </div>
+
+                    <div className="w-full md:w-[50%] flex flex-col justify-center text-left">
+                        <div className="mb-4">
+                            <h4 className="text-teal-400 text-sm font-semibold">{project.company}</h4>
+                            <h3 className="text-2xl font-bold text-gray-200">{project.title}</h3>
+                        </div>
+
+                        <div className="bg-[#112240] p-6 rounded-md shadow-lg mb-4">
+                            <p className="text-gray-400 leading-relaxed">
+                                {project.description}
+                            </p>
+                        </div>
+
+                        <div className="flex flex-wrap gap-2 text-sm text-gray-400 mb-4">
+                            {project.techStack.map((tagId) => {
+                                const tech = tags.find((t) => t.id === tagId);
+                                return (
+                                    <span key={tech?.id} className="text-teal-300">
+                                        {tech?.name}
+                                    </span>
+                                );
+                            })}
+                        </div>
+
+                        <div className="flex space-x-6 text-gray-300">
+                            <a href={project.link} target="_blank" rel="noopener noreferrer">
+                                <FiExternalLink className="text-2xl hover:text-teal-300" />
+                            </a>
+                            <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+                                <FiGithub className="text-2xl hover:text-teal-300" />
+                            </a>
+                        </div>
                     </div>
                 </div>
-            )}
+            ))}
         </div>
     );
 };
