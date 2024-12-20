@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import React from 'react';
 import { FiGithub, FiExternalLink } from 'react-icons/fi';
@@ -17,9 +17,10 @@ const Projects: React.FC = () => {
             {workProjects.map((project, index) => (
                 <div
                     key={index}
-                    className="relative flex flex-col md:flex-row items-start gap-8 mb-16"
+                    className={`relative flex flex-col md:flex-row items-center justify-between gap-8 mb-16 ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+                        } ${index > 0 ? 'md:translate-x-10' : ''}`}
                 >
-                    <div className="w-full md:w-[50%] h-[20rem] rounded-md overflow-hidden">
+                    <div className="w-full md:w-[48%] h-[20rem] rounded-md overflow-hidden flex-shrink-0">
                         <PinContainer
                             href={project.link}
                             backgroundImage={project.imgback}
@@ -28,7 +29,7 @@ const Projects: React.FC = () => {
                         />
                     </div>
 
-                    <div className="w-full md:w-[50%] flex flex-col justify-center text-left">
+                    <div className="w-full md:w-[48%] flex flex-col justify-center text-left">
                         <div className="mb-4">
                             <h4 className="text-teal-400 text-sm font-semibold">{project.company}</h4>
                             <h3 className="text-2xl font-bold text-gray-200">{project.title}</h3>

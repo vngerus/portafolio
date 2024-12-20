@@ -72,6 +72,7 @@ export const workProjects = [
     {
         category: "personal",
         title: "Avida",
+        company: "Proyecto Integrador",
         link: "https://avida.vercel.app",
         description: "Proyecto personal de plataforma web para la gestión de la vida diaria.",
         imgback: "/project/AvidaBack.webp",

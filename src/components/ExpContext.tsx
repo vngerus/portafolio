@@ -80,7 +80,7 @@ const ExpContext: React.FC<ExpContextProps> = ({
             ) : (
                 <div className="space-y-8">
                     {experiences.map((experience, index) => (
-                        <div key={index} className="border-b border-gray-700 pb-6 w-[90%] mx-auto">
+                        <div key={index} className="border-b border-gray-700 pb-6 px-6">
                             <h3 className="text-xl md:text-2xl font-semibold text-white">
                                 {experience.role} @{' '}
                                 <span className="text-primary">{experience.company}</span>
