@@ -33,12 +33,13 @@ const Experiences: React.FC = () => {
             <div className="flex items-center w-full mb-8">
                 <span className="text-primary font-mono text-lg mr-4">01.</span>
                 <h2 className="text-3xl font-bold text-white whitespace-nowrap">Donde he trabajado</h2>
-                <div className="flex-1 h-[1px] bg-gray-700 ml-4"></div>
+                <div className="h-[1px] bg-gray-700 ml-8" style={{ width: '1200px' }}></div>
             </div>
+
 
             {!isMobile && (
                 <div className="w-full mb-8 flex justify-start">
-                    <div className="relative flex bg-purple-900 rounded-full w-[300px] h-10">
+                    <div className="relative flex bg-purple-900 rounded-full w-[300px] h-10 ml-12">
                         <motion.div
                             layout
                             className="absolute top-0 bottom-0 bg-purple-500 rounded-full"
@@ -63,7 +64,7 @@ const Experiences: React.FC = () => {
                 </div>
             )}
 
-            <div className={`w-full transition-all duration-300 ease-in-out ${viewMode === 'standard' ? 'h-auto' : 'h-full'}`}>
+            <div className={`w-full transition-all duration-300 ease-in-out ml-24 ${viewMode === 'standard' ? 'h-auto' : 'h-full'}`}>
                 <ExpContex
                     experiences={experiences}
                     viewMode={viewMode}
