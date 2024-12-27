@@ -41,8 +41,8 @@ const ExpContext: React.FC<ExpContextProps> = ({
                                 tabIndex={selectedCompany === index ? 0 : -1}
                                 onClick={() => setSelectedCompany(index)}
                                 className={`relative text-left h-[48px] pl-6 font-medium w-full transition-all duration-0 ${selectedCompany === index
-                                    ? 'text-white bg-gray-800 border-l-2 border-white'
-                                    : 'text-gray-400 hover:text-white hover:bg-gray-700'
+                                    ? 'text-white bg-purple-800 border-l-2 border-white'
+                                    : 'text-gray-400 hover:text-white hover:bg-purple-950'
                                     }`}
                             >
                                 <span>{experience.company}</span>
@@ -78,6 +78,7 @@ const ExpContext: React.FC<ExpContextProps> = ({
                     </div>
                 </div>
             ) : (
+
                 <div className="space-y-8">
                     {experiences.map((experience, index) => (
                         <div key={index} className="border-b border-gray-700 pb-6 px-6">

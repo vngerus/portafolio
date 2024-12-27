@@ -38,7 +38,7 @@ const Experiences: React.FC = () => {
 
             {!isMobile && (
                 <div className="w-full mb-8 flex justify-start">
-                    <div className="relative flex bg-purple-900 rounded-full w-[300px] h-10 ml-12">
+                    <div className="relative flex bg-purple-900 rounded-full w-[300px] h-10 ml-10">
                         <motion.div
                             layout
                             className="absolute top-0 bottom-0 bg-purple-500 rounded-full"
@@ -63,7 +63,10 @@ const Experiences: React.FC = () => {
                 </div>
             )}
 
-            <div className={`w-full transition-all duration-300 ease-in-out ml-10 ${viewMode === 'standard' ? 'h-auto' : 'h-full'}`}>
+            <div
+                className={`w-full transition-all duration-300 ease-in-out ${viewMode === 'standard' ? 'ml-24 h-auto' : 'ml-10 h-full'
+                    }`}
+            >
                 <ExpContex
                     experiences={experiences}
                     viewMode={viewMode}
@@ -71,6 +74,7 @@ const Experiences: React.FC = () => {
                     setSelectedCompany={setSelectedCompany}
                 />
             </div>
+
         </div>
     );
 };

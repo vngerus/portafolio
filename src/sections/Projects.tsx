@@ -31,7 +31,7 @@ const Projects: React.FC = () => {
 
                     <div className="w-full md:w-[48%] flex flex-col justify-center text-left">
                         <div className="mb-4">
-                            <h4 className="text-teal-400 text-sm font-semibold">{project.company}</h4>
+                            <h4 className="text-purple-400 text-sm font-semibold">{project.company}</h4>
                             <h3 className="text-2xl font-bold text-gray-200">{project.title}</h3>
                         </div>
 
@@ -45,7 +45,7 @@ const Projects: React.FC = () => {
                             {project.techStack.map((tagId) => {
                                 const tech = tags.find((t) => t.id === tagId);
                                 return (
-                                    <span key={tech?.id} className="text-teal-300">
+                                    <span key={tech?.id} className="text-purple-300">
                                         {tech?.name}
                                     </span>
                                 );
@@ -54,10 +54,10 @@ const Projects: React.FC = () => {
 
                         <div className="flex space-x-6 text-gray-300">
                             <a href={project.link} target="_blank" rel="noopener noreferrer">
-                                <FiExternalLink className="text-2xl hover:text-teal-300" />
+                                <FiExternalLink className="text-2xl hover:text-purple-300" />
                             </a>
                             <a href="https://github.com" target="_blank" rel="noopener noreferrer">
-                                <FiGithub className="text-2xl hover:text-teal-300" />
+                                <FiGithub className="text-2xl hover:text-purple-300" />
                             </a>
                         </div>
                     </div>
