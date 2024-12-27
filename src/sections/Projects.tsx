@@ -13,7 +13,7 @@ const Projects: React.FC = () => {
         <div className="flex flex-col mx-auto max-w-[1000px] px-4 py-12 min-h-screen mt-12 overflow-hidden box-border">
             <div className="flex items-center w-full mb-8">
                 <span className="text-primary font-mono text-lg mr-4">02.</span>
-                <h2 className="text-3xl font-bold text-white whitespace-nowrap">Proyectos destacables</h2>
+                <h2 className="text-3xl font-bold text-white whitespace-nowrap">Proyectos </h2>
                 <div className="flex-1 h-[1px] bg-gray-700 ml-4"></div>
             </div>
 
@@ -23,8 +23,9 @@ const Projects: React.FC = () => {
                     className={`relative flex ${isMobile ? 'flex-col' : index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
                         } items-center justify-between gap-4 md:gap-8 mb-12 w-full`}
                 >
+                    {/* Imagen del proyecto */}
                     <div
-                        className={`w-full ${isMobile ? 'h-[10rem]' : 'md:w-[48%] h-[20rem]'
+                        className={`w-full ${isMobile ? 'h-[20rem]' : 'md:w-[48%] h-[20rem]'
                             } rounded-md overflow-hidden flex-shrink-0 box-border`}
                     >
                         <PinContainer
@@ -37,7 +38,7 @@ const Projects: React.FC = () => {
                     </div>
 
                     <div
-                        className={`w-full ${isMobile ? '' : 'md:w-[48%]'
+                        className={`w-full ${isMobile ? 'w-[20rem]' : 'md:w-[48%]'
                             } flex flex-col justify-center text-left box-border`}
                     >
                         <div className="mb-4">
@@ -45,7 +46,7 @@ const Projects: React.FC = () => {
                             <h3 className="text-lg md:text-2xl font-bold text-gray-200">{project.title}</h3>
                         </div>
 
-                        <div className="bg-[#112240] p-4 md:p-6 rounded-md shadow-lg mb-4">
+                        <div className="bg-purple-950 p-4 md:p-6 rounded-md shadow-lg mb-4">
                             <p className="text-gray-400 text-sm md:text-base leading-relaxed">
                                 {project.description}
                             </p>
