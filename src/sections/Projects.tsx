@@ -4,8 +4,12 @@ import React from 'react';
 import { FiGithub, FiExternalLink } from 'react-icons/fi';
 import { workProjects, tags } from '@/data';
 import { PinContainer } from '@/components/ui/3d-pin';
+import { useIsMobile } from '@/hooks/isMobile';
+
 
 const Projects: React.FC = () => {
+    const isMobile = useIsMobile();
+
     return (
         <div className="flex flex-col mx-auto max-w-[1000px] px-4 py-12 min-h-screen mt-12">
             <div className="flex items-center w-full mb-8">
@@ -17,10 +21,10 @@ const Projects: React.FC = () => {
             {workProjects.map((project, index) => (
                 <div
                     key={index}
-                    className={`relative flex flex-col md:flex-row items-center justify-between gap-8 mb-16 ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                        } ${index > 0 ? 'md:translate-x-10' : ''}`}
+                    className={`relative flex ${isMobile ? 'flex-col' : index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+                        } items-center justify-between gap-4 md:gap-8 mb-12`}
                 >
-                    <div className="w-full md:w-[48%] h-[20rem] rounded-md overflow-hidden flex-shrink-0">
+                    <div className={`w-full ${isMobile ? 'h-[15rem]' : 'md:w-[48%] h-[20rem]'} rounded-md overflow-hidden flex-shrink-0`}>
                         <PinContainer
                             href={project.link}
                             backgroundImage={project.imgback}
@@ -29,19 +33,19 @@ const Projects: React.FC = () => {
                         />
                     </div>
 
-                    <div className="w-full md:w-[48%] flex flex-col justify-center text-left">
+                    <div className={`w-full ${isMobile ? '' : 'md:w-[48%]'} flex flex-col justify-center text-left`}>
                         <div className="mb-4">
-                            <h4 className="text-purple-400 text-sm font-semibold">{project.company}</h4>
-                            <h3 className="text-2xl font-bold text-gray-200">{project.title}</h3>
+                            <h4 className="text-purple-400 text-xs md:text-sm font-semibold">{project.company}</h4>
+                            <h3 className="text-lg md:text-2xl font-bold text-gray-200">{project.title}</h3>
                         </div>
 
-                        <div className="bg-[#112240] p-6 rounded-md shadow-lg mb-4">
-                            <p className="text-gray-400 leading-relaxed">
+                        <div className="bg-[#112240] p-4 md:p-6 rounded-md shadow-lg mb-4">
+                            <p className="text-gray-400 text-sm md:text-base leading-relaxed">
                                 {project.description}
                             </p>
                         </div>
 
-                        <div className="flex flex-wrap gap-2 text-sm text-gray-400 mb-4">
+                        <div className="flex flex-wrap gap-1 md:gap-2 text-xs md:text-sm text-gray-400 mb-4">
                             {project.techStack.map((tagId) => {
                                 const tech = tags.find((t) => t.id === tagId);
                                 return (
@@ -52,12 +56,12 @@ const Projects: React.FC = () => {
                             })}
                         </div>
 
-                        <div className="flex space-x-6 text-gray-300">
+                        <div className="flex space-x-4 md:space-x-6 text-gray-300">
                             <a href={project.link} target="_blank" rel="noopener noreferrer">
-                                <FiExternalLink className="text-2xl hover:text-purple-300" />
+                                <FiExternalLink className="text-xl md:text-2xl hover:text-purple-300" />
                             </a>
                             <a href="https://github.com" target="_blank" rel="noopener noreferrer">
-                                <FiGithub className="text-2xl hover:text-purple-300" />
+                                <FiGithub className="text-xl md:text-2xl hover:text-purple-300" />
                             </a>
                         </div>
                     </div>

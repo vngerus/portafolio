@@ -43,7 +43,7 @@ const Hero: React.FC = () => {
     ];
 
     return (
-        <section className="relative flex flex-col items-start justify-center min-h-screen px-8 sm:px-12 md:px-16 lg:px-24 space-y-6 -mt-16">
+        <section className="relative flex flex-col items-start justify-center min-h-screen px-8 sm:px-12 md:px-16 lg:px-24 space-y-6 -mt-16 ml-12">
             {isMounted && (
                 <div className="space-y-6">
                     {items.map((item) => (
