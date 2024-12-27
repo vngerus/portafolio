@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaDog, FaPizzaSlice, FaGamepad } from 'react-icons/fa';
+import { FaSteam, FaDiscord } from 'react-icons/fa';
 
 const About: React.FC = () => {
     return (
@@ -10,58 +10,60 @@ const About: React.FC = () => {
                 <div className="flex-1 h-[1px] bg-gray-700 ml-4"></div>
             </div>
 
-            {/* Grid general */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-                {/* Bloque profesional */}
-                <div className="border border-primary p-6 rounded-lg">
-                    <h3 className="text-xl font-bold text-primary mb-4">💻 En el trabajo</h3>
-                    <p className="text-gray-300 leading-relaxed">
-                        Con experiencia como desarrollador front-end y un background en marketing, me enfoco en
-                        crear interfaces de usuario accesibles y de alto rendimiento. Actualmente trabajo en CIB,
-                        donde he participado en proyectos como{' '}
-                        <a href="https://cibai.app" target="_blank" className="text-primary hover:underline">
-                            CIB AI
-                        </a>{' '}
-                        y{' '}
-                        <a href="https://iny.app" target="_blank" className="text-primary hover:underline">
-                            INY App
-                        </a>, utilizando tecnologías como <span className="text-primary font-medium">React</span> y{' '}
-                        <span className="text-primary font-medium">Tailwind CSS</span>.
+                <div className="border border-accent p-6 rounded-lg bg-background-secondary flex flex-col justify-between">
+                    <h3 className="text-xl font-bold text-accent mb-4">💻 Carrera</h3>
+                    <p className="text-light leading-relaxed">
+                        Actualmente soy <span className="text-accent font-medium">Desarrollador Front-End</span>, aunque también disfruto trabajar en el{' '}
+                        <span className="text-accent font-medium">Back-End</span>. Tengo <span className="text-accent font-medium">1 año de experiencia</span> en el desarrollo de software, respaldado por{' '}
+                        <span className="text-accent font-medium">3 años como Ingeniero en Marketing</span>.
+                    </p>
+                    <p className="mt-4 text-light leading-relaxed">
+                        Trabajé en una <span className="text-accent font-medium">StartUp</span>, donde participé en múltiples proyectos que me permitieron
+                        adquirir <span className="text-accent font-medium">habilidades versátiles</span> y experiencia práctica en el desarrollo de aplicaciones.
+                    </p>
+                    <p className="mt-4 text-light leading-relaxed">
+                        Actualmente, estoy estudiando <span className="text-accent font-medium">Flutter</span> en Desafío Latam gracias a una{' '}
+                        <span className="text-accent font-medium">beca otorgada por Globant</span>, con el objetivo de seguir creciendo profesionalmente.
                     </p>
                 </div>
 
-                {/* Bloque personal */}
-                <div className="border border-primary p-6 rounded-lg">
-                    <h3 className="text-xl font-bold text-primary mb-4">👋 Mi lado personal</h3>
-                    <p className="text-gray-300 leading-relaxed">
-                        Tres palabras que me definen son <span className="text-primary font-medium">curioso</span>,{' '}
-                        <span className="text-primary font-medium">optimista</span> e{' '}
-                        <span className="text-primary font-medium">independiente</span>. Me encanta aprender cosas
-                        nuevas, resolver problemas y explorar cómo funcionan las cosas.
+                <div className="border border-accent p-6 rounded-lg bg-background-secondary flex flex-col justify-between h-full">
+                    <h3 className="text-xl font-bold text-accent mb-4">👋 Mi lado personal</h3>
+                    <p className="text-light leading-relaxed">
+                        Me llamo <span className="text-accent font-medium">Angel Smith</span>, tengo una gata que se llama{' '}
+                        <span className="text-accent font-medium">Luna</span>, me gusta el{' '}
+                        <span className="text-accent font-medium">café</span>, de hecho fui{' '}
+                        <span className="text-accent font-medium">barista</span> en una cafetería de especialidad durante casi 4 años.
+                        Suelo ir al <span className="text-accent font-medium">gym</span> por las mañanas, me volví fan de la{' '}
+                        <span className="text-accent font-medium">comida kpop</span> y me gusta hacer cursitos para seguir fomentando mi{' '}
+                        <span className="text-accent font-medium">aprendizaje</span>, ya que me gusta mantenerme bien{' '}
+                        <span className="text-accent font-medium">actualizado</span>.
                     </p>
-                    <div className="flex items-center gap-4 mt-4 text-primary">
-                        <FaPizzaSlice size={24} />
-                        <FaDog size={24} />
-                        <FaGamepad size={24} />
+                    <p className="mt-4 text-light leading-relaxed">
+                        A veces juego jueguitos, si quieres jugar, siéntete libre de añadirme. 😊
+                    </p>
+                    <div className="flex items-center gap-4 mt-4 text-accent">
+                        <FaSteam size={24} />
+                        <FaDiscord size={24} />
                     </div>
                 </div>
 
-                {/* Bloque de tecnologías */}
-                <div className="border border-primary p-6 rounded-lg md:col-span-2">
-                    <h3 className="text-xl font-bold text-primary mb-4">🛠 Tecnologías con las que trabajo</h3>
-                    <ul className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-primary font-mono text-sm">
+                <div className="border border-accent p-6 rounded-lg bg-background-secondary md:col-span-2 flex flex-col">
+                    <h3 className="text-xl font-bold text-accent mb-4">🛠 Tecnologías con las que trabajo</h3>
+                    <ul className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-accent font-mono text-sm">
                         {[
                             'JavaScript (ES6+)',
                             'TypeScript',
                             'React',
-                            'Node.js',
+                            'Next.js',
                             'Tailwind CSS',
-                            'FastAPI',
+                            'Flutter',
                             'Spring Boot',
-                            'SQL',
+                            'Firebase',
                             'Figma',
                         ].map((tech) => (
-                            <li key={tech} className="text-gray-300">
+                            <li key={tech} className="text-light">
                                 {tech}
                             </li>
                         ))}
