@@ -61,7 +61,7 @@ const PinContainer: React.FC<PinContainerProps> = ({
                             backgroundSize: "cover",
                             backgroundPosition: "center",
                         }}
-                        className="absolute left-1/2 w-[24rem] h-[20rem] -top-3 p-4 flex justify-center items-center rounded-2xl shadow-[0_8px_16px_rgb(0_0_0/0.4)] bg-black border border-white/[0.1] group-hover/pin:border-white/[0.2] transition duration-700 overflow-hidden"
+                        className="absolute left-1/2 sm:w-[20rem] md:w-[24rem] h-[15rem] w-[15rem] sm:h-[18rem] md:h-[20rem] -top-3 p-4 flex justify-center items-center rounded-2xl shadow-lg bg-black border border-white/[0.1] group-hover/pin:border-white/[0.2] transition duration-700 overflow-hidden"
                     >
                         <div className={`relative z-50 ${className}`}>{children}</div>
                     </div>
