@@ -10,12 +10,12 @@ const About: React.FC = () => {
                 <div className="flex-1 h-[1px] bg-gray-700 ml-4"></div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-[90%] mx-auto">
                 <div className="border border-accent p-6 rounded-lg bg-background-secondary flex flex-col justify-between">
                     <h3 className="text-xl font-bold text-accent mb-4">💻 Carrera</h3>
                     <p className="text-light leading-relaxed">
                         Actualmente soy <span className="text-accent font-medium">Desarrollador Front-End</span>, aunque también disfruto trabajar en el{' '}
-                        <span className="text-accent font-medium">Back-End</span>. Tengo <span className="text-accent font-medium">1 año de experiencia</span> en el desarrollo de software, respaldado por{' '}
+                        <span className="text-accent font-medium">Back-End</span>. Tengo <span className="text-accent font-medium">1 año de experiencia</span> en el desarrollo de software, y cuento con{' '}
                         <span className="text-accent font-medium">3 años como Ingeniero en Marketing</span>.
                     </p>
                     <p className="mt-4 text-light leading-relaxed">
@@ -71,6 +71,7 @@ const About: React.FC = () => {
                 </div>
             </div>
         </section>
+
     );
 };
 
