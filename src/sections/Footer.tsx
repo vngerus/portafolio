@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
                 <p className="text-xs text-gray-400 text-center font-mono group-hover:text-textPrimary">
                     Desarrollado por{' '}
                     <a
-                        href="https://github.com/tu-usuario"
+                        href="https://github.com/vngerus"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="group-hover:text-textPrimary transition-colors duration-300"

@@ -61,7 +61,7 @@ export const workProjects = [
         link: "https://.app",
         description: "Desarrollo de una plataforma de inteligencia artificial para mejorar procesos empresariales.",
         imgback: "/project/CibBack.webp",
-        imglogo: "/project/Cib.webp",
+        imglogo: "/project/CIB.webp",
         logoStyle: {
             backgroundColor: '#0E1F38',
             border: '0.2px solid #0E2D58',
