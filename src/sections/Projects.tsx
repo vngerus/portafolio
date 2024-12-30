@@ -2,15 +2,18 @@
 
 import React, { useRef } from "react";
 import { FiGithub, FiExternalLink } from "react-icons/fi";
-import { workProjects, tags } from "@/data";
+import { workProjects } from "@/data";
 import { PinContainer } from "@/components/ui/3d-pin";
 import { useIsMobile } from "@/hooks/isMobile";
+import TechTags from "@/components/tech_button";
 
 const Projects: React.FC = () => {
     const isMobile = useIsMobile();
 
     const pinRefs = useRef(
-        workProjects.map(() => React.createRef<{ triggerEnter?: () => void; triggerLeave?: () => void }>())
+        workProjects.map(() =>
+            React.createRef<{ triggerEnter?: () => void; triggerLeave?: () => void }>()
+        )
     );
 
     return (
@@ -24,12 +27,17 @@ const Projects: React.FC = () => {
             {workProjects.map((project, index) => (
                 <div
                     key={index}
-                    className={`relative flex ${isMobile ? "flex-col" : index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+                    className={`relative flex ${isMobile
+                        ? "flex-col"
+                        : index % 2 === 0
+                            ? "md:flex-row"
+                            : "md:flex-row-reverse"
                         } items-center justify-between gap-4 md:gap-8 mb-12 w-full ${!isMobile && index === 1 ? "md:ml-[4%]" : ""
                         }`}
                 >
                     <div
-                        className={`w-full ${isMobile ? "h-[20rem]" : "md:w-[48%] h-[20rem]"} rounded-md overflow-hidden flex-shrink-0 box-border`}
+                        className={`w-full ${isMobile ? "h-[20rem]" : "md:w-[48%] h-[20rem]"
+                            } rounded-md overflow-hidden flex-shrink-0 box-border`}
                     >
                         <PinContainer
                             ref={pinRefs.current[index]}
@@ -42,10 +50,13 @@ const Projects: React.FC = () => {
                     </div>
 
                     <div
-                        className={`w-full ${isMobile ? "w-[20rem]" : "md:w-[48%]"} flex flex-col justify-center text-left box-border`}
+                        className={`w-full ${isMobile ? "w-[20rem]" : "md:w-[48%]"
+                            } flex flex-col justify-center text-left box-border`}
                     >
                         <div className="mb-4">
-                            <h4 className="text-purple-400 text-xs md:text-sm font-semibold">{project.company}</h4>
+                            <h4 className="text-purple-400 text-xs md:text-sm font-semibold">
+                                {project.company}
+                            </h4>
                             <h3 className="text-lg md:text-2xl font-bold text-gray-200">{project.title}</h3>
                         </div>
 
@@ -55,24 +66,21 @@ const Projects: React.FC = () => {
                             </p>
                         </div>
 
-                        <div className="flex flex-wrap gap-1 md:gap-2 text-xs md:text-sm text-gray-400 mb-4">
-                            {project.techStack.map((tagId) => {
-                                const tech = tags.find((t) => t.id === tagId);
-                                return (
-                                    <span key={tech?.id} className="text-purple-300">
-                                        {tech?.name}
-                                    </span>
-                                );
-                            })}
+                        <div className="flex items-center gap-2 text-xs md:text-sm mb-6">
+                            <TechTags techStack={project.techStack} />
                         </div>
 
-                        <div className="flex space-x-4 md:space-x-6 text-gray-300">
+                        <div className="flex space-x-4 md:space-x-6  text-gray-300">
                             <a
                                 href={project.link}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                onMouseEnter={() => pinRefs.current[index]?.current?.triggerEnter?.()}
-                                onMouseLeave={() => pinRefs.current[index]?.current?.triggerLeave?.()}
+                                onMouseEnter={() =>
+                                    pinRefs.current[index]?.current?.triggerEnter?.()
+                                }
+                                onMouseLeave={() =>
+                                    pinRefs.current[index]?.current?.triggerLeave?.()
+                                }
                             >
                                 <FiExternalLink className="text-xl md:text-2xl hover:text-purple-300" />
                             </a>

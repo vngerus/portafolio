@@ -12,17 +12,17 @@ const config = {
   theme: {
     extend: {
       colors: {
-        background: "#0A0825",
+        background: "#0A0825", 
         buttonSelected: "#6D448A",
-        buttonUnselected: "#2D0E41",
+        buttonUnselected: "#2D0E41", 
         titles: "#D28FFF",
         textPrimary: "#D28FFF",
-        textSecondary: "#6D448A",
+        textSecondary: "#6D448A", 
         accentWhite: "#FFFFFF",
       },
       animation: {
         spotlight: "spotlight 2s ease .75s 1 forwards",
-        aurora: "aurora 60s linear infinite",
+        aurora: "aurora 60s linear infinite", 
       },
       keyframes: {
         spotlight: {
@@ -37,7 +37,7 @@ const config = {
         },
         aurora: {
           from: {
-            backgroundPosition: "50% 50%, 50% 50%",
+            backgroundPosition: "50% 50%, 50% 50%", 
           },
           to: {
             backgroundPosition: "350% 50%, 350% 50%",

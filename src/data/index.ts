@@ -31,31 +31,24 @@ export const experiences = [
     },
 ];
 
-
 export const tags = [
-    {
-        id: 1,
-        name: "React.js",
-
-    },
-    {
-        id: 2,
-        name: "TailwindCSS",
-    },
-    {
-        id: 3,
-        name: "TypeScript",
-    },
-    {
-        id: 4,
-        name: "Framer Motion",
-    },
+    { id: 1, name: "React.js", icon: "/stack/react.svg" },
+    { id: 2, name: "TailwindCSS", icon: "/stack/tailwindcss.svg" },
+    { id: 3, name: "TypeScript", icon: "/stack/typescript.svg" },
+    { id: 4, name: "Framer Motion", icon: "/stack/framer.svg" },
+    { id: 5, name: "Flutter", icon: "/stack/flutter.svg" },
+    { id: 6, name: "Next.js", icon: "/stack/next.svg" },
+    { id: 7, name: "JavaScript", icon: "/stack/javascript.svg" },
+    { id: 8, name: "Firebase", icon: "/stack/firebase.svg" },
+    { id: 9, name: "Springboot", icon: "/stack/springboot.svg" },
 ];
+
+    
 
 export const workProjects = [
     {
         category: "work",
-        title: "CIB AI",
+        title: "CIBAi",
         company: "CIB",
         date: "Marzo 2024 - Actualmente",
         link: "https://.app",
@@ -86,36 +79,3 @@ export const workProjects = [
     },
 ];
 
-export const personalProjects = [
-    {
-        category: "personal",
-        title: "Avida",
-        link: "https://avida.vercel.app",
-        description: "Proyecto personal de plataforma web para la gestión de la vida diaria.",
-        imgback: "/project/AvidaBack.webp",
-        imglogo: "/project/Avida.webp",
-        logoStyle: {
-            backgroundColor: '#0E1F38',
-            border: '0.2px solid #0E2D58',
-            boxShadow: '0px 0px 60px 0px #2F67B64D',
-        },
-        techStack: [1, 2, 3, 4],
-    },
-];
-
-export const challenges = [
-    {
-        category: "challenge",
-        title: "HA Challenge Empresas",
-        link: "https://ha-challengev2.vercel.app/empresas",
-        description: "Desafío técnico enfocado en la creación de una interfaz para gestión de empresas.",
-        imgback: "/project/CibBack.webp",
-        imglogo: "/project/Cib.webp",
-        logoStyle: {
-            backgroundColor: '#0E1F38',
-            border: '0.2px solid #0E2D58',
-            boxShadow: '0px 0px 60px 0px #2F67B64D',
-        },
-        techStack: [1, 3],
-    },
-];
