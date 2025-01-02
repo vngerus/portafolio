@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import * as THREE from "three";
@@ -25,8 +24,6 @@ type ActionName =
     | "bananaBones|standUp"
     | "bananaBones|damaged";
 
-type GLTFActions = Record<ActionName, THREE.AnimationAction>;
-
 interface BananaCatProps {
     actionName?: ActionName;
     position?: [number, number, number];
@@ -34,24 +31,25 @@ interface BananaCatProps {
     scale?: [number, number, number];
 }
 
-const BananaCat: React.FC<BananaCatProps> = ({ actionName, ...props }) => {
+const BananaCat: React.FC<BananaCatProps> = ({ actionName, position = [0, 0, 0], rotation = [0, 0, 0], scale = [1, 1, 1], ...props }) => {
     const group = useRef<THREE.Group>(null!);
     const { nodes, materials, animations } = useGLTF("/models/bananacat.glb") as GLTFResult;
     const { actions } = useAnimations(animations, group);
 
     useEffect(() => {
-        if (actionName && actions && actions[actionName]) {
+        if (actionName && actions[actionName]) {
             actions[actionName]?.reset().fadeIn(0.5).play();
         }
+
         return () => {
-            if (actionName && actions && actions[actionName]) {
+            if (actionName && actions[actionName]) {
                 actions[actionName]?.fadeOut(0.5);
             }
         };
     }, [actions, actionName]);
 
     return (
-        <group ref={group} {...props} dispose={null}>
+        <group ref={group} {...props} position={position} rotation={rotation} scale={scale} dispose={null}>
             <primitive object={nodes._rootJoint} />
             <skinnedMesh
                 geometry={nodes.Object_36.geometry}
