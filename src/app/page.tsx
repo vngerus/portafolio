@@ -1,6 +1,9 @@
+
 import Signature from '@/components/signature';
 import Socials from '@/components/socials';
 import { Header, Hero, About, Projects, Experiences, Contact, Footer } from '@/sections';
+import CatModel from './CatModel';
+
 
 export default function Home() {
   return (
@@ -13,6 +16,7 @@ export default function Home() {
 
       <div className="flex-1 mx-auto max-w-[1200px] px-4">
         <Header />
+        <CatModel />
         <Hero />
         <Experiences />
         <Projects />
