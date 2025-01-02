@@ -4,6 +4,7 @@ import Socials from '@/components/socials';
 import { Header, Hero, About, Projects, Experiences, Contact, Footer } from '@/sections';
 
 
+
 export default function Home() {
   return (
     <div className="relative flex min-h-screen text-white bg-background">
@@ -15,7 +16,6 @@ export default function Home() {
 
       <div className="flex-1 mx-auto max-w-[1200px] px-4">
         <Header />
-        <Signature />
         <Hero />
         <Experiences />
         <Projects />

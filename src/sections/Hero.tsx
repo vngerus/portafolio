@@ -1,5 +1,6 @@
 'use client';
 
+import Signature from '@/components/signature';
 import React, { useState, useEffect } from 'react';
 
 const Hero: React.FC = () => {
@@ -50,7 +51,8 @@ const Hero: React.FC = () => {
                         <div key={item.key}>{item}</div>
                     ))}
                 </div>
-            )}
+
+            )}<div><Signature /></div>
         </section>
     );
 };
