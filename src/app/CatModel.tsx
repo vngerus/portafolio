@@ -1,12 +1,13 @@
-'use client'
-import dynamic from "next/dynamic"
+"use client";
 
-const Scene = dynamic(() => import("@/components/Scene"), { ssr: false })
+import dynamic from "next/dynamic";
 
-export default function CatModel() {
+const DynamicScene = dynamic(() => import("@/components/Scene"), { ssr: false });
+
+export default function Home() {
     return (
-        <main className="h-full">
-            <Scene />
-        </main>
-    )
+        <div className="w-full h-screen">
+            <DynamicScene />
+        </div>
+    );
 }
