@@ -18,7 +18,6 @@ const Signature: React.FC = () => {
     const [actionName, setActionName] = useState<ActionName>("bananaBones|hiiiiiiiii");
     const [energy, setEnergy] = useState<number>(100);
     const [isEnergyFull, setIsEnergyFull] = useState<boolean>(true);
-    const [isMouseMoving, setIsMouseMoving] = useState<boolean>(false);
     const scale = 0.07;
     const positionX = -0.2;
     const positionY = -7.6;
@@ -52,7 +51,6 @@ const Signature: React.FC = () => {
     };
 
     const handleMouseMove = () => {
-        setIsMouseMoving(true);
         setActionName("bananaBones|lookAround");
 
         if (mouseMoveTimeout.current) {
@@ -60,7 +58,6 @@ const Signature: React.FC = () => {
         }
 
         mouseMoveTimeout.current = setTimeout(() => {
-            setIsMouseMoving(false);
             setActionName("bananaBones|idle");
         }, 2000);
     };
