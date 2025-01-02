@@ -15,8 +15,10 @@ type ActionName =
     | "bananaBones|damaged";
 
 const Signature: React.FC = () => {
-    const [actionName, setActionName] = useState<ActionName>("bananaBones|idle");
-
+    const [actionName, setActionName] = useState<ActionName>("bananaBones|hiiiiiiiii");
+    const [energy, setEnergy] = useState<number>(100);
+    const [isEnergyFull, setIsEnergyFull] = useState<boolean>(true);
+    const [isMouseMoving, setIsMouseMoving] = useState<boolean>(false);
     const scale = 0.07;
     const positionX = -0.2;
     const positionY = -7.6;
@@ -26,6 +28,7 @@ const Signature: React.FC = () => {
     const rotationZ = 0;
 
     const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
+    const mouseMoveTimeout = useRef<NodeJS.Timeout | null>(null);
 
     const handleScroll = () => {
         const scrollTop = window.scrollY;
@@ -42,18 +45,71 @@ const Signature: React.FC = () => {
         if (debounceTimeout.current) {
             clearTimeout(debounceTimeout.current);
         }
+
         debounceTimeout.current = setTimeout(() => {
             setActionName("bananaBones|idle");
         }, 1000);
     };
 
+    const handleMouseMove = () => {
+        setIsMouseMoving(true);
+        setActionName("bananaBones|lookAround");
+
+        if (mouseMoveTimeout.current) {
+            clearTimeout(mouseMoveTimeout.current);
+        }
+
+        mouseMoveTimeout.current = setTimeout(() => {
+            setIsMouseMoving(false);
+            setActionName("bananaBones|idle");
+        }, 2000);
+    };
+
+    useEffect(() => {
+        let energyInterval: NodeJS.Timeout;
+        let restInterval: NodeJS.Timeout;
+
+        if (actionName === "bananaBones|walk" && energy > 0) {
+            energyInterval = setInterval(() => {
+                setEnergy(prevEnergy => (prevEnergy > 0 ? prevEnergy - 2 : 0));
+            }, 50);
+        } else if (energy <= 0) {
+            setActionName("bananaBones|sit");
+            setIsEnergyFull(false);
+            restInterval = setInterval(() => {
+                setEnergy(prevEnergy => (prevEnergy < 100 ? prevEnergy + 1 : 100));
+            }, 100);
+        } else if (actionName === "bananaBones|idle" && energy < 100) {
+            const recoveryInterval = setInterval(() => {
+                setEnergy(prevEnergy => (prevEnergy < 100 ? prevEnergy + 0.5 : 100));
+            }, 100);
+
+            return () => clearInterval(recoveryInterval);
+        }
+
+        if (energy === 100 && !isEnergyFull) {
+            setActionName("bananaBones|walk");
+            setIsEnergyFull(true);
+        }
+
+        return () => {
+            clearInterval(energyInterval);
+            clearInterval(restInterval);
+        };
+    }, [actionName, energy, isEnergyFull]);
+
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
+        window.addEventListener("mousemove", handleMouseMove);
 
         return () => {
             window.removeEventListener("scroll", handleScroll);
+            window.removeEventListener("mousemove", handleMouseMove);
             if (debounceTimeout.current) {
                 clearTimeout(debounceTimeout.current);
+            }
+            if (mouseMoveTimeout.current) {
+                clearTimeout(mouseMoveTimeout.current);
             }
         };
     }, []);
@@ -70,6 +126,12 @@ const Signature: React.FC = () => {
                         actionName={actionName}
                     />
                 </Canvas>
+            </div>
+            <div className="w-full h-2 bg-gray-300 mt-4">
+                <div
+                    className="h-full bg-green-500"
+                    style={{ width: `${energy}%` }}
+                ></div>
             </div>
             <div className="w-[2px] h-32 bg-white mt-6"></div>
         </div>
