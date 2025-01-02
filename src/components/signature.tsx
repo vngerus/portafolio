@@ -14,10 +14,10 @@ const Signature: React.FC = () => {
     const rotationZ = 0;
 
     return (
-        <div className="flex flex-col items-center fixed right-0 bottom-0 h-full w-[50px] justify-end">
+        <div className="flex flex-col items-center fixed right-0 bottom-0 h-full w-[50px] justify-end z-100">
             <div style={{ height: "100px", width: "50px" }}>
                 <Canvas camera={{ position: [0, 0, 12], fov: 50 }}>
-                    <ambientLight intensity={0.5} />
+                    <ambientLight intensity={1.4} />
                     <BananaCat
                         position={[positionX, positionY, positionZ]}
                         scale={[scale, scale, scale]}

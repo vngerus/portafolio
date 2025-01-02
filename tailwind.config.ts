@@ -44,6 +44,9 @@ const config = {
           },
         },
       },
+      zIndex: {
+        "100": "100", 
+      },
     },
   },
   plugins: [
@@ -52,7 +55,7 @@ const config = {
       theme,
     }: {
       addBase: (styles: Record<string, Record<string, string>>) => void;
-      theme: (path: string) => Record<string, string | Record<string, string>>;
+      theme: (path: string) => Record<string, string | Record<string, string>>; 
     }) {
       const allColors = flattenColorPalette(theme("colors"));
       const newVars = Object.fromEntries(
