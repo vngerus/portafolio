@@ -1,18 +1,14 @@
+import React from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
+import BananaCat from "./model/BananaCat";
 
-const Scene = () => {
+export default function Scene() {
     return (
         <Canvas>
-            <PerspectiveCamera makeDefault position={[0, 0, 5]} />
-            <OrbitControls />
-            <mesh>
-                <boxGeometry args={[1, 1, 1]} />
-                <meshStandardMaterial color="orange" />
-            </mesh>
             <ambientLight />
+            <OrbitControls />
+            <BananaCat position={[0, 0, 0]} scale={[1, 1, 1]} />
         </Canvas>
     );
-};
-
-export default Scene;
+}
