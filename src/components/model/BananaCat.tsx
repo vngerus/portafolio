@@ -13,7 +13,7 @@ type GLTFResult = GLTF & {
     };
 };
 
-type ActionName =
+export type ActionName =
     | "bananaBones|hiiiiiiiii"
     | "bananaBones|idle"
     | "bananaBones|walk"
