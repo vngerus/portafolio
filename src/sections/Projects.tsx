@@ -82,10 +82,10 @@ const Projects: React.FC = () => {
                                     pinRefs.current[index]?.current?.triggerLeave?.()
                                 }
                             >
-                                <FiExternalLink className="text-xl md:text-2xl hover:text-purple-300" />
+                                <FiExternalLink className="text-xl md:text-2xl hover:text-purple-300" aria-label="Link" />
                             </a>
                             <a href="https://github.com" target="_blank" rel="noopener noreferrer">
-                                <FiGithub className="text-xl md:text-2xl hover:text-purple-300" />
+                                <FiGithub className="text-xl md:text-2xl hover:text-purple-300" aria-label="GitHub" />
                             </a>
                         </div>
                     </div>

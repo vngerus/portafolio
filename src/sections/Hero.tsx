@@ -12,21 +12,21 @@ const Hero: React.FC = () => {
     }, []);
 
     const items = [
-        <h1
+        <p
             key="1"
             className="text-textPrimary font-mono text-base sm:text-lg md:text-xl mb-6">
             Hola, mi nombre es
-        </h1>,
-        <h2
+        </p>,
+        <h1
             key="2"
             className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight">
             Angel Smith.
-        </h2>,
-        <h3
+        </h1>,
+        <h2
             key="3"
             className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white mt-4">
             Desarrollador Front-End.
-        </h3>,
+        </h2>,
         <p
             key="4"
             className="mt-6 max-w-xl text-base sm:text-lg md:text-xl text-gray-400 leading-relaxed">
@@ -36,7 +36,8 @@ const Hero: React.FC = () => {
                 href="https://flutter.dev"
                 target="_blank"
                 rel="noreferrer"
-                className="text-titles underline hover:text-accentWhite">
+                className="text-titles underline hover:text-accentWhite"
+                title="Descubre más sobre Flutter en su sitio oficial">
                 Flutter
             </a>
             .

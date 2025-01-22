@@ -44,8 +44,8 @@ const About: React.FC = () => {
                         A veces juego jueguitos, si quieres jugar, siéntete libre de añadirme. 😊
                     </p>
                     <div className="flex items-center gap-4 mt-4 text-accent">
-                        <FaSteam size={24} />
-                        <FaDiscord size={24} />
+                        <FaSteam size={24} aria-label="Steam" />
+                        <FaDiscord size={24} aria-label="Discord" />
                     </div>
                 </div>
 
