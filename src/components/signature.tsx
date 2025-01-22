@@ -17,7 +17,11 @@ type ActionName =
 const Signature: React.FC = () => {
     const [actionName, setActionName] = useState<ActionName>("bananaBones|hiiiiiiiii");
     const [energy, setEnergy] = useState<number>(100);
-    const [isEnergyFull, setIsEnergyFull] = useState<boolean>(true);
+    const [isResting, setIsResting] = useState<boolean>(false);
+    const [isScrolling, setIsScrolling] = useState<boolean>(false);
+    const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
+    const mouseMoveTimeout = useRef<NodeJS.Timeout | null>(null);
+
     const scale = 0.07;
     const positionX = -0.2;
     const positionY = -7.6;
@@ -26,32 +30,31 @@ const Signature: React.FC = () => {
     const rotationY = 0.05;
     const rotationZ = 0;
 
-    const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
-    const mouseMoveTimeout = useRef<NodeJS.Timeout | null>(null);
-
     const handleScroll = () => {
-        const scrollTop = window.scrollY;
-        const documentHeight = document.documentElement.scrollHeight;
-        const windowHeight = window.innerHeight;
-        const scrollPercentage = (scrollTop / (documentHeight - windowHeight)) * 100;
+        if (isResting) return;
 
-        if (scrollPercentage > 50) {
+        if (!isScrolling) {
+            setIsScrolling(true);
             setActionName("bananaBones|walk");
-        } else {
-            setActionName("bananaBones|idle");
         }
 
-        if (debounceTimeout.current) {
-            clearTimeout(debounceTimeout.current);
+        if (scrollTimeout.current) {
+            clearTimeout(scrollTimeout.current);
         }
 
-        debounceTimeout.current = setTimeout(() => {
-            setActionName("bananaBones|idle");
-        }, 1000);
+        scrollTimeout.current = setTimeout(() => {
+            setIsScrolling(false);
+            setActionName("bananaBones|lookAround");
+        }, 300);
     };
 
-    const handleMouseMove = () => {
-        setActionName("bananaBones|lookAround");
+    const handleMouseMove = (e: MouseEvent) => {
+        if (isResting || isScrolling) return;
+
+        const element = document.elementFromPoint(e.clientX, e.clientY);
+        if (element && (element.tagName === "A" || element.tagName === "BUTTON" || element.hasAttribute("data-interactive"))) {
+            setActionName("bananaBones|lookAround");
+        }
 
         if (mouseMoveTimeout.current) {
             clearTimeout(mouseMoveTimeout.current);
@@ -63,53 +66,61 @@ const Signature: React.FC = () => {
     };
 
     useEffect(() => {
-        let energyInterval: NodeJS.Timeout;
-        let restInterval: NodeJS.Timeout;
+        setActionName("bananaBones|hiiiiiiiii");
 
-        if (actionName === "bananaBones|walk" && energy > 0) {
-            energyInterval = setInterval(() => {
-                setEnergy(prevEnergy => (prevEnergy > 0 ? prevEnergy - 2 : 0));
-            }, 50);
-        } else if (energy <= 0) {
-            setActionName("bananaBones|sit");
-            setIsEnergyFull(false);
-            restInterval = setInterval(() => {
-                setEnergy(prevEnergy => (prevEnergy < 100 ? prevEnergy + 1 : 100));
-            }, 100);
-        } else if (actionName === "bananaBones|idle" && energy < 100) {
-            const recoveryInterval = setInterval(() => {
-                setEnergy(prevEnergy => (prevEnergy < 100 ? prevEnergy + 0.5 : 100));
-            }, 100);
+        const greetTimeout = setTimeout(() => {
+            setActionName("bananaBones|idle");
+        }, 2000);
 
-            return () => clearInterval(recoveryInterval);
-        }
-
-        if (energy === 100 && !isEnergyFull) {
-            setActionName("bananaBones|walk");
-            setIsEnergyFull(true);
-        }
-
-        return () => {
-            clearInterval(energyInterval);
-            clearInterval(restInterval);
-        };
-    }, [actionName, energy, isEnergyFull]);
-
-    useEffect(() => {
         window.addEventListener("scroll", handleScroll);
         window.addEventListener("mousemove", handleMouseMove);
 
         return () => {
             window.removeEventListener("scroll", handleScroll);
             window.removeEventListener("mousemove", handleMouseMove);
-            if (debounceTimeout.current) {
-                clearTimeout(debounceTimeout.current);
-            }
-            if (mouseMoveTimeout.current) {
-                clearTimeout(mouseMoveTimeout.current);
-            }
+            clearTimeout(greetTimeout);
+            if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+            if (mouseMoveTimeout.current) clearTimeout(mouseMoveTimeout.current);
         };
     }, []);
+
+    useEffect(() => {
+        let energyInterval: NodeJS.Timeout | null = null;
+        let restInterval: NodeJS.Timeout | null = null;
+
+        if (isScrolling && !isResting) {
+            energyInterval = setInterval(() => {
+                setEnergy((prevEnergy) => {
+                    const newEnergy = prevEnergy > 0 ? prevEnergy - 1 : 0;
+                    if (newEnergy === 0) {
+                        setIsResting(true);
+                        setActionName("bananaBones|sitDown");
+                        setTimeout(() => setActionName("bananaBones|sit"), 1000);
+                    }
+                    return newEnergy;
+                });
+            }, 100);
+        }
+
+        if (isResting) {
+            restInterval = setInterval(() => {
+                setEnergy((prevEnergy) => {
+                    const newEnergy = prevEnergy < 100 ? prevEnergy + 2 : 100;
+                    if (newEnergy === 100) {
+                        setIsResting(false);
+                        setActionName("bananaBones|idle");
+                        clearInterval(restInterval!);
+                    }
+                    return newEnergy;
+                });
+            }, 100);
+        }
+
+        return () => {
+            if (energyInterval) clearInterval(energyInterval);
+            if (restInterval) clearInterval(restInterval);
+        };
+    }, [isScrolling, isResting]);
 
     return (
         <div className="flex flex-col items-center fixed right-0 bottom-0 h-full w-[50px] justify-end z-100">
