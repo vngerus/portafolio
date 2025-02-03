@@ -20,25 +20,25 @@ const Hero: React.FC = () => {
         <h1
             key="2"
             className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight">
-            Angel Smith.
+            Angel Smith
         </h1>,
         <h2
             key="3"
             className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white mt-4">
-            Desarrollador Front-End.
+            Desarrollador Front-End
         </h2>,
         <p
             key="4"
             className="mt-6 max-w-xl text-base sm:text-lg md:text-xl text-gray-400 leading-relaxed">
             Si bien me especializo en el Front, también me gusta el desarrollo Back-End.
-            Actualmente me encuentro realizando un curso intensivo de desarrollo en{' '}
+            Actualmente me encuentro trabajando en {' '}
             <a
-                href="https://flutter.dev"
+                href="https://www.booksandbits.cl"
                 target="_blank"
                 rel="noreferrer"
                 className="text-titles underline hover:text-accentWhite"
                 title="Descubre más sobre Flutter en su sitio oficial">
-                Flutter
+                Books&Bits
             </a>
             .
         </p>,
