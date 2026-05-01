@@ -24,7 +24,7 @@ const ExpContext: React.FC<ExpContextProps> = ({
                 <div className="flex flex-col md:flex-row items-start justify-center relative">
                     <div role="tablist" aria-label="Job tabs" className="relative flex flex-col border-l-2 border-gray-500 w-full md:w-1/4">
                         <div
-                            className="absolute left-0 w-[1px] bg-white transition-transform duration-0 ease-in-out animate-pulse"
+                            className="absolute left-0 w-px bg-white transition-transform duration-0 ease-in-out animate-pulse"
                             style={{
                                 height: '48px',
                                 transform: `translateY(${selectedCompany * 48}px)`,
@@ -58,7 +58,7 @@ const ExpContext: React.FC<ExpContextProps> = ({
                                 role="tabpanel"
                                 aria-labelledby={`tab-${index}`}
                                 aria-hidden={selectedCompany !== index}
-                                className={`focus:outline-none transition-opacity duration-300 ${selectedCompany === index ? 'opacity-100' : 'opacity-0 hidden'
+                                className={`focus:outline-hidden transition-opacity duration-300 ${selectedCompany === index ? 'opacity-100' : 'opacity-0 hidden'
                                     }`}
                             >
                                 <h3 className="text-xl md:text-2xl font-semibold text-white">

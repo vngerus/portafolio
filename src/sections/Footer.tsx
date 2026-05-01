@@ -4,7 +4,7 @@ const Footer: React.FC = () => {
     return (
         <footer className="w-full bg-background-secondary text-light py-6 group transition-colors duration-300">
             <div className="flex flex-col items-center justify-center gap-4">
-                <div className="w-full max-w-[880px] h-[1px] bg-gray-700  transition-colors duration-300"></div>
+                <div className="w-full max-w-[880px] h-px bg-gray-700  transition-colors duration-300"></div>
                 <p className="text-xs text-gray-400 text-center font-mono ">
                     powered by cats{' '} developer by{' '}
                     <a

@@ -21,7 +21,7 @@ const TechTags: React.FC<TechTagsProps> = ({ techStack }) => {
                             alt={`${tech.name} icon`}
                             width={20}
                             height={20}
-                            className="w-5 h-6"
+                            className="w-5 h-5"
                         />
                         <span className="text-[9px] font-medium text-gray-300">{tech.name}</span>
                     </div>

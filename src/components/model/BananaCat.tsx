@@ -33,7 +33,7 @@ interface BananaCatProps {
 
 const BananaCat: React.FC<BananaCatProps> = ({ actionName, position = [0, 0, 0], rotation = [0, 0, 0], scale = [1, 1, 1], ...props }) => {
     const group = useRef<THREE.Group>(null!);
-    const { nodes, materials, animations } = useGLTF("/models/bananacat.glb") as GLTFResult;
+    const { nodes, materials, animations } = useGLTF("/models/bananacat.glb") as unknown as GLTFResult;
     const { actions } = useAnimations(animations, group);
 
     useEffect(() => {
