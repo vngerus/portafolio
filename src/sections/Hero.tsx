@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import { useTextScramble } from '@/hooks/useTextScramble';
+import SysLabel from '@/components/SysLabel';
 
 // Word-by-word blur reveal
 const TextGenerate: React.FC<{ text: string; className?: string; delay?: number }> = ({
@@ -45,14 +46,6 @@ const ScrambleName: React.FC = () => {
     );
 };
 
-// Blinking cursor for the system label
-const Cursor: React.FC = () => (
-    <motion.span
-        animate={{ opacity: [1, 0, 1] }}
-        transition={{ repeat: Infinity, duration: 1, ease: 'steps(1)' }}
-        className="inline-block w-[7px] h-[11px] bg-textPrimary/70 ml-1 align-middle"
-    />
-);
 
 const Hero: React.FC = () => {
     const ctaRef = useRef<HTMLDivElement>(null);
@@ -83,19 +76,11 @@ const Hero: React.FC = () => {
 
                 {/* System status label */}
                 <motion.div
-                    className="flex items-center gap-3"
                     initial={{ opacity: 0, x: -12 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.4, delay: 0.05 }}
                 >
-                    <span className="font-mono text-[9px] text-textPrimary/50 tracking-[0.3em] uppercase">
-                        // SYS_INIT
-                    </span>
-                    <span className="w-8 h-px bg-textPrimary/20" />
-                    <span className="font-mono text-[9px] text-textPrimary/30 tracking-[0.2em] uppercase">
-                        PILOT_TERMINAL
-                    </span>
-                    <Cursor />
+                    <SysLabel left="// SYS_INIT" right="PILOT_TERMINAL" />
                 </motion.div>
 
                 {/* Greeting */}

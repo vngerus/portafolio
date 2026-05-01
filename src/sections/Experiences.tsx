@@ -3,6 +3,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { experiences } from '@/data';
+import SysLabel from '@/components/SysLabel';
 
 const Experiences: React.FC = () => {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -18,9 +19,7 @@ const Experiences: React.FC = () => {
             className="flex flex-col items-center mx-auto max-w-[1000px] px-4 py-12 min-h-screen mt-12"
         >
             <div className="flex flex-col w-full mb-12">
-                <p className="font-mono text-[9px] text-textPrimary/40 tracking-[0.3em] uppercase mb-2">
-                    // EXP_LOG · HISTORIAL DE DESPLIEGUES
-                </p>
+                <SysLabel left="// EXP_LOG" right="HISTORIAL DE DESPLIEGUES" />
                 <div className="flex items-center w-full">
                     <span className="text-textPrimary font-mono text-lg mr-4">01.</span>
                     <h2 className="text-3xl font-bold text-white whitespace-nowrap">Donde he trabajado</h2>

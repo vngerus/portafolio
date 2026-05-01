@@ -6,6 +6,7 @@ import { FiCopy, FiCheck } from "react-icons/fi";
 import { tags } from "@/data";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import SysLabel from "@/components/SysLabel";
 
 const cardVariants = {
     hidden: { opacity: 0, y: 24 },
@@ -54,9 +55,7 @@ const About: React.FC = () => {
         >
             {/* Section header */}
             <div className="flex flex-col w-full mb-10">
-                <p className="font-mono text-[9px] text-textPrimary/40 tracking-[0.3em] uppercase mb-2">
-                    // PILOT_FILE · ARCHIVO DE PERSONAL
-                </p>
+                <SysLabel left="// PILOT_FILE" right="ARCHIVO DE PERSONAL" />
                 <div className="flex items-center w-full">
                     <span className="text-textPrimary font-mono text-lg mr-4">03.</span>
                     <h2 className="text-3xl font-bold text-white whitespace-nowrap">Sobre mí</h2>

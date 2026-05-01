@@ -3,6 +3,7 @@
 import React, { useRef, useState } from 'react';
 import { toast, Toaster } from 'sonner';
 import { useGsapReveal } from '@/hooks/useGsapReveal';
+import SysLabel from '@/components/SysLabel';
 
 interface FormState {
     name: string;
@@ -68,9 +69,7 @@ const Contact: React.FC = () => {
                 />
 
                 <div className="flex flex-col w-full mb-8">
-                    <p className="font-mono text-[9px] text-textPrimary/40 tracking-[0.3em] uppercase mb-2">
-                        // COMM_LINK · ESTABLECER CANAL SEGURO
-                    </p>
+                    <SysLabel left="// COMM_LINK" right="ESTABLECER CANAL SEGURO" />
                     <div className="flex items-center w-full">
                         <span className="text-textPrimary font-mono text-lg mr-4">04.</span>
                         <h2 className="text-3xl font-bold text-white whitespace-nowrap">Contacto</h2>
