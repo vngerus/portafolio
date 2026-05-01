@@ -133,16 +133,9 @@ const About: React.FC = () => {
                     </p>
                     <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-9 gap-2">
                         {tags.map((tag) => (
-                            <motion.div
+                            <div
                                 key={tag.id}
-                                whileHover={{ y: -3, scale: 1.08 }}
-                                transition={{ type: 'spring', stiffness: 450, damping: 20 }}
-                                className="flex flex-col items-center gap-2 py-3 px-2 rounded-md cursor-default
-                                    border border-white/5
-                                    hover:border-textPrimary/40
-                                    hover:bg-textPrimary/5
-                                    hover:shadow-[0_0_14px_#d28fff20]
-                                    transition-all duration-150"
+                                className="flex flex-col items-center gap-2 py-3 px-2 rounded-md cursor-default border border-white/5"
                             >
                                 <Image
                                     src={tag.icon}
@@ -151,10 +144,10 @@ const About: React.FC = () => {
                                     height={24}
                                     className="w-6 h-6 object-contain"
                                 />
-                                <span className="font-mono text-[9px] text-gray-500 text-center leading-tight">
+                                <span className="font-mono text-[8px] text-gray-500 text-center leading-tight tracking-[0.15em] uppercase">
                                     {tag.name}
                                 </span>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </motion.div>
