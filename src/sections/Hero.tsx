@@ -1,34 +1,49 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
+import { useTextScramble } from '@/hooks/useTextScramble';
 
-interface TextGenerateProps {
-    text: string;
-    className?: string;
-    delay?: number;
-}
+// Word-by-word blur reveal
+const TextGenerate: React.FC<{ text: string; className?: string; delay?: number }> = ({
+    text, className = '', delay = 0,
+}) => (
+    <span className={className}>
+        {text.split(' ').map((word, i) => (
+            <motion.span
+                key={i}
+                className="inline-block mr-[0.25em]"
+                initial={{ opacity: 0, filter: 'blur(8px)', y: 8 }}
+                animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+                transition={{ delay: delay + i * 0.06, duration: 0.45, ease: 'easeOut' }}
+            >
+                {word}
+            </motion.span>
+        ))}
+    </span>
+);
 
-const TextGenerate: React.FC<TextGenerateProps> = ({ text, className = '', delay = 0 }) => {
-    const words = text.split(' ');
+// "Angel Smith" starts INVISIBLE → resolves from Japanese → English.
+// Sequence: SSR opacity-0 → mount shows scrambled katakana → resolves to name.
+const ScrambleName: React.FC = () => {
+    const display = useTextScramble('Angel Smith', 1100, 80);
+    const [visible, setVisible] = useState(false);
+
+    useEffect(() => {
+        // One RAF ensures the scramble's randomString has already been set
+        // before we reveal the element, so the user sees Japanese first.
+        const id = requestAnimationFrame(() => setVisible(true));
+        return () => cancelAnimationFrame(id);
+    }, []);
+
     return (
-        <span className={className}>
-            {words.map((word, i) => (
-                <motion.span
-                    key={i}
-                    className="inline-block mr-[0.25em]"
-                    initial={{ opacity: 0, filter: 'blur(8px)', y: 10 }}
-                    animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
-                    transition={{
-                        delay: delay + i * 0.06,
-                        duration: 0.45,
-                        ease: 'easeOut',
-                    }}
-                >
-                    {word}
-                </motion.span>
-            ))}
+        <span
+            className="font-jetbrains tracking-wide"
+            style={{ opacity: visible ? 1 : 0, transition: 'opacity 0.05s' }}
+            suppressHydrationWarning
+        >
+            {display}
         </span>
     );
 };
@@ -39,57 +54,58 @@ const Hero: React.FC = () => {
     useEffect(() => {
         const el = ctaRef.current;
         if (!el) return;
-        gsap.fromTo(
-            el,
-            { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', delay: 1.8 }
-        );
+        gsap.fromTo(el, { opacity: 0, y: 20 }, {
+            opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', delay: 2.2,
+        });
     }, []);
 
     return (
         <section className="relative flex flex-col items-start justify-center min-h-[calc(100vh-4rem)] px-8 sm:px-12 md:px-16 lg:px-24 overflow-hidden">
-            {/* Aurora background */}
+            {/* Aurora */}
             <div
-                className="pointer-events-none absolute inset-0 -z-10 opacity-30"
+                aria-hidden
+                className="pointer-events-none absolute inset-0 -z-10 opacity-25"
                 style={{
                     background:
-                        'radial-gradient(ellipse 80% 60% at 50% -20%, #6d448a55, transparent), radial-gradient(ellipse 60% 40% at 80% 80%, #d28fff22, transparent)',
+                        'radial-gradient(ellipse 80% 60% at 50% -20%, #6d448a55, transparent),' +
+                        'radial-gradient(ellipse 60% 40% at 80% 80%, #d28fff22, transparent)',
                     animation: 'aurora 20s ease-in-out infinite alternate',
                 }}
             />
 
             <div className="space-y-5 max-w-2xl">
                 <motion.p
-                    className="font-mono text-textPrimary text-base sm:text-lg"
-                    initial={{ opacity: 0, x: -20 }}
+                    className="font-mono text-textPrimary text-sm sm:text-base"
+                    initial={{ opacity: 0, x: -16 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: 0.2 }}
                 >
                     Hola, mi nombre es
                 </motion.p>
 
+                {/* Name resolves from Japanese on load */}
                 <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight">
-                    <TextGenerate text="Angel Smith" delay={0.4} />
+                    <ScrambleName />
                 </h1>
 
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-300">
-                    <TextGenerate text="Desarrollador Front-End" delay={0.7} />
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-300">
+                    <TextGenerate text="Desarrollador Front-End" delay={0.9} />
                 </h2>
 
-                <div className="relative max-w-xl">
+                <div className="max-w-xl">
                     <TextGenerate
-                        text="Si bien me especializo en el Front, también me gusta el desarrollo Back-End. Actualmente trabajando en"
-                        className="text-base sm:text-lg text-gray-400 leading-relaxed"
-                        delay={1.0}
+                        text="Especializado en Front, con gusto por el Back-End. Actualmente trabajando en"
+                        className="text-sm sm:text-base text-gray-400 leading-relaxed"
+                        delay={1.2}
                     />
                     <motion.a
                         href="https://www.booksandbits.cl"
                         target="_blank"
                         rel="noreferrer"
-                        className="text-textPrimary underline hover:text-accentWhite transition-colors ml-1"
+                        className="text-textPrimary underline hover:text-accentWhite transition-colors ml-1 text-sm sm:text-base"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ delay: 1.7, duration: 0.4 }}
+                        transition={{ delay: 2.0, duration: 0.4 }}
                     >
                         Books&Bits
                     </motion.a>
@@ -97,7 +113,7 @@ const Hero: React.FC = () => {
                         className="text-gray-400"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ delay: 1.75, duration: 0.3 }}
+                        transition={{ delay: 2.05, duration: 0.3 }}
                     >
                         .
                     </motion.span>
@@ -105,18 +121,14 @@ const Hero: React.FC = () => {
 
                 <div ref={ctaRef} className="opacity-0 flex gap-4 pt-4">
                     <button
-                        onClick={() => {
-                            document.getElementById('experiences')?.scrollIntoView({ behavior: 'smooth' });
-                        }}
-                        className="px-6 py-3 border border-textPrimary text-textPrimary font-mono text-sm rounded hover:bg-textPrimary/10 transition-all hover:-translate-y-0.5 active:translate-y-0"
+                        onClick={() => document.getElementById('experiences')?.scrollIntoView({ behavior: 'smooth' })}
+                        className="px-6 py-2.5 border border-textPrimary text-textPrimary font-mono text-sm rounded hover:bg-textPrimary/10 transition-all hover:-translate-y-0.5 active:translate-y-0"
                     >
                         Ver mi trabajo
                     </button>
                     <button
-                        onClick={() => {
-                            document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                        }}
-                        className="px-6 py-3 bg-textPrimary/10 text-textPrimary font-mono text-sm rounded hover:bg-textPrimary/20 transition-all hover:-translate-y-0.5 active:translate-y-0 border border-textPrimary/30"
+                        onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                        className="px-6 py-2.5 bg-textPrimary/10 text-textPrimary font-mono text-sm rounded hover:bg-textPrimary/20 transition-all hover:-translate-y-0.5 border border-textPrimary/30"
                     >
                         Contacto
                     </button>
