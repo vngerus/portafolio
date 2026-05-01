@@ -59,17 +59,29 @@ const Contact: React.FC = () => {
                 ref={sectionRef}
                 className="flex flex-col items-center mx-auto max-w-[1000px] px-4 py-12 mt-12"
             >
-                <div className="flex items-center w-full mb-8">
-                    <span className="text-textPrimary font-mono text-lg mr-4">04.</span>
-                    <h2 className="text-3xl font-bold text-white whitespace-nowrap">Contacto</h2>
-                    <div className="flex-1 h-px bg-gray-700 ml-4" />
+                {/* Warning tape separator */}
+                <div
+                    className="w-full h-[6px] rounded-sm mb-10 opacity-40"
+                    style={{
+                        backgroundImage: 'repeating-linear-gradient(45deg, #6d448a, #6d448a 10px, #0d0b2e 10px, #0d0b2e 20px)',
+                    }}
+                />
+
+                <div className="flex flex-col w-full mb-8">
+                    <p className="font-mono text-[9px] text-textPrimary/40 tracking-[0.3em] uppercase mb-2">
+                        // COMM_LINK · ESTABLECER CANAL SEGURO
+                    </p>
+                    <div className="flex items-center w-full">
+                        <span className="text-textPrimary font-mono text-lg mr-4">04.</span>
+                        <h2 className="text-3xl font-bold text-white whitespace-nowrap">Contacto</h2>
+                        <div className="flex-1 h-px bg-gray-700 ml-4" />
+                    </div>
                 </div>
 
                 <div className="w-full max-w-2xl mx-auto">
                     <p className="text-gray-400 text-center mb-10 leading-relaxed">
                         ¿Tienes un proyecto en mente o simplemente quieres saludar?{' '}
-                        <span className="text-textPrimary">Escríbeme</span>, estaré encantado de
-                        responder.
+                        <span className="text-textPrimary">Escríbeme</span>, estaré encantado de responder.
                     </p>
 
                     <form onSubmit={handleSubmit} className="flex flex-col gap-6">
@@ -77,9 +89,9 @@ const Contact: React.FC = () => {
                             <div className="flex flex-col gap-2">
                                 <label
                                     htmlFor="name"
-                                    className="font-mono text-sm text-textPrimary"
+                                    className="font-mono text-[10px] text-textPrimary/70 tracking-[0.2em] uppercase"
                                 >
-                                    Nombre
+                                    // Nombre
                                 </label>
                                 <input
                                     id="name"
@@ -94,9 +106,9 @@ const Contact: React.FC = () => {
                             <div className="flex flex-col gap-2">
                                 <label
                                     htmlFor="email"
-                                    className="font-mono text-sm text-textPrimary"
+                                    className="font-mono text-[10px] text-textPrimary/70 tracking-[0.2em] uppercase"
                                 >
-                                    Email
+                                    // Email
                                 </label>
                                 <input
                                     id="email"
@@ -113,9 +125,9 @@ const Contact: React.FC = () => {
                         <div className="flex flex-col gap-2">
                             <label
                                 htmlFor="message"
-                                className="font-mono text-sm text-textPrimary"
+                                className="font-mono text-[10px] text-textPrimary/70 tracking-[0.2em] uppercase"
                             >
-                                Mensaje
+                                // Mensaje
                             </label>
                             <textarea
                                 id="message"
@@ -133,7 +145,7 @@ const Contact: React.FC = () => {
                             disabled={loading}
                             className="self-start px-8 py-3 border border-textPrimary text-textPrimary font-mono text-sm rounded hover:bg-textPrimary/10 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            {loading ? 'Enviando...' : 'Enviar mensaje'}
+                            {loading ? '[ Conectando... ]' : '[ Transmitir ]'}
                         </button>
                     </form>
                 </div>

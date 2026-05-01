@@ -25,14 +25,11 @@ const TextGenerate: React.FC<{ text: string; className?: string; delay?: number 
 );
 
 // "Angel Smith" starts INVISIBLE → resolves from Japanese → English.
-// Sequence: SSR opacity-0 → mount shows scrambled katakana → resolves to name.
 const ScrambleName: React.FC = () => {
     const display = useTextScramble('Angel Smith', 1100, 80);
     const [visible, setVisible] = useState(false);
 
     useEffect(() => {
-        // One RAF ensures the scramble's randomString has already been set
-        // before we reveal the element, so the user sees Japanese first.
         const id = requestAnimationFrame(() => setVisible(true));
         return () => cancelAnimationFrame(id);
     }, []);
@@ -47,6 +44,15 @@ const ScrambleName: React.FC = () => {
         </span>
     );
 };
+
+// Blinking cursor for the system label
+const Cursor: React.FC = () => (
+    <motion.span
+        animate={{ opacity: [1, 0, 1] }}
+        transition={{ repeat: Infinity, duration: 1, ease: 'steps(1)' }}
+        className="inline-block w-[7px] h-[11px] bg-textPrimary/70 ml-1 align-middle"
+    />
+);
 
 const Hero: React.FC = () => {
     const ctaRef = useRef<HTMLDivElement>(null);
@@ -74,12 +80,32 @@ const Hero: React.FC = () => {
             />
 
             <div className="space-y-5 max-w-2xl">
+
+                {/* System status label */}
+                <motion.div
+                    className="flex items-center gap-3"
+                    initial={{ opacity: 0, x: -12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: 0.05 }}
+                >
+                    <span className="font-mono text-[9px] text-textPrimary/50 tracking-[0.3em] uppercase">
+                        // SYS_INIT
+                    </span>
+                    <span className="w-8 h-px bg-textPrimary/20" />
+                    <span className="font-mono text-[9px] text-textPrimary/30 tracking-[0.2em] uppercase">
+                        PILOT_TERMINAL
+                    </span>
+                    <Cursor />
+                </motion.div>
+
+                {/* Greeting */}
                 <motion.p
-                    className="font-mono text-textPrimary text-sm sm:text-base"
+                    className="font-mono text-textPrimary/80 text-sm sm:text-base"
                     initial={{ opacity: 0, x: -16 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: 0.2 }}
                 >
+                    <span className="text-textPrimary/40 mr-2 select-none">&gt;</span>
                     Hola, mi nombre es
                 </motion.p>
 
@@ -88,10 +114,12 @@ const Hero: React.FC = () => {
                     <ScrambleName />
                 </h1>
 
+                {/* Role */}
                 <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-300">
-                    <TextGenerate text="Desarrollador Front-End" delay={0.9} />
+                    <TextGenerate text="[ Desarrollador Front-End ]" delay={0.9} />
                 </h2>
 
+                {/* Description */}
                 <div className="max-w-xl">
                     <TextGenerate
                         text="Especializado en Front, con gusto por el Back-End. Actualmente trabajando en"
@@ -119,12 +147,13 @@ const Hero: React.FC = () => {
                     </motion.span>
                 </div>
 
+                {/* CTAs */}
                 <div ref={ctaRef} className="opacity-0 flex gap-4 pt-4">
                     <button
                         onClick={() => document.getElementById('experiences')?.scrollIntoView({ behavior: 'smooth' })}
                         className="px-6 py-2.5 border border-textPrimary text-textPrimary font-mono text-sm rounded hover:bg-textPrimary/10 transition-all hover:-translate-y-0.5 active:translate-y-0"
                     >
-                        Ver mi trabajo
+                        [ Iniciar Secuencia ]
                     </button>
                     <button
                         onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}

@@ -27,10 +27,15 @@ const Projects: React.FC = () => {
             id="projects"
             className="flex flex-col mx-auto max-w-[1000px] px-4 py-12 min-h-screen mt-12 overflow-hidden box-border"
         >
-            <div className="flex items-center w-full mb-8">
-                <span className="text-textPrimary font-mono text-lg mr-4">02.</span>
-                <h2 className="text-3xl font-bold text-white whitespace-nowrap">Proyectos</h2>
-                <div className="flex-1 h-px bg-gray-700 ml-4" />
+            <div className="flex flex-col w-full mb-8">
+                <p className="font-mono text-[9px] text-textPrimary/40 tracking-[0.3em] uppercase mb-2">
+                    // OP_RECORD · REGISTRO DE OPERACIONES
+                </p>
+                <div className="flex items-center w-full">
+                    <span className="text-textPrimary font-mono text-lg mr-4">02.</span>
+                    <h2 className="text-3xl font-bold text-white whitespace-nowrap">Proyectos</h2>
+                    <div className="flex-1 h-px bg-gray-700 ml-4" />
+                </div>
             </div>
 
             <div ref={listRef}>
@@ -68,9 +73,9 @@ const Projects: React.FC = () => {
                             } flex flex-col justify-center text-left box-border`}
                         >
                             <div className="mb-4">
-                                <h4 className="text-textPrimary text-xs md:text-sm font-semibold font-mono">
-                                    {project.company}
-                                </h4>
+                                <p className="font-mono text-[9px] text-textPrimary/40 tracking-[0.2em] uppercase mb-1">
+                                    [OP_{String(index + 1).padStart(2, '0')}] · {project.company}
+                                </p>
                                 <h3 className="text-lg md:text-2xl font-bold text-gray-200">
                                     {project.title}
                                 </h3>

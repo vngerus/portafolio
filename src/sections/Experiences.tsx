@@ -17,10 +17,15 @@ const Experiences: React.FC = () => {
             id="experiences"
             className="flex flex-col items-center mx-auto max-w-[1000px] px-4 py-12 min-h-screen mt-12"
         >
-            <div className="flex items-center w-full mb-12">
-                <span className="text-textPrimary font-mono text-lg mr-4">01.</span>
-                <h2 className="text-3xl font-bold text-white whitespace-nowrap">Donde he trabajado</h2>
-                <div className="flex-1 h-px bg-gray-700 ml-4" />
+            <div className="flex flex-col w-full mb-12">
+                <p className="font-mono text-[9px] text-textPrimary/40 tracking-[0.3em] uppercase mb-2">
+                    // EXP_LOG · HISTORIAL DE DESPLIEGUES
+                </p>
+                <div className="flex items-center w-full">
+                    <span className="text-textPrimary font-mono text-lg mr-4">01.</span>
+                    <h2 className="text-3xl font-bold text-white whitespace-nowrap">Donde he trabajado</h2>
+                    <div className="flex-1 h-px bg-gray-700 ml-4" />
+                </div>
             </div>
 
             {/*
@@ -55,6 +60,9 @@ const Experiences: React.FC = () => {
                         <div className="flex-1 group border border-gray-700/60 hover:border-textPrimary/40 rounded-xl p-5 md:p-6 bg-background-secondary transition-all duration-300 hover:shadow-[0_4px_24px_#d28fff12]">
                             <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-3">
                                 <div>
+                                    <p className="font-mono text-[9px] text-textPrimary/40 tracking-[0.2em] uppercase mb-1">
+                                        OP_{String(index + 1).padStart(2, '0')}
+                                    </p>
                                     <h3 className="text-base md:text-lg font-semibold text-white leading-tight">
                                         {exp.role}
                                     </h3>
@@ -62,8 +70,8 @@ const Experiences: React.FC = () => {
                                         @ {exp.company}
                                     </p>
                                 </div>
-                                <span className="font-mono text-[11px] text-gray-500 whitespace-nowrap mt-1 sm:mt-0.5">
-                                    {exp.duration}
+                                <span className="font-mono text-[11px] text-textPrimary/40 tracking-wider whitespace-nowrap mt-1 sm:mt-0.5">
+                                    [ {exp.duration} ]
                                 </span>
                             </div>
 

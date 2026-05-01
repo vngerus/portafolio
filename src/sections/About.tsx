@@ -53,10 +53,15 @@ const About: React.FC = () => {
             className="flex flex-col items-center mx-auto max-w-[1000px] px-4 py-12 min-h-screen mt-12"
         >
             {/* Section header */}
-            <div className="flex items-center w-full mb-10">
-                <span className="text-textPrimary font-mono text-lg mr-4">03.</span>
-                <h2 className="text-3xl font-bold text-white whitespace-nowrap">Sobre mí</h2>
-                <div className="flex-1 h-px bg-gray-700 ml-4" />
+            <div className="flex flex-col w-full mb-10">
+                <p className="font-mono text-[9px] text-textPrimary/40 tracking-[0.3em] uppercase mb-2">
+                    // PILOT_FILE · ARCHIVO DE PERSONAL
+                </p>
+                <div className="flex items-center w-full">
+                    <span className="text-textPrimary font-mono text-lg mr-4">03.</span>
+                    <h2 className="text-3xl font-bold text-white whitespace-nowrap">Sobre mí</h2>
+                    <div className="flex-1 h-px bg-gray-700 ml-4" />
+                </div>
             </div>
 
             <motion.div

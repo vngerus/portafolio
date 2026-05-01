@@ -52,13 +52,12 @@ const Footer: React.FC = () => {
 
     return (
         <footer className="w-full py-10 pb-24">
-            {/* Gradient separator — draws from center */}
+            {/* Warning tape separator */}
             <div
                 ref={lineRef}
-                className="w-full max-w-[880px] mx-auto h-px origin-center"
+                className="w-full max-w-[880px] mx-auto h-[6px] rounded-sm origin-center opacity-30"
                 style={{
-                    background:
-                        'linear-gradient(90deg, transparent 0%, #6d448a 30%, #d28fff 50%, #6d448a 70%, transparent 100%)',
+                    backgroundImage: 'repeating-linear-gradient(45deg, #6d448a, #6d448a 10px, #0d0b2e 10px, #0d0b2e 20px)',
                 }}
             />
 
