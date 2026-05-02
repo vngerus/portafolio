@@ -71,49 +71,56 @@ const Projects: React.FC = () => {
                                 isMobile ? 'w-[20rem]' : 'md:w-[48%]'
                             } flex flex-col justify-center text-left box-border`}
                         >
+                            {/* Identificador + título */}
                             <div className="mb-4">
                                 <p className="font-mono text-[9px] text-textPrimary/40 tracking-[0.2em] uppercase mb-1">
-                                    [OP_{String(index + 1).padStart(2, '0')}] · {project.company}
+                                    // OP_{String(index + 1).padStart(2, '0')} · {project.company}
                                 </p>
-                                <h3 className="text-lg md:text-2xl font-bold text-gray-200">
+                                <h3 className="text-lg md:text-2xl font-bold text-gray-200 tracking-tight">
                                     {project.title}
                                 </h3>
                             </div>
 
-                            <div className="bg-purple-950 p-4 md:p-6 rounded-md shadow-lg mb-4">
-                                <p className="text-gray-400 text-sm md:text-base leading-relaxed">
+                            {/* Descripción — corner cut Eva */}
+                            <div
+                                className="relative border border-textPrimary/15 bg-buttonUnselected/20 p-4 md:p-5 mb-4"
+                                style={{ clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)' }}
+                            >
+                                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-textPrimary/30 to-transparent" />
+                                <p className="font-mono text-[9px] text-textPrimary/40 tracking-[0.2em] uppercase mb-2">
+                                    // DESCRIPCIÓN
+                                </p>
+                                <p className="text-gray-400 text-sm leading-relaxed">
                                     {project.description}
                                 </p>
                             </div>
 
+                            {/* Tech tags */}
                             <TechTags techStack={project.techStack} />
 
-                            <div className="flex space-x-4 md:space-x-6 mt-6 text-gray-300">
+                            {/* Links */}
+                            <div className="flex gap-3 mt-5">
                                 <a
                                     href={project.link}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    onMouseEnter={() =>
-                                        pinRefs.current[index]?.current?.triggerEnter?.()
-                                    }
-                                    onMouseLeave={() =>
-                                        pinRefs.current[index]?.current?.triggerLeave?.()
-                                    }
+                                    onMouseEnter={() => pinRefs.current[index]?.current?.triggerEnter?.()}
+                                    onMouseLeave={() => pinRefs.current[index]?.current?.triggerLeave?.()}
+                                    className="flex items-center gap-1.5 font-mono text-[10px] text-textPrimary/60 tracking-[0.15em] uppercase border border-textPrimary/25 px-3 py-1.5 hover:border-textPrimary/60 hover:text-textPrimary/90 transition-colors"
+                                    style={{ clipPath: 'polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%)' }}
                                 >
-                                    <FiExternalLink
-                                        className="text-xl md:text-2xl hover:text-textPrimary transition-colors"
-                                        aria-label="Ver proyecto"
-                                    />
+                                    <FiExternalLink size={11} />
+                                    Ver despliegue
                                 </a>
                                 <a
                                     href="https://github.com/vngerus"
                                     target="_blank"
                                     rel="noopener noreferrer"
+                                    className="flex items-center gap-1.5 font-mono text-[10px] text-gray-500 tracking-[0.15em] uppercase border border-gray-700/60 px-3 py-1.5 hover:border-textPrimary/30 hover:text-gray-300 transition-colors"
+                                    style={{ clipPath: 'polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%)' }}
                                 >
-                                    <FiGithub
-                                        className="text-xl md:text-2xl hover:text-textPrimary transition-colors"
-                                        aria-label="GitHub"
-                                    />
+                                    <FiGithub size={11} />
+                                    GitHub
                                 </a>
                             </div>
                         </div>

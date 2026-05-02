@@ -1,20 +1,48 @@
 export const experiences = [
     {
         company: 'Books&Bits',
-        role: 'Front-End Developer',
+        role: 'Desarrollador Web Front-end',
         duration: 'Ene 2025 - Presente',
         description: [
-            'Desarrollo de interfaces con Next.js y Tailwind CSS.',
+            'Participé activamente en la modernización de servicios legacy (VB → Python) y migración de sistemas desktop a ElectronJS.',
+            'Desarrollé y consumí APIs RESTful, además de crear procedimientos almacenados en base de datos.',
+            'Implementé una nueva intranet corporativa y páginas web de alto rendimiento.',
+        ],
+        tech: ['Next.js', 'Python', 'ElectronJS', 'Node.js', 'SQL', 'Tailwind CSS', 'TypeScript'],
+        highlights: [
+            { tag: 'MODERNIZACIÓN',  text: 'Migración activa de servicios en VB hacia Python.' },
+            { tag: 'DESKTOP',        text: 'Sistemas legacy migrados a apps modernas con ElectronJS.' },
+            { tag: 'BACKEND · BDD',  text: 'APIs RESTful y creación de procedimientos almacenados en BDD.' },
+            { tag: 'FRONT-END',      text: 'Intranet corporativa con múltiples funciones y páginas anexas.' },
+        ],
+        projects: [
+            'Landing para búsqueda de boletas',
+            'Intranet corporativa con múltiples funciones',
+            'Migración de sistema de correos VB → Python',
+            'Sistema de despachos con comandas',
         ],
     },
     {
         company: 'CIB',
-        role: 'Front-End Developer',
+        role: 'Front-end Developer',
         duration: 'Mar 2024 - Ene 2025',
         description: [
-            'Desarrollé interfaces de usuario utilizando React y Tailwind CSS.',
-            'Optimicé la experiencia de usuario en aplicaciones web.',
-            'Colaboré con equipos para implementar nuevas funcionalidades.',
+            'Diseñé y desarrollé interfaces web optimizadas para rendimiento y usabilidad.',
+            'Construí componentes reutilizables para acelerar el desarrollo y mantener consistencia visual.',
+            'Optimicé flujos de trabajo integrando enfoques de UX/UI en proyectos de clientes.',
+        ],
+        tech: ['React', 'Tailwind CSS', 'TypeScript', 'JavaScript', 'Figma'],
+        highlights: [
+            { tag: 'INTERFACES',    text: 'Interfaces web optimizadas para rendimiento y usabilidad.' },
+            { tag: 'COMPONENTES',   text: 'Librería de componentes reutilizables con consistencia visual.' },
+            { tag: 'UX/UI',         text: 'Optimización de flujos de trabajo con enfoque integrado de UX/UI.' },
+        ],
+        projects: [
+            'Landing page corporativa CIB',
+            'Museum NFT page',
+            'Iny App — landing + prototipado de alto rendimiento',
+            'Priveehost — página de hosting',
+            'Página web para tarotista',
         ],
     },
     {
@@ -22,9 +50,19 @@ export const experiences = [
         role: 'Developer Intern',
         duration: 'Nov 2023 - Dic 2023',
         description: [
-            'Construí prototipos en Figma para aplicaciones web.',
-            'Desarrollé aplicaciones web con React, TypeScript y FastAPI.',
-            'Participé en revisiones de código y reuniones de planificación.',
+            'Gestioné bases de datos y desarrollé análisis de datos con Power BI y Python.',
+            'Colaboré en herramientas de optimización interna para el área comercial.',
+            'Prototipé en Figma y desarrollé aplicaciones web con React, TypeScript y FastAPI.',
+        ],
+        tech: ['Python', 'Power BI', 'React', 'TypeScript', 'FastAPI', 'Figma'],
+        highlights: [
+            { tag: 'DATA · BI',      text: 'Análisis de datos y gestión de BDD con Power BI y Python.' },
+            { tag: 'HERRAMIENTAS',   text: 'Automatización de scripts y optimización interna del área comercial.' },
+        ],
+        projects: [
+            'Automatización de scripts en Python',
+            'Ajustes y dashboards en Power BI',
+            'Análisis de datos comerciales',
         ],
     },
 ];
