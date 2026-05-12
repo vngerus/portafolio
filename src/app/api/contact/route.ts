@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest) {
     try {
@@ -10,6 +10,8 @@ export async function POST(req: NextRequest) {
         if (!name || !email || !message) {
             return NextResponse.json({ error: 'Campos requeridos' }, { status: 400 });
         }
+
+        const resend = new Resend(process.env.RESEND_API_KEY);
 
         await resend.emails.send({
             from: 'Portfolio <onboarding@resend.dev>',

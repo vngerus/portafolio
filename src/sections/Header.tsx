@@ -14,7 +14,6 @@ const NAV_LINKS = [
 
 const DIGITS = '0123456789';
 
-// Text stays static. Only the number scrambles on hover.
 const NavLink: React.FC<{
     label: string;
     num: string;

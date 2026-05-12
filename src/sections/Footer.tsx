@@ -11,7 +11,6 @@ const Footer: React.FC = () => {
     useEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
 
-        // Separator draws from center outward
         gsap.fromTo(
             lineRef.current,
             { scaleX: 0, opacity: 0 },
@@ -28,7 +27,6 @@ const Footer: React.FC = () => {
             }
         );
 
-        // Text items fade up with stagger
         const items = contentRef.current?.querySelectorAll('.footer-item');
         if (items?.length) {
             gsap.fromTo(
@@ -66,7 +64,12 @@ const Footer: React.FC = () => {
                     powered by cats
                 </p>
                 <p className="footer-item font-mono text-[10px] text-gray-700">
-                    © {new Date().getFullYear()} · Ángel &ldquo;<span className="text-gray-600">vngerus</span>&rdquo; Smith
+                    © {new Date().getFullYear()} · Ángel &ldquo;<a
+                        href="https://www.linkedin.com/in/angelsmithl/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-600 hover:text-textPrimary transition-colors"
+                    >vngerus</a>&rdquo; Smith
                 </p>
             </div>
         </footer>
