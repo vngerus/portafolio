@@ -56,11 +56,10 @@ const Contact: React.FC = () => {
       <section
         id="contact"
         ref={sectionRef}
-        className="flex flex-col items-center mx-auto max-w-[1000px] px-4 py-12 mt-12"
+        className="flex flex-col items-center mx-auto max-w-250 px-4 py-12 mt-12"
       >
-        {/* Warning tape separator */}
         <div
-          className="w-full h-[6px] rounded-sm mb-10 opacity-40"
+          className="w-full h-1.5 rounded-sm mb-10 opacity-40"
           style={{
             backgroundImage:
               'repeating-linear-gradient(45deg, #6d448a, #6d448a 10px, #0d0b2e 10px, #0d0b2e 20px)',

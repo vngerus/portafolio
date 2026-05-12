@@ -17,11 +17,16 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
-    "ignoreDeprecations": "6.0",
     "baseUrl": "./src",
     "paths": {
       "@/*": [
         "*"
+      ],
+      "@/data": [
+        "data/index.ts"
+      ],
+      "@/data/*": [
+        "data/*"
       ],
       "@/components/*": [
         "components/*"

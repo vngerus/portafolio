@@ -6,7 +6,6 @@ import { gsap } from 'gsap';
 import { useTextScramble } from '@/hooks/useTextScramble';
 import SysLabel from '@/components/SysLabel';
 
-// Word-by-word blur reveal
 const TextGenerate: React.FC<{ text: string; className?: string; delay?: number }> = ({
   text,
   className = '',
@@ -27,7 +26,6 @@ const TextGenerate: React.FC<{ text: string; className?: string; delay?: number 
   </span>
 );
 
-// "Angel Smith" starts INVISIBLE → resolves from Japanese → English.
 const ScrambleName: React.FC = () => {
   const display = useTextScramble('Ángel Smith', 1100, 80);
   const [visible, setVisible] = useState(false);
@@ -69,7 +67,6 @@ const Hero: React.FC = () => {
 
   return (
     <section className="relative flex flex-col items-start justify-center min-h-[calc(100vh-4rem)] px-8 sm:px-12 md:px-16 lg:px-24 overflow-hidden">
-      {/* Aurora */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10 opacity-25"
@@ -82,7 +79,6 @@ const Hero: React.FC = () => {
       />
 
       <div className="space-y-5 max-w-2xl">
-        {/* System status label */}
         <motion.div
           initial={{ opacity: 0, x: -12 }}
           animate={{ opacity: 1, x: 0 }}
@@ -91,7 +87,6 @@ const Hero: React.FC = () => {
           <SysLabel left="// SYS_INIT" right="PILOT_TERMINAL" />
         </motion.div>
 
-        {/* Greeting */}
         <motion.p
           className="font-mono text-textPrimary/80 text-sm sm:text-base"
           initial={{ opacity: 0, x: -16 }}
@@ -102,17 +97,14 @@ const Hero: React.FC = () => {
           Hola, mi nombre es
         </motion.p>
 
-        {/* Name resolves from Japanese on load */}
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight">
           <ScrambleName />
         </h1>
 
-        {/* Role */}
         <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-300">
           <TextGenerate text="[ Desarrollador Front-End ]" delay={0.9} />
         </h2>
 
-        {/* Description */}
         <div className="max-w-xl">
           <TextGenerate
             text="Especializado en Front, con gusto por el Back-End. Actualmente trabajando en"
@@ -140,7 +132,6 @@ const Hero: React.FC = () => {
           </motion.span>
         </div>
 
-        {/* CTAs */}
         <div ref={ctaRef} className="opacity-0 flex gap-4 pt-4">
           <button
             onClick={() =>
