@@ -26,7 +26,6 @@ const containerVariants = {
   show: { transition: { staggerChildren: 0.1 } },
 };
 
-/* ── Shared NERV card shell ─────────────────────────────────────── */
 const NervCard: React.FC<{
   recId: string;
   label: string;
@@ -38,10 +37,7 @@ const NervCard: React.FC<{
     className={`group relative overflow-hidden border border-gray-700/60 hover:border-textPrimary/50 bg-background-secondary transition-all duration-300 hover:shadow-[0_4px_24px_#d28fff12] flex flex-col ${className}`}
     style={{ clipPath: CLIP_MD }}
   >
-    {/* Top accent */}
     <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-textPrimary/50 to-transparent" />
-
-    {/* Header strip */}
     <div className="flex items-center justify-between px-4 py-2 bg-buttonUnselected/20 border-b border-gray-700/40 shrink-0">
       <div className="flex items-center gap-2">
         <span className="font-mono text-[8px] text-textPrimary/50 tracking-[0.2em] uppercase">
@@ -76,20 +72,14 @@ const NervCard: React.FC<{
         {label}
       </span>
     </div>
-
-    {/* Body */}
     <div className="relative flex-1 p-5" style={DOT_BG}>
-      {/* Corner brackets on hover */}
       <span className="absolute top-2 left-2 w-3 h-3 border-t border-l border-textPrimary/0 group-hover:border-textPrimary/40 transition-all duration-200" />
       <span className="absolute top-2 right-2 w-3 h-3 border-t border-r border-textPrimary/0 group-hover:border-textPrimary/40 transition-all duration-200" />
       <span className="absolute bottom-2 left-2 w-3 h-3 border-b border-l border-textPrimary/0 group-hover:border-textPrimary/40 transition-all duration-200" />
       <span className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-textPrimary/0 group-hover:border-textPrimary/40 transition-all duration-200" />
-
-      {/* Scan line on hover */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         <div className="animate-nerv-scan" />
       </div>
-
       {children}
     </div>
   </div>
@@ -218,7 +208,6 @@ const About: React.FC = () => {
         whileInView="show"
         viewport={{ once: true, margin: '-40px' }}
       >
-        {/* ── PERFIL (2 cols) ───────────────────────────────── */}
         <motion.div variants={cardVariants} className="md:col-span-2">
           <NervCard recId="REC_03A" label="// PERFIL" status="ACTIVO" className="h-full">
             <SectionDivider label="// DESCRIPCIÓN" />
@@ -260,7 +249,6 @@ const About: React.FC = () => {
           </NervCard>
         </motion.div>
 
-        {/* ── CANAL (1 col) ─────────────────────────────────── */}
         <motion.div variants={cardVariants}>
           <NervCard recId="REC_03B" label="// CANAL" className="h-full">
             <div className="space-y-2.5">
@@ -285,7 +273,6 @@ const About: React.FC = () => {
           </NervCard>
         </motion.div>
 
-        {/* ── FORMACIÓN (1 col) ─────────────────────────────── */}
         <motion.div variants={cardVariants}>
           <NervCard recId="REC_03C" label="// FORMACIÓN" className="h-full">
             <div className="space-y-4">
@@ -316,7 +303,6 @@ const About: React.FC = () => {
           </NervCard>
         </motion.div>
 
-        {/* ── CERTIFICACIONES (2 cols) ──────────────────────── */}
         <motion.div variants={cardVariants} className="md:col-span-2">
           <NervCard recId="REC_03D" label="// CERTIFICACIONES" className="h-full">
             <div className="space-y-3">
@@ -346,7 +332,6 @@ const About: React.FC = () => {
           </NervCard>
         </motion.div>
 
-        {/* ── STACK (full width) ────────────────────────────── */}
         <motion.div variants={cardVariants} className="md:col-span-3">
           <NervCard recId="REC_03E" label="// TECH_STACK">
             <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-9 gap-2">
