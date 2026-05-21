@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useSpring } from 'framer-motion';
+import { motion, useScroll, useSpring } from 'motion/react';
 import { experiences } from '@/data';
 import SysLabel from '@/components/SysLabel';
 
@@ -135,7 +135,7 @@ const ExperienceCard: React.FC<{ exp: Exp; index: number }> = ({ exp, index }) =
 
             <div className="flex items-center gap-3 mb-3">
               <span className="font-mono text-[8px] text-textPrimary/30 tracking-[0.2em] uppercase">
-                // INFORME
+                {'// INFORME'}
               </span>
               <div className="flex-1 h-px bg-gray-700/40" />
             </div>
@@ -169,7 +169,7 @@ const ExperienceCard: React.FC<{ exp: Exp; index: number }> = ({ exp, index }) =
           <div className="relative p-5 md:p-6 flex-1" style={DOT_BG}>
             <div className="flex items-center gap-3 mb-3">
               <span className="font-mono text-[8px] text-textPrimary/50 tracking-[0.2em] uppercase">
-                // TECH_STACK
+                {'// TECH_STACK'}
               </span>
               <div className="flex-1 h-px bg-textPrimary/20" />
             </div>
@@ -186,7 +186,7 @@ const ExperienceCard: React.FC<{ exp: Exp; index: number }> = ({ exp, index }) =
             </div>
             <div className="flex items-center gap-3 mb-3">
               <span className="font-mono text-[8px] text-textPrimary/50 tracking-[0.2em] uppercase">
-                // PROGRAMAS
+                {'// PROGRAMAS'}
               </span>
               <div className="flex-1 h-px bg-textPrimary/20" />
             </div>

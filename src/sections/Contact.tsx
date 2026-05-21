@@ -88,7 +88,7 @@ const Contact: React.FC = () => {
                   htmlFor="name"
                   className="font-mono text-[10px] text-textPrimary/70 tracking-[0.2em] uppercase"
                 >
-                  // Nombre
+                  {'// Nombre'}
                 </label>
                 <input
                   id="name"
@@ -105,7 +105,7 @@ const Contact: React.FC = () => {
                   htmlFor="email"
                   className="font-mono text-[10px] text-textPrimary/70 tracking-[0.2em] uppercase"
                 >
-                  // Email
+                  {'// Email'}
                 </label>
                 <input
                   id="email"
@@ -113,7 +113,7 @@ const Contact: React.FC = () => {
                   type="email"
                   value={form.email}
                   onChange={handleChange}
-                  placeholder="sjobs@appel.com"
+                  placeholder="sjobs@apple.com"
                   className="bg-background-secondary border border-textSecondary rounded px-4 py-3 text-gray-200 text-sm placeholder-gray-600 focus:outline-none focus:border-textPrimary transition-colors"
                 />
               </div>
@@ -123,7 +123,7 @@ const Contact: React.FC = () => {
                 htmlFor="message"
                 className="font-mono text-[10px] text-textPrimary/70 tracking-[0.2em] uppercase"
               >
-                // Mensaje
+                {'// Mensaje'}
               </label>
               <textarea
                 id="message"

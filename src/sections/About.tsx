@@ -5,7 +5,7 @@ import { FaSteam, FaDiscord } from 'react-icons/fa';
 import { FiCopy, FiCheck } from 'react-icons/fi';
 import { tags } from '@/data';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'motion/react';
 import SysLabel from '@/components/SysLabel';
 
 const CLIP_SM =
@@ -17,11 +17,11 @@ const DOT_BG = {
   backgroundSize: '18px 18px',
 };
 
-const cardVariants = {
+const cardVariants: Variants = {
   hidden: { opacity: 0, y: 24 },
   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
 };
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: {},
   show: { transition: { staggerChildren: 0.1 } },
 };
