@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { gsap } from 'gsap';
 import { useTextScramble } from '@/hooks/useTextScramble';
 import SysLabel from '@/components/SysLabel';

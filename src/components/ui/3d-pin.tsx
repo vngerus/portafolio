@@ -1,7 +1,7 @@
 "use client";
 
 import React, { forwardRef, useImperativeHandle, useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -92,7 +92,7 @@ const PinContainer = forwardRef(({
                                 repeat: Infinity,
                                 duration: 9,
                                 times: [0, 0.1, 0.2, 0.35, 0.5, 0.6, 0.62, 0.64, 0.75, 0.77, 0.79],
-                                ease: 'steps(1)',
+                                ease: 'linear',
                             }}
                         />
 

@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { Github, Linkedin } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import { motion } from 'motion/react';
 
 const Socials: React.FC = () => {
     return (
@@ -15,7 +15,7 @@ const Socials: React.FC = () => {
                     aria-label="GitHub"
                     className="group relative flex flex-col items-center"
                 >
-                    <Github className="w-5 h-5 text-gray-500 group-hover:text-textPrimary transition-colors duration-200" />
+                    <FaGithub className="w-5 h-5 text-gray-500 group-hover:text-textPrimary transition-colors duration-200" />
                     <span className="font-mono text-[6px] text-gray-700 group-hover:text-textPrimary/50 tracking-widest uppercase mt-0.5 transition-colors">
                         GH
                     </span>
@@ -28,7 +28,7 @@ const Socials: React.FC = () => {
                     aria-label="LinkedIn"
                     className="group relative flex flex-col items-center"
                 >
-                    <Linkedin className="w-5 h-5 text-gray-500 group-hover:text-textPrimary transition-colors duration-200" />
+                    <FaLinkedin className="w-5 h-5 text-gray-500 group-hover:text-textPrimary transition-colors duration-200" />
                     <span className="font-mono text-[6px] text-gray-700 group-hover:text-textPrimary/50 tracking-widest uppercase mt-0.5 transition-colors">
                         IN
                     </span>
