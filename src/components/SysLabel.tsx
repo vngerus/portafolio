@@ -1,11 +1,11 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 
 const Cursor: React.FC = () => (
     <motion.span
         animate={{ opacity: [1, 0, 1] }}
-        transition={{ repeat: Infinity, duration: 1, ease: 'steps(1)' }}
+        transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}
         className="inline-block w-[7px] h-[11px] bg-textPrimary/70 ml-1 align-middle"
     />
 );

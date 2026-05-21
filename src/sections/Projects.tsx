@@ -38,7 +38,9 @@ const Projects: React.FC = () => {
       </div>
 
       <div ref={listRef}>
-        {workProjects.map((project, index) => (
+        {workProjects.map((project, index) => {
+          const projectPin = pinRefs.current[index];
+          return (
           <div
             key={index}
             className={`project-card relative flex ${
@@ -53,7 +55,7 @@ const Projects: React.FC = () => {
               } rounded-md overflow-hidden shrink-0 box-border`}
             >
               <PinContainer
-                ref={pinRefs.current[index]}
+                ref={projectPin}
                 href={project.link}
                 backgroundImage={project.imgback}
                 title={project.title}
@@ -69,7 +71,7 @@ const Projects: React.FC = () => {
             >
               <div className="mb-4">
                 <p className="font-mono text-[9px] text-textPrimary/40 tracking-[0.2em] uppercase mb-1">
-                  // OP_{String(index + 1).padStart(2, '0')} · {project.company}
+                  {`// OP_${String(index + 1).padStart(2, '0')} · ${project.company}`}
                 </p>
                 <h3 className="text-lg md:text-2xl font-bold text-gray-200 tracking-tight">
                   {project.title}
@@ -85,7 +87,7 @@ const Projects: React.FC = () => {
               >
                 <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-textPrimary/30 to-transparent" />
                 <p className="font-mono text-[9px] text-textPrimary/40 tracking-[0.2em] uppercase mb-2">
-                  // DESCRIPCIÓN
+                  {'// DESCRIPCIÓN'}
                 </p>
                 <p className="text-gray-400 text-sm leading-relaxed">{project.description}</p>
               </div>
@@ -95,8 +97,8 @@ const Projects: React.FC = () => {
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onMouseEnter={() => pinRefs.current[index]?.current?.triggerEnter?.()}
-                  onMouseLeave={() => pinRefs.current[index]?.current?.triggerLeave?.()}
+                  onMouseEnter={() => projectPin?.current?.triggerEnter?.()}
+                  onMouseLeave={() => projectPin?.current?.triggerLeave?.()}
                   className="flex items-center gap-1.5 font-mono text-[10px] text-textPrimary/60 tracking-[0.15em] uppercase border border-textPrimary/25 px-3 py-1.5 hover:border-textPrimary/60 hover:text-textPrimary/90 transition-colors"
                   style={{ clipPath: 'polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%)' }}
                 >
@@ -116,7 +118,8 @@ const Projects: React.FC = () => {
               </div>
             </div>
           </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

@@ -17,22 +17,21 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
-    "baseUrl": "./src",
     "paths": {
       "@/*": [
-        "*"
+        "./src/*"
       ],
       "@/data": [
-        "data/index.ts"
+        "./src/data/index.ts"
       ],
       "@/data/*": [
-        "data/*"
+        "./src/data/*"
       ],
       "@/components/*": [
-        "components/*"
+        "./src/components/*"
       ],
       "@/sections/*": [
-        "sections/*"
+        "./src/sections/*"
       ]
     },
     "plugins": [

@@ -47,6 +47,7 @@ export function useGsapReveal<T extends HTMLElement>(options: RevealOptions = {}
         });
 
         return () => ctx.revert();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return ref;
@@ -88,6 +89,7 @@ export function useGsapStagger<T extends HTMLElement>(selector: string, options:
         }, container);
 
         return () => ctx.revert();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return containerRef;

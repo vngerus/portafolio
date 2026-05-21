@@ -13,13 +13,17 @@ export async function POST(req: NextRequest) {
 
         const resend = new Resend(process.env.RESEND_API_KEY);
 
-        await resend.emails.send({
+        const { error } = await resend.emails.send({
             from: 'Portfolio <onboarding@resend.dev>',
             to: process.env.CONTACT_EMAIL ?? 'asmith@booksandbits.cl',
             subject: `[Portfolio] Mensaje de ${name}`,
             text: `De: ${name} <${email}>\n\n${message}`,
             replyTo: email,
         });
+
+        if (error) {
+            return NextResponse.json({ error: 'Error al enviar el mensaje' }, { status: 500 });
+        }
 
         return NextResponse.json({ ok: true });
     } catch {
