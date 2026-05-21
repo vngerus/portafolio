@@ -63,9 +63,6 @@ const PinContainer = forwardRef(
               }}
               className="absolute left-1/2 sm:w-[20rem] md:w-[24rem] h-60 w-[20rem] sm:h-72 md:h-80 -top-3 p-4 flex justify-center items-center rounded-2xl shadow-lg bg-black border border-textPrimary/20 group-hover/pin:border-textPrimary/50 group-hover/pin:shadow-[0_0_28px_#d28fff30] transition duration-700 overflow-hidden"
             >
-              {/* ── Hologram overlays ── */}
-
-              {/* Grid de datos */}
               <div
                 className="absolute inset-0 pointer-events-none z-10 opacity-[0.07]"
                 style={{
@@ -76,19 +73,16 @@ const PinContainer = forwardRef(
                 }}
               />
 
-              {/* Tinta morada pulsante — simula campo AT */}
               <motion.div
                 className="absolute inset-0 pointer-events-none z-10 bg-linear-to-b from-[#d28fff]/0 via-[#6d448a]/12 to-[#d28fff]/6"
                 animate={{ opacity: [0.5, 1, 0.6, 1, 0.5] }}
                 transition={{ repeat: Infinity, duration: 5, ease: 'easeInOut' }}
               />
 
-              {/* Scan line continua */}
               <div className="absolute inset-0 overflow-hidden pointer-events-none z-20">
                 <div className="animate-nerv-scan opacity-50" />
               </div>
 
-              {/* Flicker ocasional de interferencia */}
               <motion.div
                 className="absolute inset-0 pointer-events-none z-20 bg-textPrimary/8"
                 animate={{ opacity: [0, 0, 0, 0, 0, 0, 0.6, 0, 0, 0.2, 0] }}
@@ -100,30 +94,25 @@ const PinContainer = forwardRef(
                 }}
               />
 
-              {/* Corner brackets + datos */}
               <div className="absolute inset-0 pointer-events-none z-20 p-2.5">
-                {/* Top-left */}
                 <div className="absolute top-2.5 left-2.5">
                   <div className="w-3 h-3 border-t border-l border-textPrimary/60" />
                   <p className="font-mono text-[6px] text-textPrimary/40 tracking-wider mt-0.5 uppercase">
                     SYS_LINK
                   </p>
                 </div>
-                {/* Top-right */}
                 <div className="absolute top-2.5 right-2.5 text-right">
                   <div className="w-3 h-3 border-t border-r border-textPrimary/60 ml-auto" />
                   <p className="font-mono text-[6px] text-textPrimary/40 tracking-wider mt-0.5 uppercase">
                     ACTIVO
                   </p>
                 </div>
-                {/* Bottom-left */}
                 <div className="absolute bottom-2.5 left-2.5">
                   <p className="font-mono text-[6px] text-textPrimary/30 tracking-wider mb-0.5 uppercase">
                     OP_REC
                   </p>
                   <div className="w-3 h-3 border-b border-l border-textPrimary/60" />
                 </div>
-                {/* Bottom-right */}
                 <div className="absolute bottom-2.5 right-2.5 text-right">
                   <p className="font-mono text-[6px] text-textPrimary/30 tracking-wider mb-0.5 uppercase">
                     NERV
@@ -132,7 +121,6 @@ const PinContainer = forwardRef(
                 </div>
               </div>
 
-              {/* Contenido hijo */}
               <div className={`relative z-50 ${className}`}>{children}</div>
             </div>
           </div>
@@ -193,7 +181,6 @@ const PinPerspective: React.FC<PinPerspectiveProps> = ({ imgLogo, isHovered }) =
           />
         </div>
 
-        {/* Aguja del pin — morado */}
         <motion.div className="absolute right-1/2 bottom-1/2 bg-linear-to-b from-transparent to-[#d28fff] translate-y-3.5 w-px h-20 group-hover/pin:h-40 blur-[2px]" />
         <motion.div className="absolute right-1/2 bottom-1/2 bg-linear-to-b from-transparent to-[#d28fff] translate-y-3.5 w-px h-20 group-hover/pin:h-40" />
         <motion.div className="absolute right-1/2 translate-x-[1.5px] bottom-1/2 bg-[#d28fff] translate-y-3.5 w-1 h-1 rounded-full z-40 blur-[3px]" />

@@ -4,7 +4,6 @@ import React from 'react';
 import { motion } from 'motion/react';
 import type { CompanyStatus, WorkCompany, WorkProject } from '@/data';
 
-// ─── HOLO OVERLAYS ───────────────────────────────────────────────────────────
 export const HoloOverlays: React.FC<{ intense?: boolean }> = ({ intense = true }) => (
   <>
     <div
@@ -29,25 +28,32 @@ export const HoloOverlays: React.FC<{ intense?: boolean }> = ({ intense = true }
     <div className="absolute inset-0 pointer-events-none z-20 p-2.5">
       <div className="absolute top-2.5 left-2.5">
         <div className="w-3 h-3 border-t border-l border-textPrimary/60" />
-        <p className="font-mono text-[6px] text-textPrimary/40 tracking-wider mt-0.5 uppercase">SYS_LINK</p>
+        <p className="font-mono text-[6px] text-textPrimary/40 tracking-wider mt-0.5 uppercase">
+          SYS_LINK
+        </p>
       </div>
       <div className="absolute top-2.5 right-2.5 text-right">
         <div className="w-3 h-3 border-t border-r border-textPrimary/60 ml-auto" />
-        <p className="font-mono text-[6px] text-textPrimary/40 tracking-wider mt-0.5 uppercase">ACTIVO</p>
+        <p className="font-mono text-[6px] text-textPrimary/40 tracking-wider mt-0.5 uppercase">
+          ACTIVO
+        </p>
       </div>
       <div className="absolute bottom-2.5 left-2.5">
-        <p className="font-mono text-[6px] text-textPrimary/30 tracking-wider mb-0.5 uppercase">OP_REC</p>
+        <p className="font-mono text-[6px] text-textPrimary/30 tracking-wider mb-0.5 uppercase">
+          OP_REC
+        </p>
         <div className="w-3 h-3 border-b border-l border-textPrimary/60" />
       </div>
       <div className="absolute bottom-2.5 right-2.5 text-right">
-        <p className="font-mono text-[6px] text-textPrimary/30 tracking-wider mb-0.5 uppercase">NERV</p>
+        <p className="font-mono text-[6px] text-textPrimary/30 tracking-wider mb-0.5 uppercase">
+          NERV
+        </p>
         <div className="w-3 h-3 border-b border-r border-textPrimary/60 ml-auto" />
       </div>
     </div>
   </>
 );
 
-// ─── PROJECT PLACEHOLDER (rayado estándar) ────────────────────────────────────
 export const ProjectPlaceholder: React.FC<{ label?: string }> = ({ label = 'preview' }) => (
   <div
     className="absolute inset-0 flex items-center justify-center"
@@ -62,7 +68,8 @@ export const ProjectPlaceholder: React.FC<{ label?: string }> = ({ label = 'prev
         style={{ transform: 'rotate(45deg)' }}
       />
       <p className="font-mono text-[9px] text-textPrimary/40 tracking-[0.15em] uppercase">
-        {'// '}{label}
+        {'// '}
+        {label}
       </p>
       <p className="font-mono text-[8px] text-textPrimary/20 tracking-[0.15em] uppercase mt-1">
         SCREENSHOT_PENDING
@@ -71,13 +78,12 @@ export const ProjectPlaceholder: React.FC<{ label?: string }> = ({ label = 'prev
   </div>
 );
 
-// ─── DEV PLACEHOLDER (proyectos en construcción) ──────────────────────────────
 export const DevPlaceholder: React.FC = () => (
   <div
     className="absolute inset-0 flex flex-col items-center justify-center"
     style={{ background: 'linear-gradient(180deg, #0a0825 0%, #0d0b2e 100%)' }}
   >
-    <div className="w-full max-w-[190px] font-mono px-2">
+    <div className="w-full max-w-47.5 font-mono px-2">
       <div className="flex items-center gap-2 mb-3">
         <motion.span
           className="w-2 h-2 rounded-full bg-red-500"
@@ -126,8 +132,6 @@ export const DevPlaceholder: React.FC = () => (
   </div>
 );
 
-// ─── MEDIA SLOT ───────────────────────────────────────────────────────────────
-// Prioridad: videoback → GIF → webp/png/jpg (bg del padre) → dev → placeholder
 export const MediaSlot: React.FC<{ project: WorkProject }> = ({ project }) => {
   if (project.videoback) {
     return (
@@ -153,13 +157,12 @@ export const MediaSlot: React.FC<{ project: WorkProject }> = ({ project }) => {
   if (!project.imgback) {
     return <ProjectPlaceholder label={project.kind} />;
   }
-  return null; // webp/png/jpg → backgroundImage en el padre
+  return null;
 };
 
-// ─── SWEEP BAR (barre top→bottom al cambiar proyecto) ────────────────────────
 export const SweepBar: React.FC = () => (
   <div
-    className="absolute left-0 right-0 h-0.5 pointer-events-none z-[28]"
+    className="absolute left-0 right-0 h-0.5 pointer-events-none z-28"
     style={{
       background:
         'linear-gradient(90deg, transparent 0%, rgba(210,143,255,0.7) 40%, rgba(210,143,255,0.9) 50%, rgba(210,143,255,0.7) 60%, transparent 100%)',
@@ -168,18 +171,21 @@ export const SweepBar: React.FC = () => (
   />
 );
 
-// ─── ANIMATED PIN ─────────────────────────────────────────────────────────────
 export const AnimatedPin: React.FC = () => (
   <div
     className="absolute left-1/2 top-0 pointer-events-none z-30 -translate-x-1/2"
     style={{ animation: 'op-pin-drop 0.7s cubic-bezier(.2,.6,.3,1.25) both' }}
   >
     <div
-      className="absolute left-1/2 -translate-x-1/2 w-0.5 h-[60px]"
-      style={{ top: -56, background: 'linear-gradient(180deg, transparent 0%, #d28fff 100%)', filter: 'blur(2.5px)' }}
+      className="absolute left-1/2 -translate-x-1/2 w-0.5 h-15"
+      style={{
+        top: -56,
+        background: 'linear-gradient(180deg, transparent 0%, #d28fff 100%)',
+        filter: 'blur(2.5px)',
+      }}
     />
     <div
-      className="absolute left-1/2 -translate-x-1/2 w-px h-[60px]"
+      className="absolute left-1/2 -translate-x-1/2 w-px h-15"
       style={{ top: -56, background: 'linear-gradient(180deg, transparent 0%, #d28fff 100%)' }}
     />
     <div
@@ -198,7 +204,6 @@ export const AnimatedPin: React.FC = () => (
   </div>
 );
 
-// ─── COMPANY BANNER ───────────────────────────────────────────────────────────
 export const CompanyBanner: React.FC<{ company: WorkCompany }> = ({ company }) => {
   const isActive = company.status === 'ACTIVE';
   return (
@@ -222,7 +227,9 @@ export const CompanyBanner: React.FC<{ company: WorkCompany }> = ({ company }) =
           ) : (
             <span className="inline-block w-1.5 h-1.5 rounded-full bg-gray-600" />
           )}
-          <span className={`font-mono text-[8px] tracking-[0.2em] uppercase ${isActive ? 'text-textPrimary/70' : 'text-gray-600'}`}>
+          <span
+            className={`font-mono text-[8px] tracking-[0.2em] uppercase ${isActive ? 'text-textPrimary/70' : 'text-gray-600'}`}
+          >
             {company.status}
           </span>
         </span>

@@ -34,7 +34,6 @@ const Socials: React.FC = () => {
           </span>
         </a>
 
-        {/* Energy bar placeholder — mismo ancho que Signature */}
         <div className="w-full px-1 mt-1">
           <motion.div
             className="h-1.5 bg-gray-800 rounded-full overflow-hidden"
@@ -49,7 +48,6 @@ const Socials: React.FC = () => {
         </div>
       </div>
 
-      {/* Línea vertical — idéntica a Signature */}
       <div className="w-px h-20 bg-white/20 mt-3" />
     </div>
   );

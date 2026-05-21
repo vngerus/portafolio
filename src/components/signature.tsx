@@ -26,8 +26,6 @@ const GLITCH_SEQUENCE: ActionName[] = [
   'bananaBones|idle',
 ];
 
-// ── FollowGroup — wrapper que lerp la rotación Y hacia el cursor ──────────
-// Definido fuera del componente para tener acceso al contexto R3F (useFrame).
 const FollowGroup: React.FC<{
   targetRef: React.MutableRefObject<number>;
   enabled: boolean;
@@ -45,7 +43,6 @@ const FollowGroup: React.FC<{
   return <group ref={groupRef}>{children}</group>;
 };
 
-// ── Dialog ─────────────────────────────────────────────────────────────────
 const WavingHand: React.FC = () => (
   <motion.span
     className="inline-block origin-bottom-right ml-1"
@@ -111,7 +108,6 @@ const Dialog: React.FC<{ msg: string; variant: DialogVariant }> = ({ msg, varian
   );
 };
 
-// ── Signature ──────────────────────────────────────────────────────────────
 const Signature: React.FC = () => {
   const [actionName, setActionName] = useState<ActionName>('bananaBones|hiiiiiiiii');
   const [energy, setEnergy] = useState(100);
@@ -129,7 +125,6 @@ const Signature: React.FC = () => {
   const scrollTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const mouseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const dialogTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  // Rotación Y objetivo para el seguimiento del cursor (-0.35 a 0.35 rad)
   const targetRotYRef = useRef(0.05);
 
   useEffect(() => {

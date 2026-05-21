@@ -5,19 +5,17 @@ import Image from 'next/image';
 import { FiGithub, FiExternalLink } from 'react-icons/fi';
 import type { WorkCompany, WorkProject } from '@/data';
 import TechTags from '@/components/tech_button';
-import {
-  HoloOverlays,
-  MediaSlot,
-  AnimatedPin,
-  SweepBar,
-  CompanyBanner,
-} from './projects-shared';
+import { HoloOverlays, MediaSlot, AnimatedPin, SweepBar, CompanyBanner } from './projects-shared';
 
 const CARD_CLIP =
   'polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)';
 const TILT_DEG = 5;
 
-interface Tilt { x: number; y: number; hover: boolean; }
+interface Tilt {
+  x: number;
+  y: number;
+  hover: boolean;
+}
 
 const CompanyCard: React.FC<{ company: WorkCompany }> = ({ company }) => {
   const [active, setActive] = useState(0);
@@ -38,7 +36,6 @@ const CompanyCard: React.FC<{ company: WorkCompany }> = ({ company }) => {
     ? 'transform 0.12s ease-out'
     : 'transform 0.6s cubic-bezier(.2,.7,.3,1)';
 
-  // Para webp/png/jpg usa backgroundImage en el padre; video/gif/dev lo maneja MediaSlot
   const bgImage =
     current.imgback && !current.imgback.match(/\.gif$/i) && !current.videoback
       ? `url(${current.imgback})`
@@ -51,32 +48,29 @@ const CompanyCard: React.FC<{ company: WorkCompany }> = ({ company }) => {
       </div>
 
       <div className="grid grid-cols-[minmax(0,1fr)_210px] gap-4 items-start">
-        {/* ─── COLUMNA IZQUIERDA · preview + info ─── */}
         <div className="flex flex-col gap-3.5">
           <div
             onMouseMove={onMouseMove}
             onMouseLeave={onMouseLeave}
-            className="relative h-[360px]"
+            className="relative h-90"
             style={{ perspective: '1400px', perspectiveOrigin: 'center center' }}
           >
-            {/* deep shadow */}
             <div
               className="absolute inset-0 border border-textPrimary/10 bg-background/40"
               style={{
                 transform: `translate3d(${10 + tilt.x * 4}px, ${10 - tilt.y * 4}px, -80px) rotateY(${tilt.x * TILT_DEG * 0.4}deg) rotateX(${-tilt.y * TILT_DEG * 0.3}deg)`,
-                transition, clipPath: CARD_CLIP,
+                transition,
+                clipPath: CARD_CLIP,
               }}
             />
-            {/* mid shadow */}
             <div
               className="absolute inset-0 border border-textPrimary/15 bg-background-secondary/60"
               style={{
                 transform: `translate3d(${5 + tilt.x * 6}px, ${5 - tilt.y * 6}px, -40px) rotateY(${tilt.x * TILT_DEG * 0.6}deg) rotateX(${-tilt.y * TILT_DEG * 0.5}deg)`,
-                transition, clipPath: CARD_CLIP,
+                transition,
+                clipPath: CARD_CLIP,
               }}
             />
-
-            {/* active card — key fuerza remount + replay de animate-card-swap */}
             <div
               key={current.title}
               className="absolute inset-0 animate-card-swap"
@@ -100,9 +94,8 @@ const CompanyCard: React.FC<{ company: WorkCompany }> = ({ company }) => {
                 <MediaSlot project={current} />
                 <HoloOverlays intense />
 
-                {/* glare mouse */}
                 <div
-                  className="absolute inset-0 pointer-events-none z-[22]"
+                  className="absolute inset-0 pointer-events-none z-22"
                   style={{
                     background: `radial-gradient(circle at ${50 + tilt.x * 30}% ${50 + tilt.y * 30}%, rgba(210,143,255,0.18) 0%, transparent 45%)`,
                     opacity: tilt.hover ? 1 : 0,
@@ -110,17 +103,24 @@ const CompanyCard: React.FC<{ company: WorkCompany }> = ({ company }) => {
                     mixBlendMode: 'screen',
                   }}
                 />
-
-                {/* HUD chips */}
-                <div className="absolute top-3.5 left-7 right-7 flex justify-between items-center z-[25]">
+                <div className="absolute top-3.5 left-7 right-7 flex justify-between items-center z-25">
                   <div
                     className="flex items-center gap-2 bg-background/70 border border-textPrimary/25 px-2.5 py-1 backdrop-blur"
                     style={{ clipPath: 'polygon(5px 0, 100% 0, calc(100% - 5px) 100%, 0 100%)' }}
                   >
                     {current.imglogo ? (
-                      <Image src={current.imglogo} alt="" width={14} height={14} className="w-3.5 h-3.5 object-contain" />
+                      <Image
+                        src={current.imglogo}
+                        alt=""
+                        width={14}
+                        height={14}
+                        className="w-3.5 h-3.5 object-contain"
+                      />
                     ) : (
-                      <span className="w-2 h-2 bg-textPrimary" style={{ transform: 'rotate(45deg)' }} />
+                      <span
+                        className="w-2 h-2 bg-textPrimary"
+                        style={{ transform: 'rotate(45deg)' }}
+                      />
                     )}
                     <span className="font-mono text-[8px] text-textPrimary/75 tracking-[0.15em] uppercase">
                       {company.opCode}·{String(active + 1).padStart(2, '0')}
@@ -130,48 +130,59 @@ const CompanyCard: React.FC<{ company: WorkCompany }> = ({ company }) => {
                     className="font-mono text-[8px] text-textPrimary/55 tracking-[0.15em] uppercase bg-background/70 border border-textPrimary/25 px-2.5 py-1 backdrop-blur"
                     style={{ clipPath: 'polygon(5px 0, 100% 0, calc(100% - 5px) 100%, 0 100%)' }}
                   >
-                    {String(active + 1).padStart(2, '0')} / {String(company.projects.length).padStart(2, '0')}
+                    {String(active + 1).padStart(2, '0')} /{' '}
+                    {String(company.projects.length).padStart(2, '0')}
                   </span>
                 </div>
-
-                {/* Sweep bar + pin (misma key = disparan juntos) */}
                 <SweepBar key={`sweep-${active}`} />
                 <AnimatedPin key={`pin-${active}`} />
-
-                {/* left needle */}
                 <div
-                  className="absolute left-[18px] top-1/2 -translate-y-1/2 w-px h-[60px] z-[25]"
+                  className="absolute left-4.5 top-1/2 -translate-y-1/2 w-px h-15 z-25"
                   style={{
-                    background: 'linear-gradient(180deg, transparent 0%, #d28fff 50%, transparent 100%)',
+                    background:
+                      'linear-gradient(180deg, transparent 0%, #d28fff 50%, transparent 100%)',
                     opacity: tilt.hover ? 0.9 : 0.5,
                     transition: 'opacity 0.4s ease',
                     boxShadow: '0 0 8px #d28fff',
                   }}
                 />
               </div>
-            </div>
-
-            {/* satellite dot */}
+            </div>{' '}
             <div
-              className="absolute left-[18px] top-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-textPrimary z-30"
-              style={{ boxShadow: '0 0 12px #d28fff', opacity: tilt.hover ? 1 : 0, transition: 'opacity 0.4s ease' }}
+              className="absolute left-4.5 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-textPrimary z-30"
+              style={{
+                boxShadow: '0 0 12px #d28fff',
+                opacity: tilt.hover ? 1 : 0,
+                transition: 'opacity 0.4s ease',
+              }}
             />
           </div>
-
-          <ProjectInfoBar key={`info-${current.title}`} project={current} index={active} company={company} />
+          <ProjectInfoBar
+            key={`info-${current.title}`}
+            project={current}
+            index={active}
+            company={company}
+          />
         </div>
-
-        {/* ─── COLUMNA DERECHA · BITÁCORA ─── */}
         <div className="flex flex-col gap-2">
           <p className="font-mono text-[8px] text-textPrimary/40 tracking-[0.2em] uppercase mb-0.5">
-            {'// BITÁCORA · '}{company.projects.length}{' OPS'}
+            {'// BITÁCORA · '}
+            {company.projects.length}
+            {' OPS'}
           </p>
           {company.projects.map((p, i) => (
-            <ThumbButton key={p.title} project={p} index={i} isActive={i === active} onClick={() => setActive(i)} />
+            <ThumbButton
+              key={p.title}
+              project={p}
+              index={i}
+              isActive={i === active}
+              onClick={() => setActive(i)}
+            />
           ))}
           <div className="mt-auto pt-3 border-t border-dashed border-textPrimary/15 flex flex-col gap-1">
             <p className="font-mono text-[7px] text-textPrimary/35 tracking-[0.2em] uppercase">
-              {'ROL · '}{company.role}
+              {'ROL · '}
+              {company.role}
             </p>
             <p className="font-mono text-[7px] text-textPrimary/25 tracking-[0.2em] uppercase">
               ✱ MUEVE EL MOUSE EN EL PREVIEW
@@ -183,9 +194,10 @@ const CompanyCard: React.FC<{ company: WorkCompany }> = ({ company }) => {
   );
 };
 
-// ─── INFO BAR ────────────────────────────────────────────────────────────────
 const ProjectInfoBar: React.FC<{ project: WorkProject; index: number; company: WorkCompany }> = ({
-  project, index, company,
+  project,
+  index,
+  company,
 }) => (
   <div
     className="relative border border-textPrimary/20 bg-background-secondary/55 px-4 pt-3.5 pb-4 animate-fade-in"
@@ -195,12 +207,17 @@ const ProjectInfoBar: React.FC<{ project: WorkProject; index: number; company: W
     <div className="flex items-baseline justify-between gap-3 mb-1">
       <div className="flex items-baseline gap-3 min-w-0">
         <span className="font-mono text-[10px] text-textPrimary/40 tracking-[0.15em] uppercase shrink-0">
-          {'// '}{company.opCode}.{String(index + 1).padStart(2, '0')}
+          {'// '}
+          {company.opCode}.{String(index + 1).padStart(2, '0')}
         </span>
-        <h3 className="text-[22px] font-bold text-white tracking-tight truncate">{project.title}</h3>
+        <h3 className="text-[22px] font-bold text-white tracking-tight truncate">
+          {project.title}
+        </h3>
         <span className="font-mono text-[9px] text-textPrimary/55 italic">{project.subtitle}</span>
       </div>
-      <span className="font-mono text-[8px] text-textPrimary/40 tracking-[0.15em] uppercase">{project.kind}</span>
+      <span className="font-mono text-[8px] text-textPrimary/40 tracking-[0.15em] uppercase">
+        {project.kind}
+      </span>
     </div>
     <p className="text-[12.5px] text-gray-400 leading-relaxed my-2.5 mb-3">{project.description}</p>
 
@@ -235,9 +252,11 @@ const ProjectInfoBar: React.FC<{ project: WorkProject; index: number; company: W
         { k: 'LH', v: project.metrics.lh },
         { k: 'BUILD', v: project.metrics.build },
         { k: 'DEPS', v: project.metrics.deps },
-      ].map((m) => (
+      ].map(m => (
         <div key={m.k} className="flex items-baseline gap-1.5">
-          <span className="font-mono text-[7px] text-textPrimary/35 tracking-[0.2em] uppercase">{m.k}</span>
+          <span className="font-mono text-[7px] text-textPrimary/35 tracking-[0.2em] uppercase">
+            {m.k}
+          </span>
           <span className="font-mono text-[11px] text-light font-bold tracking-wider">{m.v}</span>
         </div>
       ))}
@@ -245,20 +264,29 @@ const ProjectInfoBar: React.FC<{ project: WorkProject; index: number; company: W
   </div>
 );
 
-// ─── THUMB ───────────────────────────────────────────────────────────────────
-const ThumbButton: React.FC<{ project: WorkProject; index: number; isActive: boolean; onClick: () => void }> = ({
-  project, index, isActive, onClick,
-}) => (
-  <button onClick={onClick} className="relative p-0 border-0 bg-transparent cursor-pointer text-left transition-transform">
+const ThumbButton: React.FC<{
+  project: WorkProject;
+  index: number;
+  isActive: boolean;
+  onClick: () => void;
+}> = ({ project, index, isActive, onClick }) => (
+  <button
+    onClick={onClick}
+    className="relative p-0 border-0 bg-transparent cursor-pointer text-left transition-transform"
+  >
     <div
       className={`relative h-24 overflow-hidden border transition-all ${isActive ? 'border-textPrimary/55' : 'border-textPrimary/15'}`}
       style={{
-        backgroundImage: project.imgback && !project.imgback.match(/\.gif$/i) ? `url(${project.imgback})` : undefined,
+        backgroundImage:
+          project.imgback && !project.imgback.match(/\.gif$/i)
+            ? `url(${project.imgback})`
+            : undefined,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundColor: '#0a0825',
         boxShadow: isActive ? '0 0 20px rgba(210,143,255,0.28)' : 'none',
-        clipPath: 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
+        clipPath:
+          'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
       }}
     >
       {project.imgback?.match(/\.gif$/i) && (
@@ -269,7 +297,8 @@ const ThumbButton: React.FC<{ project: WorkProject; index: number; isActive: boo
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: 'repeating-linear-gradient(135deg, rgba(210,143,255,0.05) 0 6px, transparent 6px 14px), linear-gradient(180deg, #0a0825 0%, #0d0b2e 100%)',
+            backgroundImage:
+              'repeating-linear-gradient(135deg, rgba(210,143,255,0.05) 0 6px, transparent 6px 14px), linear-gradient(180deg, #0a0825 0%, #0d0b2e 100%)',
           }}
         />
       )}
@@ -282,17 +311,29 @@ const ThumbButton: React.FC<{ project: WorkProject; index: number; isActive: boo
         }}
       />
       {isActive && (
-        <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-textPrimary animate-pulse" style={{ boxShadow: '0 0 8px #d28fff' }} />
+        <span
+          className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-textPrimary animate-pulse"
+          style={{ boxShadow: '0 0 8px #d28fff' }}
+        />
       )}
       <div className="absolute inset-0 p-2.5 flex flex-col justify-between">
-        <span className={`font-mono text-[7px] tracking-[0.15em] uppercase ${isActive ? 'text-textPrimary/85' : 'text-textPrimary/40'}`}>
-          {'#'}{String(index + 1).padStart(2, '0')}{' · '}{project.kind}
+        <span
+          className={`font-mono text-[7px] tracking-[0.15em] uppercase ${isActive ? 'text-textPrimary/85' : 'text-textPrimary/40'}`}
+        >
+          {'#'}
+          {String(index + 1).padStart(2, '0')}
+          {' · '}
+          {project.kind}
         </span>
         <div>
-          <div className={`text-[13px] font-semibold tracking-tight ${isActive ? 'text-white' : 'text-gray-300'}`}>
+          <div
+            className={`text-[13px] font-semibold tracking-tight ${isActive ? 'text-white' : 'text-gray-300'}`}
+          >
             {project.title}
           </div>
-          <span className={`block font-mono text-[7px] mt-0.5 tracking-wide ${isActive ? 'text-textPrimary/65' : 'text-gray-400/60'}`}>
+          <span
+            className={`block font-mono text-[7px] mt-0.5 tracking-wide ${isActive ? 'text-textPrimary/65' : 'text-gray-400/60'}`}
+          >
             {project.subtitle}
           </span>
         </div>

@@ -88,7 +88,6 @@ export const tags = [
   { id: 5, name: 'Flutter', icon: '/stack/flutter.svg' },
 ];
 
-// ─────────── Nueva estructura: por empresa ───────────
 export type CompanyStatus = 'ACTIVE' | 'ARCHIVED';
 
 export interface WorkProjectMetrics {
