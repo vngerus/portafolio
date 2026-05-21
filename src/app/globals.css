@@ -114,3 +114,34 @@ body {
   pointer-events: none;
 }
 
+@keyframes op-pin-drop {
+  0%   { transform: translate(-50%, -90px); opacity: 0; }
+  50%  { opacity: 1; }
+  80%  { transform: translate(-50%, 6px); opacity: 1; }
+  100% { transform: translate(-50%, 0); opacity: 1; }
+}
+
+@keyframes op-pin-ripple {
+  0%   { transform: translate(-50%, -50%) scale(0.4); opacity: 0.9; border-color: #d28fff; }
+  100% { transform: translate(-50%, -50%) scale(3.2); opacity: 0; border-color: rgba(210, 143, 255, 0); }
+}
+
+.project-thumbs-strip::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes op-card-swap {
+  0%   { filter: brightness(1.6) blur(3px) saturate(0.4); opacity: 0.7; }
+  30%  { filter: brightness(1.2) blur(1px) saturate(0.7); opacity: 0.9; }
+  100% { filter: brightness(1) blur(0px) saturate(1); opacity: 1; }
+}
+
+.animate-card-swap {
+  animation: op-card-swap 0.45s ease-out both;
+}
+
+@keyframes op-sweep-bar {
+  0%   { top: -2px; opacity: 0.9; }
+  85%  { opacity: 0.6; }
+  100% { top: 100%; opacity: 0; }
+}
