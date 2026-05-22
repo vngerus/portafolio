@@ -20,7 +20,6 @@
     "next": "^16.2.6",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
-    "react-element-to-jsx-string": "^15.0.0",
     "react-icons": "^5.6.0",
     "react-responsive": "^10.0.1",
     "resend": "^6.12.3",
@@ -42,7 +41,14 @@
     "tailwindcss": "^4.3.0",
     "typescript": "^6.0.3"
   },
-  "overrides": {
-    "postcss": "^8.5.15"
-  }
+  "pnpm": {
+    "overrides": {
+      "postcss": "^8.5.15"
+    },
+    "ignoredBuiltDependencies": [
+      "sharp",
+      "unrs-resolver"
+    ]
+  },
+  "packageManager": "pnpm@10.33.4"
 }
