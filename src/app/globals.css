@@ -114,3 +114,82 @@ body {
   pointer-events: none;
 }
 
+@keyframes op-pin-drop {
+  0%   { transform: translate(-50%, -90px); opacity: 0; }
+  50%  { opacity: 1; }
+  80%  { transform: translate(-50%, 6px); opacity: 1; }
+  100% { transform: translate(-50%, 0); opacity: 1; }
+}
+
+@keyframes op-pin-ripple {
+  0%   { transform: translate(-50%, -50%) scale(0.4); opacity: 0.9; border-color: #d28fff; }
+  100% { transform: translate(-50%, -50%) scale(3.2); opacity: 0; border-color: rgba(210, 143, 255, 0); }
+}
+
+.project-thumbs-strip::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes op-card-swap {
+  0%   { filter: brightness(1.6) blur(3px) saturate(0.4); opacity: 0.7; }
+  30%  { filter: brightness(1.2) blur(1px) saturate(0.7); opacity: 0.9; }
+  100% { filter: brightness(1) blur(0px) saturate(1); opacity: 1; }
+}
+
+.animate-card-swap {
+  animation: op-card-swap 0.45s ease-out both;
+}
+
+@keyframes op-sweep-bar {
+  0%   { top: -2px; opacity: 0.9; }
+  85%  { opacity: 0.6; }
+  100% { top: 100%; opacity: 0; }
+}
+
+@keyframes op-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes op-boot-on {
+  0%   { opacity: 0; filter: brightness(2) blur(4px); transform: translateY(10px); }
+  100% { opacity: 1; filter: brightness(1) blur(0); transform: translateY(0); }
+}
+
+@keyframes op-fade {
+  0%   { opacity: 0; transform: translateX(-8px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes op-trace-grow {
+  0%   { transform: scaleY(0) scaleX(1); }
+  100% { transform: scaleY(1) scaleX(1); }
+}
+
+@keyframes op-flip-pulse {
+  0%, 100% { opacity: 0.55; }
+  50%       { opacity: 1; }
+}
+
+@keyframes op-flip-rotate {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.exp-card-host:hover .exp-face {
+  border-color: rgba(210, 143, 255, 0.45) !important;
+  box-shadow: 0 0 28px rgba(210, 143, 255, 0.18), 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+.exp-card-host:hover .exp-card-scan {
+  opacity: 1 !important;
+}
+
+@keyframes at-ring {
+  0%   { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) scale(4.5); opacity: 0; }
+}
+
+@keyframes at-danger-pulse {
+  0%, 100% { opacity: 0.06; }
+  50%       { opacity: 0.2; }
+}

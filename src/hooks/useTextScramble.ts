@@ -4,9 +4,6 @@ import { useEffect, useRef, useState } from 'react';
 const KATAKANA = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
 const ALL_CHARS = KATAKANA + '01!@#$%^&*<>?/\\|{}[]';
 
-// ── Load-time scramble (SSR-safe) ───────────────────────────────────────────
-// Initializes with `target` so SSR and first client render match.
-// After mount, scrambles from random chars → resolves to target.
 export function useTextScramble(target: string, duration = 1200, startDelay = 300) {
     const [display, setDisplay] = useState(target);
 
@@ -15,7 +12,6 @@ export function useTextScramble(target: string, duration = 1200, startDelay = 30
         let rafId: number;
         const totalFrames = duration / 16;
 
-        // Immediately show scrambled state (client-only, post-hydration)
         setDisplay(randomString(target.length));
 
         const tick = () => {
@@ -54,10 +50,6 @@ export function useTextScramble(target: string, duration = 1200, startDelay = 30
     return display;
 }
 
-// ── Hover scramble ──────────────────────────────────────────────────────────
-// On hover: mixes katakana INTO the original chars (~60% replaced randomly).
-// On leave: progressively resolves back to the original left-to-right.
-// Width is stable because caller must use monospace font + fixed width.
 export function useHoverScramble(target: string) {
     const [display, setDisplay] = useState(target);
     const rafRef = useRef<number | null>(null);
@@ -90,7 +82,7 @@ export function useHoverScramble(target: string) {
     const onMouseLeave = () => {
         cancel();
         let frame = 0;
-        const total = 20; // frames to resolve
+        const total = 20;
         const tick = () => {
             frame++;
             const revealed = Math.floor((frame / total) * target.length);
