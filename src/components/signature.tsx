@@ -153,7 +153,6 @@ const Signature: React.FC = () => {
   const handleMouseMove = useCallback((e: MouseEvent) => {
     if (phaseRef.current !== 'active') return;
 
-    // Mapear cursor X a rotación Y: izquierda = +0.35, derecha = -0.35
     const normalized = (e.clientX / window.innerWidth) * 2 - 1;
     targetRotYRef.current = -normalized * 0.35 + 0.05;
 
@@ -308,8 +307,6 @@ const Signature: React.FC = () => {
         >
           <Canvas camera={{ position: [0, 0, 12], fov: 50 }}>
             <ambientLight intensity={1.4} />
-            {/* FollowGroup intercepta el useFrame del Canvas
-                            y lerp la rotación Y del gato hacia el cursor */}
             <FollowGroup targetRef={targetRotYRef} enabled={phase === 'active'}>
               <BananaCat
                 actionName={actionName}

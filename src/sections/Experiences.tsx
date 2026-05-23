@@ -5,7 +5,6 @@ import { motion, useScroll, useSpring } from 'motion/react';
 import { experiences, type Experience, type ExperienceHighlight } from '@/data';
 import SysLabel from '@/components/SysLabel';
 
-// ── Tech categorization ──────────────────────────────────────────────────────
 const TECH_CATEGORIES: Record<string, string> = {
   'Next.js': 'FRONTEND', 'React': 'FRONTEND', 'Tailwind CSS': 'FRONTEND',
   'JavaScript': 'FRONTEND', 'TypeScript': 'FRONTEND', 'ElectronJS': 'FRONTEND',
@@ -34,14 +33,12 @@ function groupTech(tech: string[]) {
   return ordered;
 }
 
-// ── Flip behavior hook ───────────────────────────────────────────────────────
 function useFlipBehavior() {
   const [isFlipped, setIsFlipped] = useState(false);
   const handleClick = () => setIsFlipped((v) => !v);
   return { isFlipped, handleClick };
 }
 
-// ── SyncGauge ────────────────────────────────────────────────────────────────
 const SyncGauge: React.FC<{ value: number; size?: number }> = ({ value, size = 32 }) => {
   const r = (size - 6) / 2;
   const C = 2 * Math.PI * r;
@@ -66,16 +63,13 @@ const SyncGauge: React.FC<{ value: number; size?: number }> = ({ value, size = 3
   );
 };
 
-// ── HoverOverlay — alertas EVA al poner el puntero en el escudo ──────────────
 const S = { fontFamily: '"JetBrains Mono", monospace' as const };
 const amber = (a: number) => `rgba(255,200,50,${a})`;
 
 const HoverOverlay: React.FC<{ syncRate: number }> = ({ syncRate }) => (
   <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 24, overflow: 'hidden', ...S, animation: 'op-fade 0.2s ease both' }}>
-    {/* scan amber */}
     <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: `linear-gradient(90deg, transparent, ${amber(0.6)}, transparent)`, animation: 'at-danger-pulse 0.8s ease-in-out infinite' }} />
 
-    {/* sup izq */}
     <div style={{ position: 'absolute', top: 8, left: 10, display: 'flex', flexDirection: 'column', gap: 2.5 }}>
       <span style={{ fontSize: 7, color: amber(0.95), letterSpacing: '0.22em', textTransform: 'uppercase', animation: 'op-blink 0.75s steps(1) infinite' }}>◆ LEVEL 1 ALERT ◆</span>
       <span style={{ fontSize: 6.5, color: amber(0.65), letterSpacing: '0.18em', textTransform: 'uppercase' }}>◇ FIRST PRIORITY ALARM</span>
@@ -84,7 +78,6 @@ const HoverOverlay: React.FC<{ syncRate: number }> = ({ syncRate }) => (
       <span style={{ fontSize: 6, color: amber(0.28), letterSpacing: '0.14em', textTransform: 'uppercase', animation: 'op-blink 1.4s steps(1) 0.4s infinite' }}>▸ UMBILICAL CABLE · STANDBY</span>
     </div>
 
-    {/* sup der */}
     <div style={{ position: 'absolute', top: 8, right: 10, textAlign: 'right', display: 'flex', flexDirection: 'column', gap: 2.5 }}>
       <span style={{ fontSize: 7, color: amber(0.95), letterSpacing: '0.22em', textTransform: 'uppercase', animation: 'op-blink 0.75s steps(1) 0.38s infinite' }}>◆ PATTERN BLUE ◆</span>
       <span style={{ fontSize: 6.5, color: amber(0.65), letterSpacing: '0.18em', textTransform: 'uppercase' }}>パターン青 · 接触確認 ◇</span>
@@ -93,19 +86,16 @@ const HoverOverlay: React.FC<{ syncRate: number }> = ({ syncRate }) => (
       <span style={{ fontSize: 6, color: amber(0.28), letterSpacing: '0.14em', textTransform: 'uppercase', animation: 'op-blink 1.5s steps(1) 0.5s infinite' }}>◁ MAGI CONSENSUS · LOST</span>
     </div>
 
-    {/* centro */}
     <div style={{ position: 'absolute', top: '35%', left: 0, right: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 5 }}>
       <span style={{ fontSize: 11, fontWeight: 700, color: amber(0.2), letterSpacing: '0.28em', textTransform: 'uppercase', animation: 'at-danger-pulse 0.6s ease-in-out infinite' }}>◆ REFUSAL CONFIRMED ◆</span>
       <span style={{ fontSize: 7, color: amber(0.15), letterSpacing: '0.26em', textTransform: 'uppercase' }}>WARNING KEYCODE: ██████</span>
       <span style={{ fontSize: 6.5, color: amber(0.11), letterSpacing: '0.22em', textTransform: 'uppercase', animation: 'op-blink 1.5s steps(1) infinite' }}>◇ ABORT · ABORT · ABORT ◇</span>
     </div>
 
-    {/* CTA centrado — instrucción al usuario */}
     <div style={{ position: 'absolute', bottom: '28%', left: 0, right: 0, display: 'flex', justifyContent: 'center' }}>
       <span style={{ fontSize: 8, fontWeight: 700, color: amber(0.55), letterSpacing: '0.3em', textTransform: 'uppercase', animation: 'op-blink 0.9s steps(1) infinite', border: `1px solid ${amber(0.3)}`, padding: '3px 10px' }}>◆ CLICK · FLIP CARD ◆</span>
     </div>
 
-    {/* inf izq */}
     <div style={{ position: 'absolute', bottom: 10, left: 10, display: 'flex', flexDirection: 'column', gap: 2.5 }}>
       <span style={{ fontSize: 7, color: amber(0.7), letterSpacing: '0.18em', textTransform: 'uppercase' }}>◈ AUTO MODE CANCELED</span>
       <span style={{ fontSize: 6.5, color: amber(0.5), letterSpacing: '0.16em', textTransform: 'uppercase', animation: 'op-blink 1.3s steps(1) infinite' }}>▸ A.T. FIELD · EXPANDING</span>
@@ -113,7 +103,6 @@ const HoverOverlay: React.FC<{ syncRate: number }> = ({ syncRate }) => (
       <span style={{ fontSize: 6, color: amber(0.25), letterSpacing: '0.14em', textTransform: 'uppercase', animation: 'op-blink 0.9s steps(1) 0.3s infinite' }}>EVANGELION · UNIT STANDBY</span>
     </div>
 
-    {/* inf der */}
     <div style={{ position: 'absolute', bottom: 10, right: 10, textAlign: 'right', display: 'flex', flexDirection: 'column', gap: 2.5, alignItems: 'flex-end' }}>
       <div style={{ fontSize: 20, fontWeight: 700, color: amber(0.45), lineHeight: 1, animation: 'at-danger-pulse 0.7s ease-in-out infinite' }}>{syncRate}%</div>
       <div style={{ fontSize: 6.5, color: amber(0.35), letterSpacing: '0.18em', textTransform: 'uppercase' }}>◈ SYNC RATE</div>
@@ -123,27 +112,22 @@ const HoverOverlay: React.FC<{ syncRate: number }> = ({ syncRate }) => (
   </div>
 );
 
-// ── DangerOverlay — pantalla NERV roja estilo Evangelion ─────────────────────
 const red = (a: number) => `rgba(255,50,50,${a})`;
 
 const DangerOverlay: React.FC<{ syncRate: number }> = ({ syncRate }) => (
   <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 25, overflow: 'hidden', ...S }}>
-    {/* sweep rojo */}
     <div style={{ position: 'absolute', left: 0, right: 0, height: 2, background: `linear-gradient(90deg, transparent, ${red(0.8)}, transparent)`, animation: 'op-sweep-bar 1.1s linear infinite' }} />
 
-    {/* DANGER watermark */}
     <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <span style={{ fontSize: 58, fontWeight: 900, color: red(0.13), letterSpacing: '0.04em', textTransform: 'uppercase', animation: 'at-danger-pulse 0.4s ease-in-out infinite', userSelect: 'none' }}>DANGER</span>
     </div>
 
-    {/* banda WARNING repetida */}
     <div style={{ position: 'absolute', top: '43%', left: 0, right: 0, overflow: 'hidden', whiteSpace: 'nowrap' }}>
       <span style={{ fontSize: 7, color: red(0.07), letterSpacing: '0.5em', textTransform: 'uppercase', animation: 'at-danger-pulse 0.3s ease-in-out infinite alternate' }}>
         {'◆ WARNING ◆ '.repeat(18)}
       </span>
     </div>
 
-    {/* sup izq */}
     <div style={{ position: 'absolute', top: 8, left: 10, display: 'flex', flexDirection: 'column', gap: 2.5 }}>
       <span style={{ fontSize: 7.5, color: red(0.95), letterSpacing: '0.22em', textTransform: 'uppercase', animation: 'op-blink 0.5s steps(1) infinite' }}>◆ CRITICAL ALERT ◆</span>
       <span style={{ fontSize: 6.5, color: red(0.7), letterSpacing: '0.18em', textTransform: 'uppercase' }}>◇ AT FIELD · NEUTRALIZED</span>
@@ -151,7 +135,6 @@ const DangerOverlay: React.FC<{ syncRate: number }> = ({ syncRate }) => (
       <span style={{ fontSize: 6, color: red(0.38), letterSpacing: '0.14em', textTransform: 'uppercase' }}>▸ CORE EXPOSED · BREACH LV.3</span>
     </div>
 
-    {/* sup der */}
     <div style={{ position: 'absolute', top: 8, right: 10, textAlign: 'right', display: 'flex', flexDirection: 'column', gap: 2.5 }}>
       <span style={{ fontSize: 7.5, color: red(0.95), letterSpacing: '0.22em', textTransform: 'uppercase', animation: 'op-blink 0.5s steps(1) 0.25s infinite' }}>◆ PATTERN BLUE ◆</span>
       <span style={{ fontSize: 6.5, color: red(0.7), letterSpacing: '0.18em', textTransform: 'uppercase' }}>危険 · DANGER ◇</span>
@@ -159,12 +142,10 @@ const DangerOverlay: React.FC<{ syncRate: number }> = ({ syncRate }) => (
       <span style={{ fontSize: 6, color: red(0.38), letterSpacing: '0.14em', textTransform: 'uppercase' }}>◁ POSITRON LOCK · LOST</span>
     </div>
 
-    {/* CTA centrado — restaurar */}
     <div style={{ position: 'absolute', bottom: '28%', left: 0, right: 0, display: 'flex', justifyContent: 'center' }}>
       <span style={{ fontSize: 8, fontWeight: 700, color: red(0.85), letterSpacing: '0.28em', textTransform: 'uppercase', animation: 'op-blink 0.6s steps(1) infinite', border: `1px solid ${red(0.5)}`, padding: '3px 12px' }}>◆ CLICK · RESTORE CARD ◆</span>
     </div>
 
-    {/* inf izq */}
     <div style={{ position: 'absolute', bottom: 10, left: 10, display: 'flex', flexDirection: 'column', gap: 2.5 }}>
       <span style={{ fontSize: 7.5, color: red(0.8), letterSpacing: '0.18em', textTransform: 'uppercase' }}>◈ AT FIELD · DETECTED</span>
       <span style={{ fontSize: 7, color: red(0.55), letterSpacing: '0.16em', textTransform: 'uppercase' }}>▸ PATTERN BLUE · 使徒接触</span>
@@ -172,7 +153,6 @@ const DangerOverlay: React.FC<{ syncRate: number }> = ({ syncRate }) => (
       <span style={{ fontSize: 6, color: red(0.3), letterSpacing: '0.13em', textTransform: 'uppercase', animation: 'op-blink 0.8s steps(1) 0.4s infinite' }}>◈ 第3新東京市 · EVACUATE</span>
     </div>
 
-    {/* inf der */}
     <div style={{ position: 'absolute', bottom: 10, right: 10, textAlign: 'right', display: 'flex', flexDirection: 'column', gap: 2.5, alignItems: 'flex-end' }}>
       <div style={{ fontSize: 22, fontWeight: 700, color: red(0.55), lineHeight: 1, animation: 'at-danger-pulse 0.55s ease-in-out infinite' }}>{syncRate}%</div>
       <div style={{ fontSize: 6.5, color: red(0.45), letterSpacing: '0.18em', textTransform: 'uppercase' }}>◈ SYNC RATE</div>
@@ -182,7 +162,6 @@ const DangerOverlay: React.FC<{ syncRate: number }> = ({ syncRate }) => (
   </div>
 );
 
-// ── ATShield — escudo AT de Evangelion, activado por click ────────────────────
 const ATShield: React.FC<{ active: boolean; onClick: () => void; onHover: (v: boolean) => void }> = ({ active, onClick, onHover }) => {
   const tone = active ? 'rgba(255,80,80,0.85)' : 'rgba(210,143,255,0.7)';
   const glow = active
@@ -218,7 +197,6 @@ const ATShield: React.FC<{ active: boolean; onClick: () => void; onHover: (v: bo
   );
 };
 
-// ── RichHeader ───────────────────────────────────────────────────────────────
 const RichHeader: React.FC<{ exp: Experience }> = ({ exp }) => {
   const isActive = exp.status === 'ACTIVE';
   return (
@@ -243,7 +221,6 @@ const RichHeader: React.FC<{ exp: Experience }> = ({ exp }) => {
   );
 };
 
-// ── InfoStrip ────────────────────────────────────────────────────────────────
 const InfoStrip: React.FC<{ exp: Experience }> = ({ exp }) => (
   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 6, marginBottom: 14 }}>
     {[
@@ -259,7 +236,6 @@ const InfoStrip: React.FC<{ exp: Experience }> = ({ exp }) => (
   </div>
 );
 
-// ── KpiBar ───────────────────────────────────────────────────────────────────
 const KpiBar: React.FC<{ exp: Experience }> = ({ exp }) => (
   <div style={{ display: 'flex', gap: 14, padding: '8px 12px', border: '1px solid rgba(210,143,255,0.18)', background: 'rgba(45,14,65,0.2)', clipPath: 'polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px)', alignItems: 'baseline', justifyContent: 'space-between' }}>
     {[
@@ -278,7 +254,6 @@ const KpiBar: React.FC<{ exp: Experience }> = ({ exp }) => (
   </div>
 );
 
-// ── HighlightRow ─────────────────────────────────────────────────────────────
 const HighlightRow: React.FC<{ h: ExperienceHighlight; i: number; total: number }> = ({ h, i, total }) => {
   const color = SEV_COLOR[h.severity] ?? SEV_COLOR.info;
   return (
@@ -297,7 +272,6 @@ const HighlightRow: React.FC<{ h: ExperienceHighlight; i: number; total: number 
   );
 };
 
-// ── ProjectRow ───────────────────────────────────────────────────────────────
 const ProjectRow: React.FC<{ name: string; i: number; total: number }> = ({ name, i, total }) => (
   <div style={{ display: 'grid', gridTemplateColumns: '28px 3px 1fr', gap: 10, alignItems: 'stretch', animation: `op-fade 0.45s ease ${i * 0.06}s both`, paddingBottom: 7, borderBottom: i < total - 1 ? '1px dashed rgba(62,201,216,0.1)' : 'none' }}>
     <span style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 8, color: 'rgba(210,143,255,0.35)', alignSelf: 'center', letterSpacing: '0.1em' }}>
@@ -308,7 +282,6 @@ const ProjectRow: React.FC<{ name: string; i: number; total: number }> = ({ name
   </div>
 );
 
-// ── TechGroup ────────────────────────────────────────────────────────────────
 const TechGroup: React.FC<{ label: string; items: string[]; tone: string }> = ({ label, items, tone }) => (
   <div style={{ marginBottom: 10 }}>
     <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 5 }}>
@@ -327,7 +300,6 @@ const TechGroup: React.FC<{ label: string; items: string[]; tone: string }> = ({
   </div>
 );
 
-// ── SigilCol ─────────────────────────────────────────────────────────────────
 const SigilCol: React.FC<{ exp: Experience; maxDuration: number }> = ({ exp, maxDuration }) => (
   <div style={{ width: 110, flexShrink: 0, borderRight: '1px solid rgba(55,65,81,0.5)', background: 'linear-gradient(180deg, rgba(45,14,65,0.35) 0%, rgba(10,8,37,0.6) 100%)', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '18px 8px', gap: 12, position: 'relative' }}>
     <div style={{ position: 'relative', width: 70, height: 70, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -364,7 +336,6 @@ const SigilCol: React.FC<{ exp: Experience; maxDuration: number }> = ({ exp, max
   </div>
 );
 
-// ── FrontBody ────────────────────────────────────────────────────────────────
 const FrontBody: React.FC<{ exp: Experience; atDanger: boolean; atHover: boolean; onAtClick: () => void; onAtHover: (v: boolean) => void }> = ({ exp, atDanger, atHover, onAtClick, onAtHover }) => (
   <div style={{ position: 'relative', padding: '16px 20px', flex: 1, ...DOT_BG }}>
     <div className="exp-card-scan" style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none', opacity: 0, transition: 'opacity 0.3s ease' }}>
@@ -405,7 +376,6 @@ const FrontBody: React.FC<{ exp: Experience; atDanger: boolean; atHover: boolean
   </div>
 );
 
-// ── BackBody ─────────────────────────────────────────────────────────────────
 const BackBody: React.FC<{ exp: Experience }> = ({ exp }) => {
   const grouped = groupTech(exp.tech);
   return (
@@ -457,7 +427,6 @@ const BackBody: React.FC<{ exp: Experience }> = ({ exp }) => {
   );
 };
 
-// ── ExperienceCard ───────────────────────────────────────────────────────────
 const ExperienceCard: React.FC<{ exp: Experience; index: number; maxDuration: number }> = ({ exp, index, maxDuration }) => {
   const { isFlipped, handleClick } = useFlipBehavior();
   const [atDanger, setAtDanger] = useState(false);
@@ -512,7 +481,6 @@ const ExperienceCard: React.FC<{ exp: Experience; index: number; maxDuration: nu
   );
 };
 
-// ── Experiences section ───────────────────────────────────────────────────────
 const Experiences: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ['start 75%', 'end 30%'] });
