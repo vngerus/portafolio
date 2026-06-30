@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { motion, AnimatePresence } from 'motion/react';
 import { useTextScramble } from '@/hooks/useTextScramble';
+import { LiveClock } from '@/components/nerv/primitives';
 
 const NAV_LINKS = [
   { label: 'Exp', num: '01', href: 'experiences' },
@@ -20,7 +21,7 @@ const NavLink: React.FC<{
   href: string;
   isActive: boolean;
   onClick: () => void;
-}> = ({ label, num, href, isActive, onClick }) => {
+}> = ({ label, num, isActive, onClick }) => {
   const [numDisplay, setNumDisplay] = useState(num);
   const loopRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const countRef = useRef(0);
@@ -42,18 +43,12 @@ const NavLink: React.FC<{
       }
     }, 45);
   };
-
   const onMouseLeave = () => {
     if (loopRef.current) clearInterval(loopRef.current);
     setNumDisplay(num);
   };
 
-  useEffect(
-    () => () => {
-      if (loopRef.current) clearInterval(loopRef.current);
-    },
-    [],
-  );
+  useEffect(() => () => { if (loopRef.current) clearInterval(loopRef.current); }, []);
 
   return (
     <li className="relative">
@@ -89,6 +84,7 @@ const Header: React.FC = () => {
   const headerRef = useRef<HTMLElement>(null);
   const [activeSection, setActiveSection] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const logoText = useTextScramble('vngerus', 1400, 600);
 
   useEffect(() => {
@@ -107,15 +103,23 @@ const Header: React.FC = () => {
       const el = document.getElementById(href);
       if (!el) return;
       const obs = new IntersectionObserver(
-        ([e]) => {
-          if (e.isIntersecting) setActiveSection(href);
-        },
+        ([e]) => { if (e.isIntersecting) setActiveSection(href); },
         { threshold: 0.25 },
       );
       obs.observe(el);
       observers.push(obs);
     });
     return () => observers.forEach(o => o.disconnect());
+  }, []);
+
+  useEffect(() => {
+    const update = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(max > 0 ? Math.min(window.scrollY / max, 1) : 0);
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    return () => window.removeEventListener('scroll', update);
   }, []);
 
   const scrollTo = (id: string) => {
@@ -131,7 +135,7 @@ const Header: React.FC = () => {
       <nav className="flex items-center justify-between max-w-300 mx-auto px-6 py-4">
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="font-jetbrains text-textPrimary font-bold text-xl tracking-[0.25em] hover:text-accentWhite transition-colors select-none"
+          className="font-jetbrains text-textPrimary font-bold text-xl tracking-[0.25em] hover:text-accentWhite transition-colors select-none min-w-[100px] text-left"
           aria-label="Inicio"
           suppressHydrationWarning
         >
@@ -149,6 +153,10 @@ const Header: React.FC = () => {
           ))}
         </ul>
 
+        <div className="hidden md:flex items-center gap-4">
+          <LiveClock />
+        </div>
+
         <button
           className="md:hidden flex flex-col gap-1.5 p-2"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -159,11 +167,7 @@ const Header: React.FC = () => {
               key={i}
               animate={
                 menuOpen
-                  ? i === 0
-                    ? { rotate: 45, y: 8 }
-                    : i === 1
-                      ? { opacity: 0 }
-                      : { rotate: -45, y: -8 }
+                  ? i === 0 ? { rotate: 45, y: 8 } : i === 1 ? { opacity: 0 } : { rotate: -45, y: -8 }
                   : { rotate: 0, y: 0, opacity: 1 }
               }
               className="block w-6 h-0.5 bg-textPrimary"
@@ -172,6 +176,17 @@ const Header: React.FC = () => {
           ))}
         </button>
       </nav>
+
+      <div className="relative h-[1.5px] bg-textPrimary/[0.04]">
+        <div
+          className="absolute top-0 left-0 h-full bg-textPrimary"
+          style={{
+            width: `${scrollProgress * 100}%`,
+            boxShadow: '0 0 6px rgba(210,143,255,0.5)',
+            transition: 'width 0.15s ease-out',
+          }}
+        />
+      </div>
 
       <AnimatePresence>
         {menuOpen && (

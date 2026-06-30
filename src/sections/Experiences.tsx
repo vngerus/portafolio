@@ -176,7 +176,7 @@ const ATShield: React.FC<{ active: boolean; onClick: () => void; onHover: (v: bo
       style={{ position: 'relative', display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: 5, cursor: 'pointer', animation: active ? undefined : 'op-flip-pulse 2.4s ease-in-out infinite' }}
     >
       {active && [0, 0.3, 0.6].map((delay) => (
-        <div key={delay} style={{ position: 'absolute', top: '50%', left: '50%', width: 56, height: 56, borderRadius: '50%', border: '1.5px solid rgba(255,60,60,0.7)', pointerEvents: 'none', animation: `at-ring 1s ease-out ${delay}s infinite` }} />
+        <div key={delay} style={{ position: 'absolute', top: '50%', left: '50%', width: 56, height: 56, borderRadius: '50%', border: '1.5px solid rgba(255,60,60,0.7)', pointerEvents: 'none', transform: 'translate(-50%, -50%)', animation: `at-ring 1s ease-out ${delay}s infinite` }} />
       ))}
       <svg
         width="44" height="50" viewBox="0 0 44 50" fill="none"
@@ -434,7 +434,13 @@ const ExperienceCard: React.FC<{ exp: Experience; index: number; maxDuration: nu
 
   useEffect(() => {
     if (!atHover || atDanger) return;
-    const timer = setTimeout(() => setAtDanger(true), 1500);
+    const timer = setTimeout(() => setAtDanger(true), 2000);
+    return () => clearTimeout(timer);
+  }, [atHover, atDanger]);
+
+  useEffect(() => {
+    if (atHover || !atDanger) return;
+    const timer = setTimeout(() => setAtDanger(false), 500);
     return () => clearTimeout(timer);
   }, [atHover, atDanger]);
 

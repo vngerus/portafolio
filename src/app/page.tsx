@@ -7,10 +7,13 @@ import Projects from '@/sections/Projects';
 import About from '@/sections/About';
 import Contact from '@/sections/Contact';
 import Footer from '@/sections/Footer';
+import { DiamondGrid } from '@/components/nerv/primitives';
 
 export default function Home() {
   return (
     <div className="relative flex min-h-screen text-white bg-background">
+      <DiamondGrid opacity={0.04} size={80} variant="doubled" />
+      <DiamondGrid opacity={0.018} size={22} variant="thin" />
       <div className="hidden md:block">
         <Socials />
       </div>
