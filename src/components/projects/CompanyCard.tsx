@@ -145,7 +145,7 @@ const CompanyCard: React.FC<{ company: WorkCompany }> = ({ company }) => {
                   </span>
                 </div>
                 <SweepBar key={`sweep-${active}`} />
-                <AnimatedPin key={`pin-${active}`} />
+                <AnimatedPin key={`pin-${active}`} logo={current.imglogo} />
                 <div
                   className="absolute left-4.5 top-1/2 -translate-y-1/2 w-px h-15 z-25"
                   style={{

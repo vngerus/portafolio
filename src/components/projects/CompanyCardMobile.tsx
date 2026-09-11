@@ -115,7 +115,7 @@ const CompanyCardMobile: React.FC<{ company: WorkCompany }> = ({ company }) => {
           </div>
 
           <SweepBar key={`sweep-${active}`} />
-          <AnimatedPin key={`pin-${active}`} />
+          <AnimatedPin key={`pin-${active}`} logo={current.imglogo} />
         </div>
       </div>
 

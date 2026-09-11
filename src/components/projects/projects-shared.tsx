@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { motion } from 'motion/react';
+import Image from 'next/image';
 import type { CompanyStatus, WorkCompany, WorkProject } from '@/data';
 
 export const HoloOverlays: React.FC<{ intense?: boolean }> = ({ intense = true }) => (
@@ -171,7 +172,7 @@ export const SweepBar: React.FC = () => (
   />
 );
 
-export const AnimatedPin: React.FC = () => (
+export const AnimatedPin: React.FC<{ logo: string | null }> = ({ logo }) => (
   <div
     className="absolute left-1/2 top-0 pointer-events-none z-30 -translate-x-1/2"
     style={{ animation: 'op-pin-drop 0.7s cubic-bezier(.2,.6,.3,1.25) both' }}
@@ -188,19 +189,35 @@ export const AnimatedPin: React.FC = () => (
       className="absolute left-1/2 -translate-x-1/2 w-px h-15"
       style={{ top: -56, background: 'linear-gradient(180deg, transparent 0%, #d28fff 100%)' }}
     />
+
+    {/* logo flotando, animación de entrada suave */}
     <div
-      className="absolute left-1/2 top-0 w-2.5 h-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-textPrimary"
-      style={{ filter: 'blur(4px)' }}
-    />
-    <div
-      className="absolute left-1/2 top-0 w-1 h-1 -translate-x-1/2 -translate-y-1/2 rounded-full bg-textPrimary"
-      style={{ boxShadow: '0 0 12px #d28fff' }}
-    />
-    <div className="absolute left-1/2 top-0 w-0.5 h-0.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white" />
-    <div
-      className="absolute left-1/2 top-0 w-6 h-6 -translate-x-1/2 -translate-y-1/2 rounded-full border border-textPrimary"
-      style={{ animation: 'op-pin-ripple 0.8s ease-out 0.4s both' }}
-    />
+      className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center rounded-full border border-textPrimary/70 bg-background/90 overflow-hidden"
+      style={{
+        top: -84,
+        width: 26,
+        height: 26,
+        boxShadow: '0 0 14px rgba(210,143,255,0.65)',
+        animation: 'op-pin-drop 0.7s cubic-bezier(.2,.6,.3,1.25) both',
+      }}
+    >
+      {logo ? (
+        <Image src={logo} alt="" width={18} height={18} className="w-4.5 h-4.5 object-contain" />
+      ) : (
+        <span className="w-1.5 h-1.5 rounded-full bg-textPrimary" />
+      )}
+    </div>
+
+    {/* anillo elíptico en perspectiva, técnica de 3d-pin.tsx */}
+    <div style={{ perspective: '400px' }} className="relative w-14 h-5">
+      <div
+        className="absolute left-1/2 top-1/2 w-14 h-5 rounded-[50%] border border-textPrimary"
+        style={{
+          transform: 'translate(-50%, -50%) rotateX(70deg)',
+          animation: 'op-pin-ripple 0.8s ease-out 0.4s both',
+        }}
+      />
+    </div>
   </div>
 );
 
