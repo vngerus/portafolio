@@ -195,6 +195,7 @@ export interface WorkProject {
   techStack: number[];
   metrics: WorkProjectMetrics;
   dev?: boolean;
+  accentColor?: string;
 }
 
 export interface WorkCompany {
@@ -230,6 +231,7 @@ export const workCompanies: WorkCompany[] = [
           'Landing principal de Consultants in Blockchain. Diseño moderno alineado con la identidad blockchain, animaciones en scroll y secciones para destacar servicios y partners.',
         techStack: [1, 2, 3, 4],
         metrics: { lh: 96, build: '0.42s', deps: 18 },
+        accentColor: '#3ec9d8',
       },
       {
         title: 'Museum NFT',
@@ -243,6 +245,7 @@ export const workCompanies: WorkCompany[] = [
           'Plataforma para curaduría y exposición de colecciones NFT con preview interactivo, filtros por categoría y ficha técnica por pieza.',
         techStack: [6, 3, 2],
         metrics: { lh: 92, build: '0.61s', deps: 24 },
+        accentColor: '#ffc864',
       },
       {
         title: 'Iny App',
@@ -256,6 +259,7 @@ export const workCompanies: WorkCompany[] = [
           'Landing de alto rendimiento y prototipo navegable. Sistema de componentes reutilizables y flow móvil completo.',
         techStack: [1, 3, 2],
         metrics: { lh: 98, build: '0.31s', deps: 12 },
+        accentColor: '#b496ff',
       },
     ],
   },
@@ -280,6 +284,7 @@ export const workCompanies: WorkCompany[] = [
           'Explora rutas, humedales y áreas verdes cercanas a la ciudad. Promueve el redescubrimiento de espacios naturales y destaca la conservación de fauna autóctona.',
         techStack: [6, 3, 2, 4],
         metrics: { lh: 94, build: '0.55s', deps: 22 },
+        accentColor: '#3ec9d8',
       },
       {
         title: 'Banana Cat 3D',
@@ -293,6 +298,7 @@ export const workCompanies: WorkCompany[] = [
           'Modelo 3D animado en React Three Fiber con controles paramétricos, post-processing y carga progresiva.',
         techStack: [1, 3, 2],
         metrics: { lh: 89, build: '0.78s', deps: 32 },
+        accentColor: '#d28fff',
       },
       {
         title: 'Portfolio v2',
@@ -305,6 +311,7 @@ export const workCompanies: WorkCompany[] = [
           'Iteración con estética NERV: scanlines, telemetría y stack 3D para mostrar proyectos por empresa.',
         techStack: [6, 3, 2, 4],
         metrics: { lh: 97, build: '0.48s', deps: 20 },
+        accentColor: '#d28fff',
       },
     ],
   },

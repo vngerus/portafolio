@@ -10,6 +10,15 @@ import { HoloOverlays, MediaSlot, AnimatedPin, SweepBar, CompanyBanner } from '.
 const CARD_CLIP =
   'polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)';
 const TILT_DEG = 5;
+const DEFAULT_ACCENT = '#d28fff';
+
+function hexToRgba(hex: string, alpha: number) {
+  const h = hex.replace('#', '');
+  const r = parseInt(h.slice(0, 2), 16);
+  const g = parseInt(h.slice(2, 4), 16);
+  const b = parseInt(h.slice(4, 6), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
 
 interface Tilt {
   x: number;
@@ -23,6 +32,7 @@ const CompanyCard: React.FC<{ company: WorkCompany }> = ({ company }) => {
 
   const current = company.projects[active];
   if (!current) return null;
+  const accent = current?.accentColor ?? DEFAULT_ACCENT;
 
   const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -97,7 +107,7 @@ const CompanyCard: React.FC<{ company: WorkCompany }> = ({ company }) => {
                 <div
                   className="absolute inset-0 pointer-events-none z-22"
                   style={{
-                    background: `radial-gradient(circle at ${50 + tilt.x * 30}% ${50 + tilt.y * 30}%, rgba(210,143,255,0.18) 0%, transparent 45%)`,
+                    background: `radial-gradient(circle at ${50 + tilt.x * 30}% ${50 + tilt.y * 30}%, ${hexToRgba(accent, 0.18)} 0%, transparent 45%)`,
                     opacity: tilt.hover ? 1 : 0,
                     transition: 'opacity 0.4s ease',
                     mixBlendMode: 'screen',
@@ -139,19 +149,19 @@ const CompanyCard: React.FC<{ company: WorkCompany }> = ({ company }) => {
                 <div
                   className="absolute left-4.5 top-1/2 -translate-y-1/2 w-px h-15 z-25"
                   style={{
-                    background:
-                      'linear-gradient(180deg, transparent 0%, #d28fff 50%, transparent 100%)',
+                    background: `linear-gradient(180deg, transparent 0%, ${accent} 50%, transparent 100%)`,
                     opacity: tilt.hover ? 0.9 : 0.5,
                     transition: 'opacity 0.4s ease',
-                    boxShadow: '0 0 8px #d28fff',
+                    boxShadow: `0 0 8px ${accent}`,
                   }}
                 />
               </div>
             </div>{' '}
             <div
-              className="absolute left-4.5 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-textPrimary z-30"
+              className="absolute left-4.5 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full z-30"
               style={{
-                boxShadow: '0 0 12px #d28fff',
+                backgroundColor: accent,
+                boxShadow: `0 0 12px ${accent}`,
                 opacity: tilt.hover ? 1 : 0,
                 transition: 'opacity 0.4s ease',
               }}
