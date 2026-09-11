@@ -172,7 +172,10 @@ export const SweepBar: React.FC = () => (
   />
 );
 
-export const AnimatedPin: React.FC<{ logo: string | null }> = ({ logo }) => (
+export const AnimatedPin: React.FC<{ logo: string | null; accent?: string }> = ({
+  logo,
+  accent = '#d28fff',
+}) => (
   <div
     className="absolute left-1/2 top-0 pointer-events-none z-30 -translate-x-1/2"
     style={{ animation: 'op-pin-drop 0.7s cubic-bezier(.2,.6,.3,1.25) both' }}
@@ -181,13 +184,13 @@ export const AnimatedPin: React.FC<{ logo: string | null }> = ({ logo }) => (
       className="absolute left-1/2 -translate-x-1/2 w-0.5 h-15"
       style={{
         top: -56,
-        background: 'linear-gradient(180deg, transparent 0%, #d28fff 100%)',
+        background: `linear-gradient(180deg, transparent 0%, ${accent} 100%)`,
         filter: 'blur(2.5px)',
       }}
     />
     <div
       className="absolute left-1/2 -translate-x-1/2 w-px h-15"
-      style={{ top: -56, background: 'linear-gradient(180deg, transparent 0%, #d28fff 100%)' }}
+      style={{ top: -56, background: `linear-gradient(180deg, transparent 0%, ${accent} 100%)` }}
     />
 
     {/* logo flotando, animación de entrada suave */}
@@ -197,7 +200,7 @@ export const AnimatedPin: React.FC<{ logo: string | null }> = ({ logo }) => (
         top: -84,
         width: 26,
         height: 26,
-        boxShadow: '0 0 14px rgba(210,143,255,0.65)',
+        boxShadow: `0 0 14px ${accent}a6`,
         animation: 'op-pin-drop 0.7s cubic-bezier(.2,.6,.3,1.25) both',
       }}
     >
@@ -209,14 +212,16 @@ export const AnimatedPin: React.FC<{ logo: string | null }> = ({ logo }) => (
     </div>
 
     {/* anillo elíptico en perspectiva, técnica de 3d-pin.tsx */}
-    <div style={{ perspective: '400px' }} className="relative w-14 h-5">
+    <div style={{ perspective: '400px' }} className="absolute left-1/2 -translate-x-1/2 w-14 h-5">
       <div
-        className="absolute left-1/2 top-1/2 w-14 h-5 rounded-[50%] border border-textPrimary"
-        style={{
-          transform: 'translate(-50%, -50%) rotateX(70deg)',
-          animation: 'op-pin-ripple 0.8s ease-out 0.4s both',
-        }}
-      />
+        className="absolute left-1/2 top-1/2 w-14 h-5"
+        style={{ transform: 'translate(-50%, -50%) rotateX(70deg)' }}
+      >
+        <div
+          className="absolute inset-0 rounded-[50%] border border-textPrimary"
+          style={{ animation: 'op-pin-ripple 0.8s ease-out 0.4s both' }}
+        />
+      </div>
     </div>
   </div>
 );

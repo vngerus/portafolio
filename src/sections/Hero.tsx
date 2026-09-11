@@ -177,7 +177,7 @@ const Hero: React.FC = () => {
         </div>
       </div>
 
-      <div className="hidden md:block absolute right-16 lg:right-24 top-1/2 -translate-y-1/2 w-72 h-72 pointer-events-none">
+      <div className="hidden lg:block absolute right-8 xl:right-24 top-1/2 -translate-y-1/2 w-64 h-64 pointer-events-none">
         <Scene scrollProgressRef={scrollProgressRef} />
       </div>
     </section>
