@@ -282,7 +282,7 @@ const ThumbButton: React.FC<{
 }> = ({ project, index, isActive, onClick }) => (
   <button
     onClick={onClick}
-    className="relative p-0 border-0 bg-transparent cursor-pointer text-left transition-transform"
+    className="relative p-0 border-0 bg-transparent cursor-pointer text-left transition-transform active:scale-96 duration-120"
   >
     <div
       className={`relative h-24 overflow-hidden border transition-all ${isActive ? 'border-textPrimary/55' : 'border-textPrimary/15'}`}

@@ -5,7 +5,7 @@ import { FaSteam, FaDiscord } from 'react-icons/fa';
 import { FiCopy, FiCheck } from 'react-icons/fi';
 import { tags } from '@/data';
 import Image from 'next/image';
-import { motion, type Variants } from 'motion/react';
+import { AnimatePresence, motion, type Variants } from 'motion/react';
 import SysLabel from '@/components/SysLabel';
 
 const CLIP_SM =
@@ -115,11 +115,31 @@ const CopyButton: React.FC<{
         <p className="font-mono text-xs text-gray-300 mt-0.5">{value}</p>
       </div>
     </div>
-    {copied === value ? (
-      <FiCheck size={12} className="text-textPrimary shrink-0" />
-    ) : (
-      <FiCopy size={12} className="text-gray-700 group-hover/btn:text-gray-400 shrink-0" />
-    )}
+    <AnimatePresence mode="wait" initial={false}>
+      {copied === value ? (
+        <motion.span
+          key="check"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.8 }}
+          transition={{ duration: 0.15, ease: [0.2, 0.7, 0.3, 1] }}
+          className="shrink-0"
+        >
+          <FiCheck size={12} className="text-textPrimary" />
+        </motion.span>
+      ) : (
+        <motion.span
+          key="copy"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.8 }}
+          transition={{ duration: 0.15, ease: [0.2, 0.7, 0.3, 1] }}
+          className="shrink-0"
+        >
+          <FiCopy size={12} className="text-gray-700 group-hover/btn:text-gray-400" />
+        </motion.span>
+      )}
+    </AnimatePresence>
   </button>
 );
 
