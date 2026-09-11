@@ -3,7 +3,6 @@
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import BananaCat from './model/BananaCat';
 
 const RotatingGroup: React.FC<{
   scrollProgressRef: React.MutableRefObject<number>;
@@ -15,6 +14,7 @@ const RotatingGroup: React.FC<{
     if (!groupRef.current) return;
     const target = scrollProgressRef.current * Math.PI * 2;
     groupRef.current.rotation.y += (target - groupRef.current.rotation.y) * 0.06;
+    groupRef.current.rotation.x += (target * 0.4 - groupRef.current.rotation.x) * 0.06;
   });
 
   return <group ref={groupRef}>{children}</group>;
@@ -30,7 +30,21 @@ export default function Scene({ scrollProgressRef }: SceneProps) {
       <ambientLight intensity={1.2} />
       <pointLight position={[3, 3, 3]} intensity={0.6} color="#d28fff" />
       <RotatingGroup scrollProgressRef={scrollProgressRef}>
-        <BananaCat position={[0, -1.1, 0]} scale={[0.5, 0.5, 0.5]} />
+        <mesh>
+          <icosahedronGeometry args={[1.4, 0]} />
+          <meshStandardMaterial
+            color="#2d0e41"
+            emissive="#d28fff"
+            emissiveIntensity={0.15}
+            roughness={0.35}
+            metalness={0.4}
+            wireframe={false}
+          />
+        </mesh>
+        <mesh>
+          <icosahedronGeometry args={[1.42, 0]} />
+          <meshBasicMaterial color="#d28fff" wireframe transparent opacity={0.25} />
+        </mesh>
       </RotatingGroup>
     </Canvas>
   );
