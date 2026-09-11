@@ -3,8 +3,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTextScramble } from '@/hooks/useTextScramble';
 import SysLabel from '@/components/SysLabel';
+import Scene from '@/components/Scene';
 
 const TextGenerate: React.FC<{ text: string; className?: string; delay?: number }> = ({
   text,
@@ -48,6 +50,8 @@ const ScrambleName: React.FC = () => {
 
 const Hero: React.FC = () => {
   const ctaRef = useRef<HTMLDivElement>(null);
+  const scrollProgressRef = useRef(0);
+  const heroSectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const el = ctaRef.current;
@@ -65,8 +69,29 @@ const Hero: React.FC = () => {
     );
   }, []);
 
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    const section = heroSectionRef.current;
+    if (!section) return;
+
+    const st = ScrollTrigger.create({
+      trigger: section,
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true,
+      onUpdate: (self) => {
+        scrollProgressRef.current = self.progress;
+      },
+    });
+
+    return () => st.kill();
+  }, []);
+
   return (
-    <section className="relative flex flex-col items-start justify-center min-h-[calc(100vh-4rem)] px-8 sm:px-12 md:px-16 lg:px-24 overflow-hidden">
+    <section
+      ref={heroSectionRef}
+      className="relative flex flex-col items-start justify-center min-h-[calc(100vh-4rem)] px-8 sm:px-12 md:px-16 lg:px-24 overflow-hidden"
+    >
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10 opacity-25"
@@ -150,6 +175,10 @@ const Hero: React.FC = () => {
             Contacto
           </button>
         </div>
+      </div>
+
+      <div className="hidden md:block absolute right-16 lg:right-24 top-1/2 -translate-y-1/2 w-72 h-72 pointer-events-none">
+        <Scene scrollProgressRef={scrollProgressRef} />
       </div>
     </section>
   );
