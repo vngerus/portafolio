@@ -14,6 +14,10 @@
 .agents
 .claude
 /docs
+/src/docs
+
+# claude
+CLAUDE.md
 
 # testing
 /coverage
