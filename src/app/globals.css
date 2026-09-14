@@ -88,6 +88,11 @@ body {
   font-family: 'Akira Expanded', 'Inter', sans-serif;
 }
 
+@keyframes ringPulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.75; }
+}
+
 @keyframes fade-in {
   from { opacity: 0; }
   to { opacity: 1; }

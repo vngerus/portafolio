@@ -103,6 +103,17 @@ const Hero: React.FC = () => {
         }}
       />
 
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-20 flex items-center justify-center"
+      >
+        <svg width="640" height="640" viewBox="0 0 640 640" className="opacity-40 max-w-[92vw] max-h-[92vw]" style={{ animation: 'ringPulse 6s ease-in-out infinite' }}>
+          <circle cx="320" cy="320" r="300" fill="none" stroke="#e8332e" strokeWidth="1.5" opacity="0.3" />
+          <circle cx="320" cy="320" r="230" fill="none" stroke="#e8332e" strokeWidth="1.5" opacity="0.45" />
+          <circle cx="320" cy="320" r="160" fill="none" stroke="#e8332e" strokeWidth="2" opacity="0.65" />
+        </svg>
+      </div>
+
       <div className="space-y-5 max-w-2xl">
         <motion.div
           initial={{ opacity: 0, x: -12 }}
@@ -122,11 +133,23 @@ const Hero: React.FC = () => {
           Hola, mi nombre es
         </motion.p>
 
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight">
-          <ScrambleName />
-        </h1>
+        <div className="relative inline-block px-2 py-1">
+          <div
+            aria-hidden
+            className="absolute -z-10 opacity-90"
+            style={{
+              top: '4%', left: '-8%', width: '46%', height: '62%',
+              background: '#e8332e',
+              clipPath: 'polygon(12% 0%, 55% 8%, 100% 0%, 88% 42%, 100% 78%, 55% 62%, 42% 100%, 18% 70%, 0% 90%, 10% 38%)',
+              transform: 'rotate(-9deg)',
+            }}
+          />
+          <h1 className="relative text-4xl sm:text-5xl md:text-6xl font-bold text-bone leading-tight font-akira uppercase">
+            <ScrambleName />
+          </h1>
+        </div>
 
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-300">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-accentPrimary font-akira">
           <TextGenerate text="[ Desarrollador Front-End ]" delay={0.9} />
         </h2>
 
@@ -162,7 +185,8 @@ const Hero: React.FC = () => {
             onClick={() =>
               document.getElementById('experiences')?.scrollIntoView({ behavior: 'smooth' })
             }
-            className="px-6 py-2.5 border border-textPrimary text-textPrimary font-mono text-sm rounded hover:bg-textPrimary/10 transition-all hover:-translate-y-0.5 active:translate-y-0"
+            className="px-6 py-2.5 border border-accentPrimary text-accentPrimary font-mono text-sm hover:bg-accentPrimary/10 transition-all active:scale-97"
+            style={{ clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)' }}
           >
             [ Iniciar Secuencia ]
           </button>
@@ -170,7 +194,8 @@ const Hero: React.FC = () => {
             onClick={() =>
               document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
             }
-            className="px-6 py-2.5 bg-textPrimary/10 text-textPrimary font-mono text-sm rounded hover:bg-textPrimary/20 transition-all hover:-translate-y-0.5 border border-textPrimary/30"
+            className="px-6 py-2.5 bg-accentPrimary/10 text-accentPrimary font-mono text-sm hover:bg-accentPrimary/20 transition-all border border-accentPrimary/30 active:scale-97"
+            style={{ clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)' }}
           >
             Contacto
           </button>
