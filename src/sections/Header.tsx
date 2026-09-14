@@ -67,7 +67,7 @@ const NavLink: React.FC<{
       >
         <span className="font-jetbrains text-sm tracking-wide">{label}</span>
         <span
-          className="font-mono text-[10px] text-textPrimary leading-none tabular-nums"
+          className="font-mono text-[10px] text-accentPrimary leading-none tabular-nums"
           suppressHydrationWarning
         >
           {numDisplay}
@@ -77,7 +77,7 @@ const NavLink: React.FC<{
       {isActive && (
         <motion.div
           layoutId="nav-underline"
-          className="absolute bottom-0 left-0 right-0 h-px bg-textPrimary shadow-[0_0_6px_#d28fff]"
+          className="absolute bottom-0 left-0 right-0 h-px bg-accentPrimary shadow-[0_0_6px_#e8332e]"
           transition={{ type: 'spring', stiffness: 350, damping: 30 }}
         />
       )}
@@ -126,12 +126,18 @@ const Header: React.FC = () => {
   return (
     <header
       ref={headerRef}
-      className="sticky top-0 z-50 w-full backdrop-blur-md bg-background/80 border-b border-purple-900/30"
+      className="sticky top-0 z-50 w-full backdrop-blur-md bg-background/80 border-b border-accentPrimary/20"
     >
+      <div
+        className="h-[3px]"
+        style={{
+          backgroundImage: 'repeating-linear-gradient(135deg, #e8332e 0 10px, #0b0a08 10px 20px)',
+        }}
+      />
       <nav className="flex items-center justify-between max-w-300 mx-auto px-6 py-4">
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="font-jetbrains text-textPrimary font-bold text-xl tracking-[0.25em] hover:text-accentWhite transition-colors select-none"
+          className="font-jetbrains text-accentPrimary font-bold text-xl tracking-[0.25em] hover:text-accentWhite transition-colors select-none"
           aria-label="Inicio"
           suppressHydrationWarning
         >
@@ -166,7 +172,7 @@ const Header: React.FC = () => {
                       : { rotate: -45, y: -8 }
                   : { rotate: 0, y: 0, opacity: 1 }
               }
-              className="block w-6 h-0.5 bg-textPrimary"
+              className="block w-6 h-0.5 bg-accentPrimary"
               transition={{ duration: 0.2 }}
             />
           ))}
@@ -180,16 +186,16 @@ const Header: React.FC = () => {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="md:hidden overflow-hidden flex flex-col gap-4 px-6 py-4 border-t border-purple-900/30 bg-background"
+            className="md:hidden overflow-hidden flex flex-col gap-4 px-6 py-4 border-t border-accentPrimary/20 bg-background"
           >
             {NAV_LINKS.map(({ label, num, href }) => (
               <li key={href}>
                 <button
                   onClick={() => scrollTo(href)}
-                  className="flex items-baseline gap-2 text-gray-300 hover:text-textPrimary transition-colors w-full text-left"
+                  className="flex items-baseline gap-2 text-gray-300 hover:text-accentPrimary transition-colors w-full text-left"
                 >
                   <span className="font-jetbrains text-sm">{label}</span>
-                  <span className="font-mono text-[10px] text-textPrimary">{num}</span>
+                  <span className="font-mono text-[10px] text-accentPrimary">{num}</span>
                 </button>
               </li>
             ))}
