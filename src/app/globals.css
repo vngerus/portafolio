@@ -1,5 +1,6 @@
 @import url('https://fonts.cdnfonts.com/css/general-sans') layer(base);
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap') layer(base);
+@import url('/fonts/akira-expanded.css') layer(base);
 
 @import 'tailwindcss';
 
@@ -17,6 +18,11 @@
   --color-accent: #d28fff;
   --color-primary: #d28fff;
   --color-light: #e2e8f0;
+  --color-accentPrimary: #e8332e;
+  --color-bone: #eae6da;
+  --color-steel: #8a97a6;
+  --color-hazard: #ffcc00;
+  --color-surface1: #141210;
 
   --animate-spotlight: spotlight 2s ease 0.75s 1 forwards;
   --animate-aurora: aurora 60s linear infinite;
@@ -76,6 +82,10 @@ body {
 
 .font-jetbrains {
   font-family: "JetBrains Mono", monospace;
+}
+
+.font-akira {
+  font-family: 'Akira Expanded', 'Inter', sans-serif;
 }
 
 @keyframes fade-in {
