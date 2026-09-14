@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Inter:wght@400;600;700&display=swap">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #0a0825; font-family: "Inter", system-ui, sans-serif; }
+    .mono { font-family: "JetBrains Mono", ui-monospace, monospace; }
+    .sec { border: 1px solid rgba(55,65,81,0.5); background: #0d0b2e; padding: 22px 26px; display: flex; flex-direction: column; gap: 10px; }
+    .lbl { font-family: "JetBrains Mono", monospace; font-size: 9px; letter-spacing: 0.2em; color: rgba(62,201,216,0.75); text-transform: uppercase; }
+    .note { font-family: "JetBrains Mono", monospace; font-size: 9.5px; color: rgba(210,143,255,0.55); letter-spacing: 0.02em; line-height: 1.6; }
+    .rule { flex: 1; height: 1px; background: rgba(62,201,216,0.2); }
+    .connector { width: 1px; height: 28px; background: linear-gradient(180deg, rgba(210,143,255,0.6), rgba(210,143,255,0.1)); margin: 0 auto; }
+  </style>
+</helmet>
+
+<div style="width: 980px; background: radial-gradient(ellipse 70% 40% at 30% 0%, rgba(109,68,138,0.2), transparent), #0a0825; padding: 40px; display: flex; flex-direction: column; gap: 0;">
+
+  <div style="margin-bottom: 24px;">
+    <span class="mono" style="font-size: 10px; letter-spacing: 0.25em; color: rgba(210,143,255,0.5); text-transform: uppercase;">// FLOW_MAP · LANDING COMPLETO</span>
+    <h1 style="margin: 4px 0 0 0; color: #fff; font-size: 20px; font-weight: 700;">Dónde va cada interacción — de arriba a abajo</h1>
+  </div>
+
+  <!-- HEADER -->
+  <div class="sec">
+    <div style="display: flex; align-items: center; gap: 10px;"><span class="lbl">00 · HEADER (sticky)</span><div class="rule"></div></div>
+    <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; border: 1px solid rgba(210,143,255,0.2); background: rgba(45,14,65,0.2);">
+      <span class="mono" style="font-size: 11px; color: #d28fff;">Ángel Smith</span>
+      <div style="display: flex; gap: 16px;">
+        <span class="mono" style="font-size: 9px; color: rgba(210,143,255,0.5); text-transform: uppercase;">Experiencia</span>
+        <span class="mono" style="font-size: 9px; color: rgba(210,143,255,0.5); text-transform: uppercase;">Proyectos</span>
+        <span class="mono" style="font-size: 9px; color: rgba(210,143,255,0.5); text-transform: uppercase;">Sobre mí</span>
+        <span class="mono" style="font-size: 9px; color: rgba(210,143,255,0.5); text-transform: uppercase;">Contacto</span>
+      </div>
+    </div>
+    <p class="note">Sin cambios funcionales — solo unifica hex-clip en el CTA si lo lleva.</p>
+  </div>
+  <div class="connector"></div>
+
+  <!-- HERO -->
+  <div class="sec">
+    <div style="display: flex; align-items: center; gap: 10px;"><span class="lbl">01 · HERO</span><div class="rule"></div></div>
+    <div style="display: flex; gap: 24px; align-items: center;">
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 6px;">
+        <span class="mono" style="font-size: 9px; color: rgba(210,143,255,0.5);">// SYS_INIT · PILOT_TERMINAL</span>
+        <span style="color: #fff; font-size: 20px; font-weight: 700;">Ángel Smith</span>
+        <span class="mono" style="font-size: 11px; color: #9ca3af;">[ Desarrollador Front-End ]</span>
+        <div style="display: flex; gap: 10px; margin-top: 8px;">
+          <span style="padding: 7px 16px; border: 1px solid #d28fff; color: #d28fff; font-size: 10px; clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);" class="mono">Iniciar Secuencia</span>
+          <span style="padding: 7px 16px; border: 1px solid rgba(210,143,255,0.3); color: #d28fff; font-size: 10px; clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);" class="mono">Contacto</span>
+        </div>
+      </div>
+      <div style="width: 150px; height: 130px; border: 1px solid rgba(210,143,255,0.3); background: rgba(45,14,65,0.2); display: flex; align-items: center; justify-content: center;">
+        <span class="mono" style="font-size: 8px; color: rgba(210,143,255,0.5); text-align: center; line-height: 1.6;">NEO-TOKYO<br/>DIORAMA (.glb)<br/><span style="color: rgba(255,120,90,0.7);">akira-inspired</span></span>
+      </div>
+    </div>
+    <p class="note">Texto: scramble + blur-in (ya existe, se mantiene). 3D: reemplaza el icosaedro por el diorama Neo-Tokyo (Sketchfab, CC-BY 4.0, comprimido con Draco) — GSAP ScrollTrigger scrub sobre cámara/rotación. Botones: hex-clip + scale(0.97) press, sin magnetismo. Crédito visible: "// ASSET · NEO-TOKYO DIORAMA © NAVAZA · CC-BY 4.0" en mono, footer o esquina del hero.</p>
+  </div>
+  <div class="connector"></div>
+
+  <!-- EXPERIENCES -->
+  <div class="sec">
+    <div style="display: flex; align-items: center; gap: 10px;"><span class="lbl">02 · EXPERIENCIA (donde trabajado)</span><div class="rule"></div></div>
+    <div style="display: flex; gap: 10px;">
+      <div style="flex: 1; height: 70px; border: 1px solid rgba(210,143,255,0.3); background: rgba(45,14,65,0.25); clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);"></div>
+      <div style="flex: 1; height: 70px; border: 1px solid rgba(55,65,81,0.4); background: rgba(45,14,65,0.1); clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);"></div>
+      <div style="flex: 1; height: 70px; border: 1px solid rgba(55,65,81,0.4); background: rgba(45,14,65,0.1); clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);"></div>
+    </div>
+    <p class="note">Tilt 3D atado al mouse (ver artboard Main). Entrada: gsap.timeline + stagger por card al hacer scroll-into-view (reemplaza op-boot-on). Back-face: stack de tech como chips arrastrables (GSAP Draggable, ver Main 03).</p>
+  </div>
+  <div class="connector"></div>
+
+  <!-- PROJECTS -->
+  <div class="sec">
+    <div style="display: flex; align-items: center; gap: 10px;"><span class="lbl">03 · PROYECTOS (referencia — ya está bien)</span><div class="rule"></div></div>
+    <div style="height: 90px; border: 1px solid rgba(210,143,255,0.4); background: rgba(45,14,65,0.3); clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);"></div>
+    <p class="note">CompanyCard: tilt 3D + capas de profundidad + glow cursor + GSAP stagger (useGsapStagger). No se toca — es el molde para todo lo demás.</p>
+  </div>
+  <div class="connector"></div>
+
+  <!-- ABOUT -->
+  <div class="sec">
+    <div style="display: flex; align-items: center; gap: 10px;"><span class="lbl">04 · SOBRE MÍ</span><div class="rule"></div></div>
+    <div style="display: flex; gap: 10px;">
+      <div style="width: 90px; height: 60px; border: 1px solid rgba(55,65,81,0.4); background: rgba(45,14,65,0.1);"></div>
+      <div style="flex: 1; height: 60px; border: 1px solid rgba(55,65,81,0.4); background: rgba(45,14,65,0.1);"></div>
+    </div>
+    <p class="note">Hoy plano/CSS. Sube al sistema: bordes hex-clip, labels mono, entrada gsap.timeline consistente con el resto — sin agregar interacción nueva (no la necesita).</p>
+  </div>
+  <div class="connector"></div>
+
+  <!-- CONTACT -->
+  <div class="sec">
+    <div style="display: flex; align-items: center; gap: 10px;"><span class="lbl">05 · CONTACTO</span><div class="rule"></div></div>
+    <div style="height: 70px; border: 1px solid rgba(55,65,81,0.4); background: rgba(45,14,65,0.1);"></div>
+    <p class="note">Inputs con focus-ring hex en vez de default browser. Botón submit: mismo hero-btn (hex-clip + scale press). Estado enviado: mono label "// TRANSMISION_OK" en vez de toast genérico.</p>
+  </div>
+  <div class="connector"></div>
+
+  <!-- FOOTER -->
+  <div class="sec">
+    <div style="display: flex; align-items: center; gap: 10px;"><span class="lbl">06 · FOOTER</span><div class="rule"></div></div>
+    <div style="height: 34px; border-top: 1px dashed rgba(210,143,255,0.15);"></div>
+    <p class="note">Sin cambios de interacción, solo revisar que use los mismos tokens mono/color.</p>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

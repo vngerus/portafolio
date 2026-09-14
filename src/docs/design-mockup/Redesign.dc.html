@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Inter:wght@400;600;700;800&display=swap">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #0a0a10; font-family: "Inter", system-ui, sans-serif; }
+    .mono { font-family: "JetBrains Mono", ui-monospace, monospace; }
+    .sec { border: 1px solid rgba(120,120,135,0.35); background: #101014; padding: 22px 26px; display: flex; flex-direction: column; gap: 10px; }
+    .lbl { font-family: "JetBrains Mono", monospace; font-size: 9px; letter-spacing: 0.2em; color: rgba(53,224,201,0.8); text-transform: uppercase; }
+    .note { font-family: "JetBrains Mono", monospace; font-size: 9.5px; color: rgba(234,230,218,0.5); letter-spacing: 0.02em; line-height: 1.6; }
+    .rule { flex: 1; height: 1px; background: rgba(53,224,201,0.2); }
+    .connector { width: 1px; height: 28px; background: linear-gradient(180deg, rgba(232,51,46,0.6), rgba(232,51,46,0.08)); margin: 0 auto; }
+    .hazard { background-image: repeating-linear-gradient(135deg, #ffcc00 0 10px, #101014 10px 20px); }
+  </style>
+</helmet>
+
+<div style="width: 1020px; background: radial-gradient(ellipse 70% 40% at 30% -10%, rgba(232,51,46,0.14), transparent), #0a0a10; padding: 40px; display: flex; flex-direction: column; gap: 0;">
+
+  <div style="margin-bottom: 8px;">
+    <span class="mono" style="font-size: 10px; letter-spacing: 0.25em; color: rgba(232,51,46,0.8); text-transform: uppercase;">// REDESIGN_v2 · PALETA AKIRA</span>
+    <h1 style="margin: 4px 0 0 0; color: #eae6da; font-size: 20px; font-weight: 700;">Mismo diseño y estructura, paleta nueva: rojo cápsula + blanco hueso + cyan + hazard</h1>
+  </div>
+
+  <!-- SWATCHES -->
+  <div class="sec" style="margin-bottom: 20px;">
+    <div style="display: flex; align-items: center; gap: 10px;"><span class="lbl">TOKENS</span><div class="rule"></div></div>
+    <div style="display: flex; gap: 14px;">
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 6px;">
+        <div style="height: 40px; background: #e8332e;"></div>
+        <span class="mono" style="font-size: 8px; color: rgba(234,230,218,0.6);">--accent-primary #e8332e</span>
+      </div>
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 6px;">
+        <div style="height: 40px; background: #eae6da;"></div>
+        <span class="mono" style="font-size: 8px; color: rgba(234,230,218,0.6);">--bone #eae6da</span>
+      </div>
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 6px;">
+        <div style="height: 40px; background: #3ec9d8;"></div>
+        <span class="mono" style="font-size: 8px; color: rgba(234,230,218,0.6);">--accent-tech #3ec9d8</span>
+      </div>
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 6px;">
+        <div style="height: 40px; background: #ffcc00;"></div>
+        <span class="mono" style="font-size: 8px; color: rgba(234,230,218,0.6);">--hazard #ffcc00</span>
+      </div>
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 6px;">
+        <div style="height: 40px; background: #101014; border: 1px solid rgba(120,120,135,0.35);"></div>
+        <span class="mono" style="font-size: 8px; color: rgba(234,230,218,0.6);">--surface #101014</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="sec">
+    <div style="display: flex; align-items: center; gap: 10px;"><span class="lbl">01 · HERO — modelo centrado, logotype estilo AKIRA</span><div class="rule"></div></div>
+
+    <div style="position: relative; height: 300px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid rgba(120,120,135,0.25); background: #08080c;">
+      <!-- diorama silhouette placeholder, ahora centrado y grande, detras del texto -->
+      <svg width="620" height="300" viewBox="0 0 620 300" style="position: absolute; inset: 0; opacity: 0.55;">
+        <rect x="0" y="0" width="620" height="300" fill="#08080c"/>
+        <polygon points="0,300 0,190 50,170 50,130 100,118 100,200 140,200 140,90 190,65 190,200 240,200 240,150 290,138 290,200 340,200 340,45 380,20 380,200 430,200 430,160 480,145 480,200 530,200 530,105 580,88 580,300" fill="#15151f"/>
+        <line x1="0" y1="230" x2="620" y2="230" stroke="#3ec9d8" stroke-width="1" opacity="0.45"/>
+        <line x1="0" y1="260" x2="620" y2="260" stroke="#3ec9d8" stroke-width="0.5" opacity="0.25"/>
+        <circle cx="190" cy="65" r="2.4" fill="#e8332e"/>
+        <circle cx="380" cy="20" r="2.4" fill="#e8332e"/>
+        <circle cx="480" cy="145" r="2" fill="#3ec9d8"/>
+        <line x1="95" y1="118" x2="95" y2="200" stroke="#e8332e" stroke-width="1.2" opacity="0.6"/>
+        <line x1="335" y1="45" x2="335" y2="200" stroke="#3ec9d8" stroke-width="1.2" opacity="0.6"/>
+      </svg>
+
+      <!-- overlay text -->
+      <div style="position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center;">
+        <span class="mono" style="font-size: 9px; color: rgba(232,51,46,0.85); letter-spacing: 0.3em;">// SYS_INIT · PILOT_TERMINAL</span>
+        <span style="color: #e8332e; font-size: 46px; font-weight: 800; letter-spacing: 0.04em; font-style: italic; text-shadow: 0 0 22px rgba(232,51,46,0.55), 2px 2px 0 #000; line-height: 1;">Ángel Smith</span>
+        <span class="mono" style="font-size: 11px; color: #eae6da; letter-spacing: 0.15em;">[ Desarrollador Front-End ]</span>
+        <div style="display: flex; gap: 10px; margin-top: 10px;">
+          <span style="padding: 7px 16px; border: 1px solid #e8332e; color: #eae6da; background: rgba(232,51,46,0.18); font-size: 10px; clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);" class="mono">Iniciar Secuencia</span>
+          <span style="padding: 7px 16px; border: 1px solid rgba(234,230,218,0.35); color: #eae6da; background: rgba(8,8,12,0.5); font-size: 10px; clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);" class="mono">Contacto</span>
+        </div>
+      </div>
+
+      <span class="mono" style="position: absolute; bottom: 6px; right: 10px; font-size: 6.5px; color: rgba(234,230,218,0.3); letter-spacing: 0.1em;">NEO-TOKYO_DIORAMA.GLB · CENTRADO</span>
+    </div>
+    <p class="note">Modelo pasa de esquina chica a fondo centrado detrás del texto (más protagonismo, look "poster"). Título usa itálica bold + glow rojo simulando el logotype de Akira — reemplazar por la fuente real (.otf/.ttf del logo) cuando la bajes, vía <code>@font-face</code>. Resto del copy y estructura de botones igual.</p>
+  </div>
+  <div class="connector"></div>
+
+  <!-- EXPERIENCES -->
+  <div class="sec">
+    <div style="display: flex; align-items: center; gap: 10px;"><span class="lbl">02 · EXPERIENCIA</span><div class="rule"></div></div>
+    <div style="display: flex; gap: 10px;">
+      <div style="flex: 1; height: 70px; border: 1px solid #e8332e; background: rgba(232,51,46,0.08); clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);"></div>
+      <div style="flex: 1; height: 70px; border: 1px solid rgba(120,120,135,0.35); background: rgba(255,255,255,0.02); clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);"></div>
+      <div style="flex: 1; height: 70px; border: 1px solid rgba(120,120,135,0.35); background: rgba(255,255,255,0.02); clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);"></div>
+    </div>
+    <p class="note">Card activa: borde rojo cápsula + glow rojo (antes violeta). Inactivas: gris neutro. Tilt 3D y chips arrastrables del panel MAGI se mantienen (ver artboard Main), solo color: chips FRONTEND/BACKEND/DATA usan rojo/cyan/amarillo en vez de violeta/cyan/ámbar-violeta.</p>
+  </div>
+  <div class="connector"></div>
+
+  <!-- PROJECTS -->
+  <div class="sec">
+    <div style="display: flex; align-items: center; gap: 10px;"><span class="lbl">03 · PROYECTOS</span><div class="rule"></div></div>
+    <div style="height: 90px; border: 1px solid rgba(53,224,201,0.4); background: rgba(62,201,216,0.06); clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);"></div>
+    <p class="note">Estructura CompanyCard intacta (tilt, capas, glow). Accent-per-proyecto sigue siendo dato individual (ya lo es en <code>WorkProject.accentColor</code>) — no se fuerza a un solo color, esto ya funciona bien con la paleta nueva de fondo.</p>
+  </div>
+  <div class="connector"></div>
+
+  <!-- ABOUT -->
+  <div class="sec">
+    <div style="display: flex; align-items: center; gap: 10px;"><span class="lbl">04 · SOBRE MÍ</span><div class="rule"></div></div>
+    <div style="display: flex; gap: 10px;">
+      <div class="hazard" style="width: 6px; height: 60px; opacity: 0.7;"></div>
+      <div style="width: 84px; height: 60px; border: 1px solid rgba(120,120,135,0.35); background: rgba(255,255,255,0.02);"></div>
+      <div style="flex: 1; height: 60px; border: 1px solid rgba(120,120,135,0.35); background: rgba(255,255,255,0.02);"></div>
+    </div>
+    <p class="note">Franja hazard (rojo/negro) como acento lateral puntual — referencia directa a la cinta de advertencia de Akira, usada con moderación (un solo lugar, no todo el sitio).</p>
+  </div>
+  <div class="connector"></div>
+
+  <!-- CONTACT -->
+  <div class="sec">
+    <div style="display: flex; align-items: center; gap: 10px;"><span class="lbl">05 · CONTACTO</span><div class="rule"></div></div>
+    <div style="height: 70px; border: 1px solid rgba(120,120,135,0.35); background: rgba(255,255,255,0.02);"></div>
+    <p class="note">Focus-ring de inputs: rojo cápsula. Botón submit: mismo hex-clip + scale press. Confirmación: "// TRANSMISION_OK" en cyan (estado de éxito, no de marca).</p>
+  </div>
+  <div class="connector"></div>
+
+  <!-- FOOTER -->
+  <div class="sec">
+    <div style="display: flex; align-items: center; gap: 10px;"><span class="lbl">06 · FOOTER</span><div class="rule"></div></div>
+    <div style="height: 34px; border-top: 1px dashed rgba(234,230,218,0.15); display: flex; align-items: center;">
+      <span class="mono" style="font-size: 7px; color: rgba(234,230,218,0.3); letter-spacing: 0.15em;">// ASSET · NEO-TOKYO DIORAMA © NAVAZA · CC-BY 4.0</span>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

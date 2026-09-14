@@ -1,0 +1,219 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Inter:wght@400;600;700&display=swap">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #0a0825; font-family: "Inter", system-ui, sans-serif; }
+    a { color: #d28fff; } a:hover { color: #ffffff; }
+    .mono { font-family: "JetBrains Mono", ui-monospace, monospace; }
+    .dot-bg { background-image: radial-gradient(circle, rgba(110,68,138,0.12) 1px, transparent 1px); background-size: 18px 18px; }
+    .chip { cursor: grab; }
+    .chip:active { cursor: grabbing; }
+    .hero-btn { transition: transform 160ms ease-out; }
+    .hero-btn:active { transform: scale(0.97); }
+  </style>
+</helmet>
+
+<div id="entranceRoot" style="min-height: 100%; background: radial-gradient(ellipse 70% 50% at 30% 0%, rgba(109,68,138,0.25), transparent), #0a0825; padding: 48px 40px; display: flex; flex-direction: column; gap: 56px;">
+
+  <!-- ── SECTION LABEL ── -->
+  <div class="boot-el" style="display: flex; flex-direction: column; gap: 6px;">
+    <span class="mono" style="font-size: 10px; letter-spacing: 0.25em; color: rgba(210,143,255,0.5); text-transform: uppercase;">// SYS_PATTERN · CONSOLIDACION</span>
+    <h1 style="margin: 0; color: #fff; font-size: 22px; font-weight: 700; letter-spacing: -0.01em;">Sistema visual plano: hazard clip + tilt + panel MAGI arrastrable</h1>
+    <p class="mono" style="margin: 0; font-size: 10px; color: rgba(210,143,255,0.4); max-width: 640px; line-height: 1.6;">Sin mundo 3D ni gimmicks que sigan el mouse todo el rato. Interacción puntual, física, tipo consola NERV — algo que se pueda agarrar y soltar, nada más.</p>
+  </div>
+
+  <!-- ── HERO CTA REDESIGN ── -->
+  <div class="boot-el" style="display: flex; flex-direction: column; gap: 14px;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <span class="mono" style="font-size: 9px; letter-spacing: 0.2em; color: rgba(62,201,216,0.75); text-transform: uppercase;">01 · HERO CTA — hex-clip, press feedback simple</span>
+      <div style="flex: 1; height: 1px; background: rgba(62,201,216,0.2);"></div>
+    </div>
+
+    <div style="background: #0d0b2e; border: 1px solid rgba(55,65,81,0.5); padding: 28px 32px;">
+      <div style="display: flex; gap: 14px;">
+        <button class="hero-btn" style="padding: 11px 26px 11px 22px; border: 1px solid #d28fff; color: #d28fff; background: rgba(210,143,255,0.06); font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px); box-shadow: 0 0 18px rgba(210,143,255,0.18); cursor: pointer;">
+          &gt;_ Iniciar Secuencia
+        </button>
+        <button class="hero-btn" style="padding: 11px 26px 11px 22px; border: 1px solid rgba(210,143,255,0.35); color: #d28fff; background: rgba(45,14,65,0.4); font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px); cursor: pointer;">
+          Contacto
+        </button>
+      </div>
+      <p class="mono" style="margin: 14px 0 0 0; font-size: 8px; color: rgba(210,143,255,0.3); letter-spacing: 0.1em;">solo scale(0.97) al presionar — sin seguir el mouse</p>
+    </div>
+  </div>
+
+  <!-- ── EXPERIENCE CARD REDESIGN ── -->
+  <div class="boot-el" style="display: flex; flex-direction: column; gap: 14px;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <span class="mono" style="font-size: 9px; letter-spacing: 0.2em; color: rgba(62,201,216,0.75); text-transform: uppercase;">02 · EXPERIENCE CARD — TILT SYSTEM (patron CompanyCard)</span>
+      <div style="flex: 1; height: 1px; background: rgba(62,201,216,0.2);"></div>
+    </div>
+
+    <div style="background: #0d0b2e; border: 1px solid rgba(55,65,81,0.5); padding: 28px 32px; display: flex; justify-content: center;">
+      <div style="{{tiltWrapStyle}}">
+        <div style="position: absolute; inset: 0; border: 1px solid rgba(210,143,255,0.1); background: rgba(10,8,37,0.4); transform: {{depthBackTransform}}; transition: {{tiltTransition}}; clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);"></div>
+        <div style="position: absolute; inset: 0; border: 1px solid rgba(210,143,255,0.15); background: rgba(45,14,65,0.55); transform: {{depthMidTransform}}; transition: {{tiltTransition}}; clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);"></div>
+
+        <div
+          onMouseMove="{{onMove}}"
+          onMouseLeave="{{onLeave}}"
+          style="position: relative; width: 460px; border: 1px solid rgba(210,143,255,0.35); background: linear-gradient(180deg, #100d38 0%, #0a0825 100%); overflow: hidden; transform: {{mainTransform}}; transition: {{tiltTransition}}; clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px); box-shadow: 0 0 40px rgba(210,143,255,0.15), 0 20px 44px rgba(0,0,0,0.5);"
+        >
+          <div style="position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(210,143,255,0.7), transparent);"></div>
+          <div style="position: absolute; inset: 0; pointer-events: none; background: {{glowStyle}}; opacity: {{glowOpacity}}; transition: opacity 0.4s ease; mix-blend-mode: screen;"></div>
+
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: rgba(45,14,65,0.35); border-bottom: 1px solid rgba(55,65,81,0.5); gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span class="mono" style="font-size: 9px; color: rgba(210,143,255,0.6); letter-spacing: 0.15em; text-transform: uppercase;">OP_01</span>
+              <span style="width: 1px; height: 11px; background: #374151;"></span>
+              <span style="display: flex; align-items: center; gap: 5px;">
+                <span style="display: inline-block; width: 6px; height: 6px; border-radius: 999px; background: #d28fff; box-shadow: 0 0 8px #d28fff;"></span>
+                <span class="mono" style="font-size: 8px; color: rgba(210,143,255,0.75); letter-spacing: 0.15em; text-transform: uppercase;">ACTIVE</span>
+              </span>
+            </div>
+            <span class="mono" style="font-size: 10px; color: rgba(210,143,255,0.45); letter-spacing: 0.15em; text-transform: uppercase;">[ Ene 2025 — Presente ]</span>
+          </div>
+
+          <div style="padding: 18px 22px;">
+            <span class="mono" style="font-size: 7px; color: rgba(210,143,255,0.4); display: block; margin-bottom: 4px; letter-spacing: 0.2em; text-transform: uppercase;">// CARGO</span>
+            <h3 style="margin: 0; font-size: 19px; font-weight: 700; color: #fff; letter-spacing: -0.01em;">Desarrollador Web Front-end</h3>
+            <div style="display: flex; align-items: baseline; gap: 10px; margin-top: 4px; margin-bottom: 14px;">
+              <span class="mono" style="font-size: 12px; color: #d28fff;">@ Books&amp;Bits</span>
+              <span style="width: 1px; height: 10px; background: rgba(210,143,255,0.3);"></span>
+              <span class="mono" style="font-size: 9px; color: rgba(210,143,255,0.5); letter-spacing: 0.1em; text-transform: uppercase;">16M</span>
+            </div>
+            <div style="padding: 9px 12px; border: 1px solid rgba(210,143,255,0.18); background: rgba(45,14,65,0.2); margin-bottom: 16px; clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px);">
+              <p style="margin: 0; font-size: 11.5px; color: #9ca3af; line-height: 1.55; font-family: 'JetBrains Mono', monospace;">Modernización full-stack: migración VB→Python, intranet corporativa y APIs RESTful.</p>
+            </div>
+            <div style="display: flex; gap: 14px; padding: 9px 12px; border: 1px solid rgba(210,143,255,0.2); background: rgba(45,14,65,0.22); clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px); align-items: baseline; justify-content: space-between;">
+              <div style="display: flex; align-items: baseline; gap: 6px;"><span class="mono" style="font-size: 7px; color: rgba(210,143,255,0.5); letter-spacing: 0.2em; text-transform: uppercase;">DUR</span><span class="mono" style="font-size: 13px; color: #fff; font-weight: 700;">16M</span></div>
+              <span style="width: 1px; height: 12px; background: rgba(210,143,255,0.18);"></span>
+              <div style="display: flex; align-items: baseline; gap: 6px;"><span class="mono" style="font-size: 7px; color: rgba(210,143,255,0.5); letter-spacing: 0.2em; text-transform: uppercase;">SYNC</span><span class="mono" style="font-size: 13px; color: #fff; font-weight: 700;">87%</span></div>
+              <span style="width: 1px; height: 12px; background: rgba(210,143,255,0.18);"></span>
+              <div style="display: flex; align-items: baseline; gap: 6px;"><span class="mono" style="font-size: 7px; color: rgba(210,143,255,0.5); letter-spacing: 0.2em; text-transform: uppercase;">CLR</span><span class="mono" style="font-size: 13px; color: #fff; font-weight: 700;">LV.3</span></div>
+            </div>
+            <p style="margin-top: 14px; margin-bottom: 0; text-align: right;" class="mono">
+              <span style="font-size: 7px; color: rgba(210,143,255,0.3); letter-spacing: 0.2em; text-transform: uppercase;">✱ MUEVE EL MOUSE SOBRE LA TARJETA</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MAGI DRAGGABLE PANEL ── -->
+  <div class="boot-el" style="display: flex; flex-direction: column; gap: 14px;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <span class="mono" style="font-size: 9px; letter-spacing: 0.2em; color: rgba(62,201,216,0.75); text-transform: uppercase;">03 · PANEL MAGI — chips arrastrables (GSAP Draggable)</span>
+      <div style="flex: 1; height: 1px; background: rgba(62,201,216,0.2);"></div>
+    </div>
+
+    <div style="background: #0d0b2e; border: 1px solid rgba(55,65,81,0.5); padding: 24px 28px; display: flex; flex-direction: column; gap: 12px;">
+      <p class="mono" style="margin: 0; font-size: 10px; color: rgba(210,143,255,0.4); letter-spacing: 0.1em;">agarrá y soltá los chips dentro del panel — quedan donde los dejes (bounds + edge resistance, sin snap-back)</p>
+      <div id="magiPanel" class="dot-bg" style="position: relative; height: 190px; border: 1px solid rgba(210,143,255,0.25); background: rgba(45,14,65,0.15); clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); overflow: hidden;">
+        <div style="position: absolute; top: 8px; left: 12px;" class="mono">
+          <span style="font-size: 7px; color: rgba(210,143,255,0.35); letter-spacing: 0.2em;">// MAGI · REORDENAR STACK</span>
+        </div>
+
+        <div class="chip" style="position: absolute; top: 60px; left: 24px; display: flex; align-items: center; gap: 6px; padding: 7px 12px; border: 1px solid #d28fff88; background: rgba(210,143,255,0.12); clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%); box-shadow: 0 0 10px rgba(210,143,255,0.2);">
+          <span style="width: 6px; height: 6px; background: #d28fff; transform: rotate(45deg);"></span>
+          <span class="mono" style="font-size: 9px; color: #d28fff; letter-spacing: 0.12em; text-transform: uppercase;">FRONTEND</span>
+        </div>
+        <div class="chip" style="position: absolute; top: 60px; left: 190px; display: flex; align-items: center; gap: 6px; padding: 7px 12px; border: 1px solid #3ec9d888; background: rgba(62,201,216,0.12); clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%); box-shadow: 0 0 10px rgba(62,201,216,0.2);">
+          <span style="width: 6px; height: 6px; background: #3ec9d8; transform: rotate(45deg);"></span>
+          <span class="mono" style="font-size: 9px; color: #3ec9d8; letter-spacing: 0.12em; text-transform: uppercase;">BACKEND</span>
+        </div>
+        <div class="chip" style="position: absolute; top: 60px; left: 356px; display: flex; align-items: center; gap: 6px; padding: 7px 12px; border: 1px solid #ffc86488; background: rgba(255,200,100,0.12); clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%); box-shadow: 0 0 10px rgba(255,200,100,0.2);">
+          <span style="width: 6px; height: 6px; background: #ffc864; transform: rotate(45deg);"></span>
+          <span class="mono" style="font-size: 9px; color: #ffc864; letter-spacing: 0.12em; text-transform: uppercase;">DATA</span>
+        </div>
+      </div>
+    </div>
+    <p class="mono" style="margin: 0; font-size: 9px; color: rgba(210,143,255,0.35); letter-spacing: 0.05em;">Idea aplicable a la parte de atrás de la Experience card (stack de tech) o a un panel aparte tipo "consola" — interacción física puntual, sin 3D ni seguimiento constante del mouse.</p>
+  </div>
+
+</div>
+</x-dc>
+<script data-dc-script>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { tx: 0, ty: 0, hover: false };
+  }
+
+  componentDidMount() {
+    if (window.gsap) {
+      gsap.set('.boot-el', { opacity: 0, y: 24, filter: 'blur(6px)' });
+      gsap.to('.boot-el', {
+        opacity: 1, y: 0, filter: 'blur(0px)',
+        duration: 0.6, stagger: 0.12, ease: 'power3.out', delay: 0.1,
+      });
+    }
+
+    if (window.gsap && window.Draggable) {
+      gsap.registerPlugin(Draggable);
+      const panel = document.getElementById('magiPanel');
+      if (panel) {
+        Draggable.create('.chip', {
+          type: 'x,y',
+          bounds: panel,
+          edgeResistance: 0.65,
+          onDragStart: function () {
+            gsap.to(this.target, { scale: 1.06, boxShadow: '0 0 18px rgba(210,143,255,0.45)', duration: 0.15 });
+          },
+          onDragEnd: function () {
+            gsap.to(this.target, { scale: 1, duration: 0.3, ease: 'back.out(2)' });
+          },
+        });
+      }
+    }
+  }
+
+  renderVals() {
+    const { tx, ty, hover } = this.state;
+    const tiltDeg = 6;
+
+    const onMove = (e) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+      const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+      this.setState({ tx: x, ty: y, hover: true });
+    };
+    const onLeave = () => this.setState({ tx: 0, ty: 0, hover: false });
+
+    const tiltTransition = hover
+      ? 'transform 0.12s ease-out, opacity 0.3s ease'
+      : 'transform 0.6s cubic-bezier(.2,.7,.3,1), opacity 0.3s ease';
+
+    const mainTransform = `rotateY(${tx * tiltDeg}deg) rotateX(${-ty * tiltDeg}deg)`;
+    const depthMidTransform = `translate3d(${6 + tx * 6}px, ${6 - ty * 6}px, -40px) rotateY(${tx * tiltDeg * 0.6}deg) rotateX(${-ty * tiltDeg * 0.5}deg)`;
+    const depthBackTransform = `translate3d(${12 + tx * 4}px, ${12 - ty * 4}px, -80px) rotateY(${tx * tiltDeg * 0.4}deg) rotateX(${-ty * tiltDeg * 0.3}deg)`;
+
+    const glowStyle = `radial-gradient(circle at ${50 + tx * 30}% ${50 + ty * 30}%, rgba(210,143,255,0.22) 0%, transparent 45%)`;
+
+    return {
+      tiltWrapStyle: 'position: relative; width: 460px; height: 300px; perspective: 1400px; perspective-origin: center center;',
+      tiltTransition,
+      mainTransform,
+      depthMidTransform,
+      depthBackTransform,
+      glowStyle,
+      glowOpacity: hover ? 1 : 0,
+      onMove,
+      onLeave,
+    };
+  }
+}
+</script>
+</body>
+</html>
