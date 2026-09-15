@@ -94,15 +94,20 @@ const CompanyCard: React.FC<{ company: WorkCompany }> = ({ company }) => {
               <div
                 className="relative w-full h-full overflow-hidden border border-accentPrimary/45"
                 style={{
-                  backgroundImage: bgImage,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
                   backgroundColor: '#0a0825',
-                  filter: current.imgback ? DUOTONE_FILTER : undefined,
                   boxShadow: '0 0 36px rgba(232,51,46,0.22), 0 18px 40px rgba(0,0,0,0.55)',
                   clipPath: CARD_CLIP,
                 }}
               >
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    backgroundImage: bgImage,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    filter: current.imgback ? DUOTONE_FILTER : undefined,
+                  }}
+                />
                 <MediaSlot project={current} />
                 <HoloOverlays intense />
 
@@ -289,19 +294,24 @@ const ThumbButton: React.FC<{
     <div
       className={`relative h-24 overflow-hidden border transition-all ${isActive ? 'border-accentPrimary/55' : 'border-accentPrimary/15'}`}
       style={{
-        backgroundImage:
-          project.imgback && !project.imgback.match(/\.gif$/i)
-            ? `url(${project.imgback})`
-            : undefined,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
         backgroundColor: '#0a0825',
-        filter: project.imgback ? DUOTONE_FILTER : undefined,
         boxShadow: isActive ? '0 0 20px rgba(232,51,46,0.28)' : 'none',
         clipPath:
           'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
       }}
     >
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage:
+            project.imgback && !project.imgback.match(/\.gif$/i)
+              ? `url(${project.imgback})`
+              : undefined,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          filter: project.imgback ? DUOTONE_FILTER : undefined,
+        }}
+      />
       {project.imgback?.match(/\.gif$/i) && (
         // eslint-disable-next-line @next/next/no-img-element
         <img src={project.imgback} alt="" className="absolute inset-0 w-full h-full object-cover" />
