@@ -90,7 +90,7 @@ const Hero: React.FC = () => {
   return (
     <section
       ref={heroSectionRef}
-      className="relative flex flex-col items-start justify-center min-h-[calc(100vh-4rem)] px-8 sm:px-12 md:px-16 lg:px-24 overflow-hidden"
+      className="relative flex flex-col items-center justify-center min-h-[calc(100vh-4rem)] px-8 sm:px-12 md:px-16 lg:px-24 overflow-hidden text-center"
     >
       <div
         aria-hidden
@@ -114,7 +114,16 @@ const Hero: React.FC = () => {
         </svg>
       </div>
 
-      <div className="space-y-5 max-w-2xl">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center opacity-90"
+      >
+        <div className="w-[480px] h-[480px] max-w-[85vw] max-h-[85vw]">
+          <Scene scrollProgressRef={scrollProgressRef} />
+        </div>
+      </div>
+
+      <div className="relative z-10 flex flex-col items-center gap-5 max-w-2xl mx-auto">
         <motion.div
           initial={{ opacity: 0, x: -12 }}
           animate={{ opacity: 1, x: 0 }}
@@ -124,7 +133,7 @@ const Hero: React.FC = () => {
         </motion.div>
 
         <motion.p
-          className="font-mono text-textPrimary/80 text-sm sm:text-base"
+          className="font-mono text-textPrimary/80 text-sm sm:text-base text-center"
           initial={{ opacity: 0, x: -16 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -153,7 +162,7 @@ const Hero: React.FC = () => {
           <TextGenerate text="[ Desarrollador Front-End ]" delay={0.9} />
         </h2>
 
-        <div className="max-w-xl">
+        <div className="max-w-xl text-center">
           <TextGenerate
             text="Especializado en Front, con gusto por el Back-End. Actualmente trabajando en"
             className="text-sm sm:text-base text-gray-400 leading-relaxed"
@@ -200,10 +209,12 @@ const Hero: React.FC = () => {
             Contacto
           </button>
         </div>
-      </div>
 
-      <div className="hidden lg:block absolute right-8 xl:right-24 top-1/2 -translate-y-1/2 w-64 h-64 pointer-events-none">
-        <Scene scrollProgressRef={scrollProgressRef} />
+        <div className="flex flex-col items-center gap-1 mt-4 w-56">
+          <div className="h-px w-full bg-accentPrimary opacity-85" />
+          <div className="h-px w-[55%] bg-accentPrimary opacity-85" />
+          <div className="h-px w-[30%] bg-accentPrimary opacity-85" />
+        </div>
       </div>
     </section>
   );
