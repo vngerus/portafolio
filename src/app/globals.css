@@ -7,8 +7,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-background: #0a0825;
-  --color-background-secondary: #0d0b2e;
+  --color-background: #0b0a08;
+  --color-background-secondary: #141210;
   --color-buttonSelected: #6d448a;
   --color-buttonUnselected: #2d0e41;
   --color-titles: #d28fff;
@@ -76,7 +76,7 @@
 }
 
 body {
-  background: #010103;
+  background: #0b0a08;
   font-family: "General Sans", sans-serif;
 }
 

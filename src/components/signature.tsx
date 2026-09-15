@@ -87,8 +87,8 @@ const Dialog: React.FC<{ msg: string; variant: DialogVariant }> = ({ msg, varian
 
   return (
     <div
-      className="relative border border-textPrimary/40 bg-background/95 px-3 py-2.5 backdrop-blur-sm"
-      style={{ clipPath: CLIP }}
+      className="relative border border-textPrimary/40 px-3 py-2.5 backdrop-blur-sm"
+      style={{ clipPath: CLIP, backgroundColor: 'rgba(10,8,37,0.95)' }}
     >
       <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-textPrimary/50 to-transparent" />
       <p className="font-mono text-[7px] text-textPrimary/40 tracking-[0.2em] uppercase mb-1">

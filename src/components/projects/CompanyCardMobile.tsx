@@ -71,7 +71,7 @@ const CompanyCardMobile: React.FC<{ company: WorkCompany }> = ({ company }) => {
           key={current.title}
           className="absolute inset-0 overflow-hidden border border-accentPrimary/45 animate-card-swap"
           style={{
-            backgroundColor: '#0a0825',
+            backgroundColor: '#0b0a08',
             boxShadow: '0 0 28px rgba(232,51,46,0.22), 0 12px 24px rgba(0,0,0,0.55)',
             clipPath: CARD_CLIP,
           }}
@@ -157,7 +157,7 @@ const CompanyCardMobile: React.FC<{ company: WorkCompany }> = ({ company }) => {
               <div
                 className={`relative h-17.5 overflow-hidden border transition-all ${isActive ? 'border-accentPrimary/55' : 'border-accentPrimary/15'}`}
                 style={{
-                  backgroundColor: '#0a0825',
+                  backgroundColor: '#0b0a08',
                   boxShadow: isActive ? '0 0 16px rgba(232,51,46,0.25)' : 'none',
                   clipPath:
                     'polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px)',
@@ -187,7 +187,7 @@ const CompanyCardMobile: React.FC<{ company: WorkCompany }> = ({ company }) => {
                     className="absolute inset-0"
                     style={{
                       backgroundImage:
-                        'repeating-linear-gradient(135deg, rgba(232,51,46,0.05) 0 6px, transparent 6px 12px), linear-gradient(180deg, #0a0825 0%, #0d0b2e 100%)',
+                        'repeating-linear-gradient(135deg, rgba(232,51,46,0.05) 0 6px, transparent 6px 12px), linear-gradient(180deg, #0b0a08 0%, #141210 100%)',
                     }}
                   />
                 )}
@@ -195,8 +195,8 @@ const CompanyCardMobile: React.FC<{ company: WorkCompany }> = ({ company }) => {
                   className="absolute inset-0"
                   style={{
                     background: isActive
-                      ? 'linear-gradient(180deg, rgba(10,8,37,0.3) 0%, rgba(10,8,37,0.9) 100%)'
-                      : 'linear-gradient(180deg, rgba(10,8,37,0.6) 0%, rgba(10,8,37,0.95) 100%)',
+                      ? 'linear-gradient(180deg, rgba(11,10,8,0.3) 0%, rgba(11,10,8,0.9) 100%)'
+                      : 'linear-gradient(180deg, rgba(11,10,8,0.6) 0%, rgba(11,10,8,0.95) 100%)',
                   }}
                 />
                 {isActive && (

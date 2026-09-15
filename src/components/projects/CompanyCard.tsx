@@ -100,7 +100,7 @@ const CompanyCard: React.FC<{ company: WorkCompany }> = ({ company }) => {
               <div
                 className="relative w-full h-full overflow-hidden border border-accentPrimary/45"
                 style={{
-                  backgroundColor: '#0a0825',
+                  backgroundColor: '#0b0a08',
                   boxShadow: '0 0 36px rgba(232,51,46,0.22), 0 18px 40px rgba(0,0,0,0.55)',
                   clipPath: CARD_CLIP,
                 }}
@@ -300,7 +300,7 @@ const ThumbButton: React.FC<{
     <div
       className={`relative h-24 overflow-hidden border transition-all ${isActive ? 'border-accentPrimary/55' : 'border-accentPrimary/15'}`}
       style={{
-        backgroundColor: '#0a0825',
+        backgroundColor: '#0b0a08',
         boxShadow: isActive ? '0 0 20px rgba(232,51,46,0.28)' : 'none',
         clipPath:
           'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
@@ -332,7 +332,7 @@ const ThumbButton: React.FC<{
           className="absolute inset-0"
           style={{
             backgroundImage:
-              'repeating-linear-gradient(135deg, rgba(232,51,46,0.05) 0 6px, transparent 6px 14px), linear-gradient(180deg, #0a0825 0%, #0d0b2e 100%)',
+              'repeating-linear-gradient(135deg, rgba(232,51,46,0.05) 0 6px, transparent 6px 14px), linear-gradient(180deg, #0b0a08 0%, #141210 100%)',
           }}
         />
       )}
@@ -340,8 +340,8 @@ const ThumbButton: React.FC<{
         className="absolute inset-0 transition-colors"
         style={{
           background: isActive
-            ? 'linear-gradient(180deg, rgba(10,8,37,0.3) 0%, rgba(10,8,37,0.85) 100%)'
-            : 'linear-gradient(180deg, rgba(10,8,37,0.65) 0%, rgba(10,8,37,0.95) 100%)',
+            ? 'linear-gradient(180deg, rgba(11,10,8,0.3) 0%, rgba(11,10,8,0.85) 100%)'
+            : 'linear-gradient(180deg, rgba(11,10,8,0.65) 0%, rgba(11,10,8,0.95) 100%)',
         }}
       />
       {isActive && (

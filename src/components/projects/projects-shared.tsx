@@ -63,7 +63,7 @@ export const ProjectPlaceholder: React.FC<{ label?: string }> = ({ label = 'prev
     className="absolute inset-0 flex items-center justify-center"
     style={{
       backgroundImage:
-        'repeating-linear-gradient(135deg, rgba(232,51,46,0.06) 0 8px, rgba(0,0,0,0) 8px 18px), linear-gradient(180deg, #0a0825 0%, #0d0b2e 100%)',
+        'repeating-linear-gradient(135deg, rgba(232,51,46,0.06) 0 8px, rgba(0,0,0,0) 8px 18px), linear-gradient(180deg, #0b0a08 0%, #141210 100%)',
     }}
   >
     <div className="text-center">
@@ -85,7 +85,7 @@ export const ProjectPlaceholder: React.FC<{ label?: string }> = ({ label = 'prev
 export const DevPlaceholder: React.FC = () => (
   <div
     className="absolute inset-0 flex flex-col items-center justify-center"
-    style={{ background: 'linear-gradient(180deg, #0a0825 0%, #0d0b2e 100%)' }}
+    style={{ background: 'linear-gradient(180deg, #0b0a08 0%, #141210 100%)' }}
   >
     <div className="w-full max-w-47.5 font-mono px-2">
       <div className="flex items-center gap-2 mb-3">
