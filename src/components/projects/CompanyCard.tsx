@@ -5,13 +5,19 @@ import Image from 'next/image';
 import { FiGithub, FiExternalLink } from 'react-icons/fi';
 import type { WorkCompany, WorkProject } from '@/data';
 import TechTags from '@/components/tech_button';
-import { HoloOverlays, MediaSlot, AnimatedPin, SweepBar, CompanyBanner } from './projects-shared';
+import {
+  HoloOverlays,
+  MediaSlot,
+  AnimatedPin,
+  SweepBar,
+  CompanyBanner,
+  DUOTONE_FILTER,
+} from './projects-shared';
 
 const CARD_CLIP =
   'polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)';
 const TILT_DEG = 5;
 const DEFAULT_ACCENT = '#e8332e';
-const DUOTONE_FILTER = 'sepia(1) saturate(3.2) hue-rotate(-42deg) contrast(1.15) brightness(0.85)';
 
 function hexToRgba(hex: string, alpha: number) {
   const h = hex.replace('#', '');
@@ -314,7 +320,12 @@ const ThumbButton: React.FC<{
       />
       {project.imgback?.match(/\.gif$/i) && (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={project.imgback} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <img
+          src={project.imgback}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ filter: DUOTONE_FILTER }}
+        />
       )}
       {!project.imgback && (
         <div

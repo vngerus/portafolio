@@ -5,6 +5,9 @@ import { motion } from 'motion/react';
 import Image from 'next/image';
 import type { CompanyStatus, WorkCompany, WorkProject } from '@/data';
 
+export const DUOTONE_FILTER =
+  'sepia(1) saturate(3.2) hue-rotate(-42deg) contrast(1.15) brightness(0.85)';
+
 export const HoloOverlays: React.FC<{ intense?: boolean }> = ({ intense = true }) => (
   <>
     <div
@@ -142,6 +145,7 @@ export const MediaSlot: React.FC<{ project: WorkProject }> = ({ project }) => {
         muted
         playsInline
         className="absolute inset-0 w-full h-full object-cover"
+        style={{ filter: DUOTONE_FILTER }}
         src={project.videoback}
       />
     );
@@ -149,7 +153,12 @@ export const MediaSlot: React.FC<{ project: WorkProject }> = ({ project }) => {
   if (project.imgback?.match(/\.gif$/i)) {
     return (
       // eslint-disable-next-line @next/next/no-img-element
-      <img src={project.imgback} alt="" className="absolute inset-0 w-full h-full object-cover" />
+      <img
+        src={project.imgback}
+        alt=""
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ filter: DUOTONE_FILTER }}
+      />
     );
   }
   if (!project.imgback && project.dev) {
