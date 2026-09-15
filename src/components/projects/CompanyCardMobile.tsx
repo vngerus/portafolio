@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { FiGithub, FiExternalLink } from 'react-icons/fi';
 import type { WorkCompany } from '@/data';
 import TechTags from '@/components/tech_button';
-import { HoloOverlays, MediaSlot, AnimatedPin, SweepBar } from './projects-shared';
+import { HoloOverlays, MediaSlot, AnimatedPin, SweepBar, DUOTONE_FILTER } from './projects-shared';
 
 const CARD_CLIP =
   'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)';
@@ -71,14 +71,20 @@ const CompanyCardMobile: React.FC<{ company: WorkCompany }> = ({ company }) => {
           key={current.title}
           className="absolute inset-0 overflow-hidden border border-accentPrimary/45 animate-card-swap"
           style={{
-            backgroundImage: bgImage,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
             backgroundColor: '#0a0825',
             boxShadow: '0 0 28px rgba(232,51,46,0.22), 0 12px 24px rgba(0,0,0,0.55)',
             clipPath: CARD_CLIP,
           }}
         >
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: bgImage,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              filter: current.imgback ? DUOTONE_FILTER : undefined,
+            }}
+          />
           <MediaSlot project={current} />
           <HoloOverlays intense />
 
@@ -151,22 +157,29 @@ const CompanyCardMobile: React.FC<{ company: WorkCompany }> = ({ company }) => {
               <div
                 className={`relative h-17.5 overflow-hidden border transition-all ${isActive ? 'border-accentPrimary/55' : 'border-accentPrimary/15'}`}
                 style={{
-                  backgroundImage:
-                    p.imgback && !p.imgback.match(/\.gif$/i) ? `url(${p.imgback})` : undefined,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
                   backgroundColor: '#0a0825',
                   boxShadow: isActive ? '0 0 16px rgba(232,51,46,0.25)' : 'none',
                   clipPath:
                     'polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px)',
                 }}
               >
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    backgroundImage:
+                      p.imgback && !p.imgback.match(/\.gif$/i) ? `url(${p.imgback})` : undefined,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    filter: p.imgback ? DUOTONE_FILTER : undefined,
+                  }}
+                />
                 {p.imgback?.match(/\.gif$/i) && (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={p.imgback}
                     alt=""
                     className="absolute inset-0 w-full h-full object-cover"
+                    style={{ filter: DUOTONE_FILTER }}
                   />
                 )}
                 {!p.imgback && (

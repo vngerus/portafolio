@@ -16,6 +16,4 @@ const NeoTokyoDiorama: React.FC<NeoTokyoDioramaProps> = ({
   return <primitive object={scene} position={position} rotation={rotation} scale={scale} />;
 };
 
-useGLTF.preload('/models/neo-tokyo-diorama.glb');
-
 export default NeoTokyoDiorama;

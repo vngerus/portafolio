@@ -21,13 +21,13 @@ const TicketCard: React.FC<{ exp: Experience; index: number }> = ({ exp, index }
         border: '2px solid #0b0a08', overflow: 'hidden',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'flex-start', gap: 18, padding: '16px 20px 12px' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', gap: 18, padding: '16px 20px 12px' }}>
         <div style={{ width: 100, height: 100, flexShrink: 0, border: '2px solid #0b0a08', background: '#141210', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <span className="font-akira" style={{ fontSize: 26, color: exp.sigilTone, textShadow: `0 0 10px ${exp.sigilTone}` }}>
             {exp.sigilLabel}
           </span>
         </div>
-        <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+        <div style={{ flex: 1, minWidth: 120, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
           <div style={{ display: 'flex', alignItems: 'stretch', gap: 2, height: 64 }}>
             {BARCODE_PATTERN.map((w, i) => (
               <div key={i} style={{ width: w * 1.8, background: '#0b0a08' }} />
@@ -94,7 +94,7 @@ const Experiences: React.FC = () => {
       <div className="flex flex-col w-full mb-12">
         <SysLabel left="// EXP_LOG" right="HISTORIAL DE DESPLIEGUES" />
         <div className="flex items-center w-full">
-          <span className="text-textPrimary font-mono text-lg mr-4">01.</span>
+          <span className="text-accentPrimary font-mono text-lg mr-4">01.</span>
           <h2 className="text-3xl font-bold text-white whitespace-nowrap">Donde he trabajado</h2>
           <div className="flex-1 h-px bg-gray-700 ml-4" />
         </div>
@@ -103,7 +103,7 @@ const Experiences: React.FC = () => {
       <div ref={containerRef} className="relative w-full">
         <div className="absolute left-5 top-0 bottom-0 w-px bg-gray-700/40" />
         <motion.div
-          className="absolute left-5 top-0 w-px bg-textPrimary/80 origin-top"
+          className="absolute left-5 top-0 w-px bg-accentPrimary/80 origin-top"
           style={{ scaleY, height: '100%' }}
         />
 
@@ -118,7 +118,7 @@ const Experiences: React.FC = () => {
                   <span style={{ position: 'absolute', inset: -6, borderRadius: '50%', border: '1px solid #e8332e', animation: 'op-pin-ripple 2s ease-out infinite' }} />
                 )}
               </div>
-              <span style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 8, color: 'rgba(210,143,255,0.55)', marginTop: 8, writingMode: 'vertical-rl', transform: 'rotate(180deg)', letterSpacing: '0.25em', textTransform: 'uppercase' }}>
+              <span style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 8, color: 'rgba(232,51,46,0.55)', marginTop: 8, writingMode: 'vertical-rl', transform: 'rotate(180deg)', letterSpacing: '0.25em', textTransform: 'uppercase' }}>
                 {exp.missionCode}
               </span>
             </div>
@@ -131,11 +131,11 @@ const Experiences: React.FC = () => {
         ))}
       </div>
 
-      <div className="mt-4 pt-2.5 border-t border-dashed border-textPrimary/15 flex justify-between w-full">
-        <span className="font-mono text-[8px] text-textPrimary/30 tracking-[0.2em] uppercase">
+      <div className="mt-4 pt-2.5 border-t border-dashed border-accentPrimary/15 flex justify-between w-full">
+        <span className="font-mono text-[8px] text-accentPrimary/30 tracking-[0.2em] uppercase">
           {'// SYNC PROMEDIO · '}{avgSync}{'% · CLEARANCE PROM · LV.2'}
         </span>
-        <span className="font-mono text-[8px] text-textPrimary/30 tracking-[0.2em] uppercase">
+        <span className="font-mono text-[8px] text-accentPrimary/30 tracking-[0.2em] uppercase">
           {'// EOF · '}{experiences.length}{' EXPEDIENTES'}
         </span>
       </div>
