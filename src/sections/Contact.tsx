@@ -38,7 +38,7 @@ const Contact: React.FC = () => {
       });
 
       if (res.ok) {
-        toast.success('¡Mensaje enviado! Te responderé pronto.');
+        toast.success('[ TRANSMISIÓN EXITOSA ] Gracias. En breve me pondré en contacto.');
         setForm(INITIAL_FORM);
       } else {
         toast.error('Ocurrió un error. Inténtalo nuevamente.');
@@ -62,7 +62,7 @@ const Contact: React.FC = () => {
           className="w-full h-1.5 rounded-sm mb-10 opacity-40"
           style={{
             backgroundImage:
-              'repeating-linear-gradient(45deg, #6d448a, #6d448a 10px, #0d0b2e 10px, #0d0b2e 20px)',
+              'repeating-linear-gradient(45deg, #e8332e, #e8332e 10px, #0b0a08 10px, #0b0a08 20px)',
           }}
         />
 
@@ -78,7 +78,7 @@ const Contact: React.FC = () => {
         <div className="w-full max-w-2xl mx-auto">
           <p className="text-gray-400 text-center mb-10 leading-relaxed">
             ¿Tienes un proyecto en mente o simplemente quieres saludar?{' '}
-            <span className="text-textPrimary">Escríbeme</span>, estaré encantado de responder.
+            <span className="text-accentPrimary">Escríbeme</span>, estaré encantado de responder.
           </p>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-6">
@@ -86,7 +86,7 @@ const Contact: React.FC = () => {
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="name"
-                  className="font-mono text-[10px] text-textPrimary/70 tracking-[0.2em] uppercase"
+                  className="font-mono text-[10px] text-accentPrimary tracking-[0.2em] uppercase"
                 >
                   {'// Nombre'}
                 </label>
@@ -97,13 +97,13 @@ const Contact: React.FC = () => {
                   value={form.name}
                   onChange={handleChange}
                   placeholder="Steve Jobs"
-                  className="bg-background-secondary border border-textSecondary rounded px-4 py-3 text-gray-200 text-sm placeholder-gray-600 focus:outline-none focus:border-textPrimary transition-colors"
+                  className="bg-background-secondary border border-bone/20 rounded px-4 py-3 text-gray-200 text-sm placeholder-gray-600 focus:outline-none focus:border-accentPrimary transition-colors"
                 />
               </div>
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="email"
-                  className="font-mono text-[10px] text-textPrimary/70 tracking-[0.2em] uppercase"
+                  className="font-mono text-[10px] text-accentPrimary tracking-[0.2em] uppercase"
                 >
                   {'// Email'}
                 </label>
@@ -114,14 +114,14 @@ const Contact: React.FC = () => {
                   value={form.email}
                   onChange={handleChange}
                   placeholder="sjobs@apple.com"
-                  className="bg-background-secondary border border-textSecondary rounded px-4 py-3 text-gray-200 text-sm placeholder-gray-600 focus:outline-none focus:border-textPrimary transition-colors"
+                  className="bg-background-secondary border border-bone/20 rounded px-4 py-3 text-gray-200 text-sm placeholder-gray-600 focus:outline-none focus:border-accentPrimary transition-colors"
                 />
               </div>
             </div>
             <div className="flex flex-col gap-2">
               <label
                 htmlFor="message"
-                className="font-mono text-[10px] text-textPrimary/70 tracking-[0.2em] uppercase"
+                className="font-mono text-[10px] text-accentPrimary tracking-[0.2em] uppercase"
               >
                 {'// Mensaje'}
               </label>
@@ -132,13 +132,14 @@ const Contact: React.FC = () => {
                 onChange={handleChange}
                 rows={6}
                 placeholder="Hola Angel, me gustaría hablar sobre..."
-                className="bg-background-secondary border border-textSecondary rounded px-4 py-3 text-gray-200 text-sm placeholder-gray-600 focus:outline-none focus:border-textPrimary transition-colors resize-none"
+                className="bg-background-secondary border border-bone/20 rounded px-4 py-3 text-gray-200 text-sm placeholder-gray-600 focus:outline-none focus:border-accentPrimary transition-colors resize-none"
               />
             </div>
             <button
               type="submit"
               disabled={loading}
-              className="self-start px-8 py-3 border border-textPrimary text-textPrimary font-mono text-sm rounded hover:bg-textPrimary/10 active:scale-97 transition-[background-color,transform] duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
+              style={{ clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)' }}
+              className="self-start px-8 py-3 border border-accentPrimary text-accentPrimary font-mono text-sm hover:bg-accentPrimary/10 active:scale-97 transition-[background-color,transform] duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? '[ Conectando... ]' : '[ Transmitir ]'}
             </button>
