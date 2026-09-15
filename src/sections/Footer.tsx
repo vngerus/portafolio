@@ -52,11 +52,8 @@ const Footer: React.FC = () => {
     <footer className="w-full py-10 pb-24">
       <div
         ref={lineRef}
-        className="w-full max-w-220 mx-auto h-1.5 rounded-sm origin-center opacity-30"
-        style={{
-          backgroundImage:
-            'repeating-linear-gradient(45deg, #6d448a, #6d448a 10px, #0d0b2e 10px, #0d0b2e 20px)',
-        }}
+        className="w-full max-w-220 mx-auto h-px origin-center opacity-100"
+        style={{ borderTop: '1px dashed rgba(234,230,218,0.15)' }}
       />
 
       <div ref={contentRef} className="flex flex-col items-center gap-2 mt-6">
