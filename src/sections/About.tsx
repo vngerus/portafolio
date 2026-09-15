@@ -8,10 +8,6 @@ import Image from 'next/image';
 import { AnimatePresence, motion, type Variants } from 'motion/react';
 import SysLabel from '@/components/SysLabel';
 
-const CLIP_SM =
-  'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)';
-const CLIP_MD =
-  'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)';
 const DOT_BG = {
   backgroundImage: 'radial-gradient(circle, rgba(110,68,138,0.07) 1px, transparent 1px)',
   backgroundSize: '18px 18px',
@@ -34,13 +30,12 @@ const NervCard: React.FC<{
   children: React.ReactNode;
 }> = ({ recId, label, status = null, className = '', children }) => (
   <div
-    className={`group relative overflow-hidden border border-gray-700/60 hover:border-textPrimary/50 bg-background-secondary transition-all duration-300 hover:shadow-[0_4px_24px_#d28fff12] flex flex-col ${className}`}
-    style={{ clipPath: CLIP_MD }}
+    className={`group relative overflow-hidden border border-bone/30 hover:border-accentPrimary/50 bg-background-secondary transition-all duration-300 hover:shadow-[0_4px_24px_#e8332e12] flex flex-col ${className}`}
   >
-    <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-textPrimary/50 to-transparent" />
+    <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-accentPrimary/50 to-transparent" />
     <div className="flex items-center justify-between px-4 py-2 bg-buttonUnselected/20 border-b border-gray-700/40 shrink-0">
       <div className="flex items-center gap-2">
-        <span className="font-mono text-[8px] text-textPrimary/50 tracking-[0.2em] uppercase">
+        <span className="font-mono text-[8px] text-accentPrimary/50 tracking-[0.2em] uppercase">
           {recId}
         </span>
         {status && (
@@ -51,9 +46,9 @@ const NervCard: React.FC<{
                 <motion.span
                   animate={{ opacity: [1, 0.2, 1] }}
                   transition={{ repeat: Infinity, duration: 1.6 }}
-                  className="inline-block w-1.5 h-1.5 rounded-full bg-textPrimary"
+                  className="inline-block w-1.5 h-1.5 rounded-full bg-accentPrimary"
                 />
-                <span className="font-mono text-[7px] text-textPrimary/60 tracking-[0.2em] uppercase">
+                <span className="font-mono text-[7px] text-accentPrimary/60 tracking-[0.2em] uppercase">
                   ACTIVO
                 </span>
               </span>
@@ -68,15 +63,15 @@ const NervCard: React.FC<{
           </>
         )}
       </div>
-      <span className="font-mono text-[8px] text-textPrimary/30 tracking-[0.2em] uppercase">
+      <span className="font-mono text-[8px] text-accentPrimary/30 tracking-[0.2em] uppercase">
         {label}
       </span>
     </div>
     <div className="relative flex-1 p-5" style={DOT_BG}>
-      <span className="absolute top-2 left-2 w-3 h-3 border-t border-l border-textPrimary/0 group-hover:border-textPrimary/40 transition-all duration-200" />
-      <span className="absolute top-2 right-2 w-3 h-3 border-t border-r border-textPrimary/0 group-hover:border-textPrimary/40 transition-all duration-200" />
-      <span className="absolute bottom-2 left-2 w-3 h-3 border-b border-l border-textPrimary/0 group-hover:border-textPrimary/40 transition-all duration-200" />
-      <span className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-textPrimary/0 group-hover:border-textPrimary/40 transition-all duration-200" />
+      <span className="absolute top-2 left-2 w-3 h-3 border-t border-l border-accentPrimary/0 group-hover:border-accentPrimary/40 transition-all duration-200" />
+      <span className="absolute top-2 right-2 w-3 h-3 border-t border-r border-accentPrimary/0 group-hover:border-accentPrimary/40 transition-all duration-200" />
+      <span className="absolute bottom-2 left-2 w-3 h-3 border-b border-l border-accentPrimary/0 group-hover:border-accentPrimary/40 transition-all duration-200" />
+      <span className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-accentPrimary/0 group-hover:border-accentPrimary/40 transition-all duration-200" />
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         <div className="animate-nerv-scan" />
       </div>
@@ -87,7 +82,7 @@ const NervCard: React.FC<{
 
 const SectionDivider: React.FC<{ label: string }> = ({ label }) => (
   <div className="flex items-center gap-3 mb-3">
-    <span className="font-mono text-[8px] text-textPrimary/40 tracking-[0.2em] uppercase">
+    <span className="font-mono text-[8px] text-accentPrimary/40 tracking-[0.2em] uppercase">
       {label}
     </span>
     <div className="flex-1 h-px bg-gray-700/40" />
@@ -103,11 +98,10 @@ const CopyButton: React.FC<{
 }> = ({ value, label, icon, copied, onCopy }) => (
   <button
     onClick={() => onCopy(value)}
-    className="flex items-center justify-between gap-3 px-3 py-2.5 border border-white/5 hover:border-textPrimary/40 hover:bg-textPrimary/5 transition-all group/btn"
-    style={{ clipPath: CLIP_SM }}
+    className="flex items-center justify-between gap-3 px-3 py-2.5 border border-white/5 hover:border-accentPrimary/40 hover:bg-accentPrimary/5 transition-all group/btn"
   >
     <div className="flex items-center gap-3">
-      <span className="text-gray-500 group-hover/btn:text-textPrimary transition-colors">
+      <span className="text-gray-500 group-hover/btn:text-accentPrimary transition-colors">
         {icon}
       </span>
       <div className="text-left">
@@ -125,7 +119,7 @@ const CopyButton: React.FC<{
           transition={{ duration: 0.15, ease: [0.2, 0.7, 0.3, 1] }}
           className="shrink-0"
         >
-          <FiCheck size={12} className="text-textPrimary" />
+          <FiCheck size={12} className="text-accentPrimary" />
         </motion.span>
       ) : (
         <motion.span
@@ -215,7 +209,7 @@ const About: React.FC = () => {
       <div className="flex flex-col w-full mb-10">
         <SysLabel left="// PILOT_FILE" right="ARCHIVO DE PERSONAL" />
         <div className="flex items-center w-full">
-          <span className="text-textPrimary font-mono text-lg mr-4">03.</span>
+          <span className="text-accentPrimary font-mono text-lg mr-4">03.</span>
           <h2 className="text-3xl font-bold text-white whitespace-nowrap">Sobre mí</h2>
           <div className="flex-1 h-px bg-gray-700 ml-4" />
         </div>
@@ -230,6 +224,13 @@ const About: React.FC = () => {
       >
         <motion.div variants={cardVariants} className="md:col-span-2">
           <NervCard recId="REC_03A" label="// PERFIL" status="ACTIVO" className="h-full">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-14 h-14 flex-shrink-0 border-2 border-bone bg-background flex items-center justify-center">
+                <span className="font-akira text-accentPrimary text-lg" style={{ textShadow: '0 0 8px #e8332e' }}>
+                  AS
+                </span>
+              </div>
+            </div>
             <SectionDivider label="// DESCRIPCIÓN" />
             <div className="space-y-2.5 text-gray-400 text-sm leading-relaxed mb-5">
               <p>
@@ -237,8 +238,8 @@ const About: React.FC = () => {
                 <span className="text-white">web, mobile y de escritorio</span>. Inicié como{' '}
                 <span className="text-white">Desarrollador Front-End</span> y he evolucionado hacia
                 la integración completa de sistemas, participando activamente en la modernización de
-                servicios <span className="text-textPrimary">Back-End</span> y el diseño de{' '}
-                <span className="text-textPrimary">bases de datos relacionales</span>.
+                servicios <span className="text-accentPrimary">Back-End</span> y el diseño de{' '}
+                <span className="text-accentPrimary">bases de datos relacionales</span>.
               </p>
               <p>
                 Actualmente cursando <span className="text-white">Analista Programador</span> en
@@ -252,15 +253,15 @@ const About: React.FC = () => {
                 <motion.span
                   animate={{ opacity: [1, 0.3, 1] }}
                   transition={{ repeat: Infinity, duration: 2 }}
-                  className="inline-block w-1.5 h-1.5 rounded-full bg-textPrimary"
+                  className="inline-block w-1.5 h-1.5 rounded-full bg-accentPrimary"
                 />
                 <span className="font-mono text-[10px] text-gray-500 tracking-wider">
-                  DISPONIBLE · <span className="text-textPrimary">BOOKS&BITS</span>
+                  DISPONIBLE · <span className="text-accentPrimary">BOOKS&BITS</span>
                 </span>
               </div>
               <span className="w-px h-3 bg-gray-700" />
               <span
-                className="font-mono text-[8px] text-textPrimary/60 tracking-[0.15em] uppercase border border-textPrimary/25 bg-textPrimary/5 px-2 py-0.5"
+                className="font-mono text-[8px] text-accentPrimary/60 tracking-[0.15em] uppercase border border-accentPrimary/25 bg-accentPrimary/5 px-2 py-0.5"
                 style={{ clipPath: 'polygon(4px 0, 100% 0, calc(100% - 4px) 100%, 0 100%)' }}
               >
                 Inglés B2
@@ -299,19 +300,19 @@ const About: React.FC = () => {
               {EDUCATION.map(edu => (
                 <div key={edu.id}>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="font-mono text-[8px] text-textPrimary/40 tracking-[0.15em] uppercase">
+                    <span className="font-mono text-[8px] text-accentPrimary/40 tracking-[0.15em] uppercase">
                       EDU_{edu.id}
                     </span>
                     {edu.active && (
                       <motion.span
                         animate={{ opacity: [1, 0.2, 1] }}
                         transition={{ repeat: Infinity, duration: 1.6 }}
-                        className="inline-block w-1.5 h-1.5 rounded-full bg-textPrimary"
+                        className="inline-block w-1.5 h-1.5 rounded-full bg-accentPrimary"
                       />
                     )}
                   </div>
                   <p className="text-white text-sm font-medium leading-tight">{edu.degree}</p>
-                  <p className="font-mono text-[10px] text-textPrimary/60 mt-0.5">
+                  <p className="font-mono text-[10px] text-accentPrimary/60 mt-0.5">
                     {edu.institution}
                   </p>
                   <p className="font-mono text-[9px] text-gray-600 mt-0.5 tracking-wider">
@@ -328,13 +329,13 @@ const About: React.FC = () => {
             <div className="space-y-3">
               {CERTS.map(cert => (
                 <div key={cert.id} className="flex items-start gap-3">
-                  <span className="font-mono text-[8px] text-textPrimary/40 tracking-[0.12em] uppercase shrink-0 border border-textPrimary/20 px-1.5 py-0.5 mt-0.5">
+                  <span className="font-mono text-[8px] text-accentPrimary/40 tracking-[0.12em] uppercase shrink-0 border border-accentPrimary/20 px-1.5 py-0.5 mt-0.5">
                     CERT_{cert.id}
                   </span>
                   <div className="flex-1 min-w-0">
                     <p className="text-gray-300 text-sm leading-tight">{cert.name}</p>
                     <div className="flex flex-wrap items-center gap-2 mt-0.5">
-                      <p className="font-mono text-[9px] text-textPrimary/50">{cert.org}</p>
+                      <p className="font-mono text-[9px] text-accentPrimary/50">{cert.org}</p>
                       {cert.hours && (
                         <>
                           <span className="w-px h-2.5 bg-gray-700" />
@@ -359,7 +360,6 @@ const About: React.FC = () => {
                 <div
                   key={tag.id}
                   className="flex flex-col items-center gap-2 py-3 px-2 cursor-default border border-white/5"
-                  style={{ clipPath: CLIP_SM }}
                 >
                   <Image
                     src={tag.icon}
