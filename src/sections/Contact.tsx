@@ -38,7 +38,7 @@ const Contact: React.FC = () => {
       });
 
       if (res.ok) {
-        toast.success('[ TRANSMISIÓN EXITOSA ] Gracias. En breve me pondré en contacto.');
+        toast.success('¡Mensaje enviado! Te responderé pronto.');
         setForm(INITIAL_FORM);
       } else {
         toast.error('Ocurrió un error. Inténtalo nuevamente.');
