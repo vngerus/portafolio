@@ -10,7 +10,8 @@ import { HoloOverlays, MediaSlot, AnimatedPin, SweepBar, CompanyBanner } from '.
 const CARD_CLIP =
   'polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)';
 const TILT_DEG = 5;
-const DEFAULT_ACCENT = '#d28fff';
+const DEFAULT_ACCENT = '#e8332e';
+const DUOTONE_FILTER = 'sepia(1) saturate(3.2) hue-rotate(-42deg) contrast(1.15) brightness(0.85)';
 
 function hexToRgba(hex: string, alpha: number) {
   const h = hex.replace('#', '');
@@ -66,7 +67,7 @@ const CompanyCard: React.FC<{ company: WorkCompany }> = ({ company }) => {
             style={{ perspective: '1400px', perspectiveOrigin: 'center center' }}
           >
             <div
-              className="absolute inset-0 border border-textPrimary/10 bg-background/40"
+              className="absolute inset-0 border border-accentPrimary/10 bg-background/40"
               style={{
                 transform: `translate3d(${10 + tilt.x * 4}px, ${10 - tilt.y * 4}px, -80px) rotateY(${tilt.x * TILT_DEG * 0.4}deg) rotateX(${-tilt.y * TILT_DEG * 0.3}deg)`,
                 transition,
@@ -74,7 +75,7 @@ const CompanyCard: React.FC<{ company: WorkCompany }> = ({ company }) => {
               }}
             />
             <div
-              className="absolute inset-0 border border-textPrimary/15 bg-background-secondary/60"
+              className="absolute inset-0 border border-accentPrimary/15 bg-background-secondary/60"
               style={{
                 transform: `translate3d(${5 + tilt.x * 6}px, ${5 - tilt.y * 6}px, -40px) rotateY(${tilt.x * TILT_DEG * 0.6}deg) rotateX(${-tilt.y * TILT_DEG * 0.5}deg)`,
                 transition,
@@ -91,13 +92,14 @@ const CompanyCard: React.FC<{ company: WorkCompany }> = ({ company }) => {
               }}
             >
               <div
-                className="relative w-full h-full overflow-hidden border border-textPrimary/45"
+                className="relative w-full h-full overflow-hidden border border-accentPrimary/45"
                 style={{
                   backgroundImage: bgImage,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
                   backgroundColor: '#0a0825',
-                  boxShadow: '0 0 36px rgba(210,143,255,0.22), 0 18px 40px rgba(0,0,0,0.55)',
+                  filter: current.imgback ? DUOTONE_FILTER : undefined,
+                  boxShadow: '0 0 36px rgba(232,51,46,0.22), 0 18px 40px rgba(0,0,0,0.55)',
                   clipPath: CARD_CLIP,
                 }}
               >
@@ -115,7 +117,7 @@ const CompanyCard: React.FC<{ company: WorkCompany }> = ({ company }) => {
                 />
                 <div className="absolute top-3.5 left-7 right-7 flex justify-between items-center z-25">
                   <div
-                    className="flex items-center gap-2 bg-background/70 border border-textPrimary/25 px-2.5 py-1 backdrop-blur"
+                    className="flex items-center gap-2 bg-background/70 border border-accentPrimary/25 px-2.5 py-1 backdrop-blur"
                     style={{ clipPath: 'polygon(5px 0, 100% 0, calc(100% - 5px) 100%, 0 100%)' }}
                   >
                     {current.imglogo ? (
@@ -128,16 +130,16 @@ const CompanyCard: React.FC<{ company: WorkCompany }> = ({ company }) => {
                       />
                     ) : (
                       <span
-                        className="w-2 h-2 bg-textPrimary"
+                        className="w-2 h-2 bg-accentPrimary"
                         style={{ transform: 'rotate(45deg)' }}
                       />
                     )}
-                    <span className="font-mono text-[8px] text-textPrimary/75 tracking-[0.15em] uppercase">
+                    <span className="font-mono text-[8px] text-accentPrimary/75 tracking-[0.15em] uppercase">
                       {company.opCode}·{String(active + 1).padStart(2, '0')}
                     </span>
                   </div>
                   <span
-                    className="font-mono text-[8px] text-textPrimary/55 tracking-[0.15em] uppercase bg-background/70 border border-textPrimary/25 px-2.5 py-1 backdrop-blur"
+                    className="font-mono text-[8px] text-accentPrimary/55 tracking-[0.15em] uppercase bg-background/70 border border-accentPrimary/25 px-2.5 py-1 backdrop-blur"
                     style={{ clipPath: 'polygon(5px 0, 100% 0, calc(100% - 5px) 100%, 0 100%)' }}
                   >
                     {String(active + 1).padStart(2, '0')} /{' '}
@@ -175,7 +177,7 @@ const CompanyCard: React.FC<{ company: WorkCompany }> = ({ company }) => {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <p className="font-mono text-[8px] text-textPrimary/40 tracking-[0.2em] uppercase mb-0.5">
+          <p className="font-mono text-[8px] text-accentPrimary/40 tracking-[0.2em] uppercase mb-0.5">
             {'// BITÁCORA · '}
             {company.projects.length}
             {' OPS'}
@@ -189,12 +191,12 @@ const CompanyCard: React.FC<{ company: WorkCompany }> = ({ company }) => {
               onClick={() => setActive(i)}
             />
           ))}
-          <div className="mt-auto pt-3 border-t border-dashed border-textPrimary/15 flex flex-col gap-1">
-            <p className="font-mono text-[7px] text-textPrimary/35 tracking-[0.2em] uppercase">
+          <div className="mt-auto pt-3 border-t border-dashed border-accentPrimary/15 flex flex-col gap-1">
+            <p className="font-mono text-[7px] text-accentPrimary/35 tracking-[0.2em] uppercase">
               {'ROL · '}
               {company.role}
             </p>
-            <p className="font-mono text-[7px] text-textPrimary/25 tracking-[0.2em] uppercase">
+            <p className="font-mono text-[7px] text-accentPrimary/25 tracking-[0.2em] uppercase">
               ✱ MUEVE EL MOUSE EN EL PREVIEW
             </p>
           </div>
@@ -210,22 +212,22 @@ const ProjectInfoBar: React.FC<{ project: WorkProject; index: number; company: W
   company,
 }) => (
   <div
-    className="relative border border-textPrimary/20 bg-background-secondary/55 px-4 pt-3.5 pb-4 animate-fade-in"
+    className="relative border border-accentPrimary/20 bg-background-secondary/55 px-4 pt-3.5 pb-4 animate-fade-in"
     style={{ clipPath: CARD_CLIP }}
   >
-    <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-textPrimary/45 to-transparent" />
+    <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-accentPrimary/45 to-transparent" />
     <div className="flex items-baseline justify-between gap-3 mb-1">
       <div className="flex items-baseline gap-3 min-w-0">
-        <span className="font-mono text-[10px] text-textPrimary/40 tracking-[0.15em] uppercase shrink-0">
+        <span className="font-mono text-[10px] text-accentPrimary/40 tracking-[0.15em] uppercase shrink-0">
           {'// '}
           {company.opCode}.{String(index + 1).padStart(2, '0')}
         </span>
         <h3 className="text-[22px] font-bold text-white tracking-tight truncate">
           {project.title}
         </h3>
-        <span className="font-mono text-[9px] text-textPrimary/55 italic">{project.subtitle}</span>
+        <span className="font-mono text-[9px] text-accentPrimary/55 italic">{project.subtitle}</span>
       </div>
-      <span className="font-mono text-[8px] text-textPrimary/40 tracking-[0.15em] uppercase">
+      <span className="font-mono text-[8px] text-accentPrimary/40 tracking-[0.15em] uppercase">
         {project.kind}
       </span>
     </div>
@@ -238,7 +240,7 @@ const ProjectInfoBar: React.FC<{ project: WorkProject; index: number; company: W
           href={project.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-1.5 font-mono text-[10px] text-textPrimary/85 tracking-[0.15em] uppercase border border-textPrimary/40 px-3.5 py-1.5 bg-textPrimary/5 hover:bg-textPrimary/10 transition-colors"
+          className="flex items-center gap-1.5 font-mono text-[10px] text-accentPrimary/85 tracking-[0.15em] uppercase border border-accentPrimary/40 px-3.5 py-1.5 bg-accentPrimary/5 hover:bg-accentPrimary/10 transition-colors"
           style={{ clipPath: 'polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%)' }}
         >
           <FiExternalLink size={11} />
@@ -248,7 +250,7 @@ const ProjectInfoBar: React.FC<{ project: WorkProject; index: number; company: W
           href={project.github ?? 'https://github.com/vngerus'}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-1.5 font-mono text-[10px] text-gray-400 tracking-[0.15em] uppercase border border-gray-700/60 px-3.5 py-1.5 hover:border-textPrimary/30 hover:text-gray-300 transition-colors"
+          className="flex items-center gap-1.5 font-mono text-[10px] text-gray-400 tracking-[0.15em] uppercase border border-gray-700/60 px-3.5 py-1.5 hover:border-accentPrimary/30 hover:text-gray-300 transition-colors"
           style={{ clipPath: 'polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%)' }}
         >
           <FiGithub size={11} />
@@ -257,14 +259,14 @@ const ProjectInfoBar: React.FC<{ project: WorkProject; index: number; company: W
       </div>
     </div>
 
-    <div className="flex gap-4 mt-3 pt-2.5 border-t border-dashed border-textPrimary/15">
+    <div className="flex gap-4 mt-3 pt-2.5 border-t border-dashed border-accentPrimary/15">
       {[
         { k: 'LH', v: project.metrics.lh },
         { k: 'BUILD', v: project.metrics.build },
         { k: 'DEPS', v: project.metrics.deps },
       ].map(m => (
         <div key={m.k} className="flex items-baseline gap-1.5">
-          <span className="font-mono text-[7px] text-textPrimary/35 tracking-[0.2em] uppercase">
+          <span className="font-mono text-[7px] text-accentPrimary/35 tracking-[0.2em] uppercase">
             {m.k}
           </span>
           <span className="font-mono text-[11px] text-light font-bold tracking-wider">{m.v}</span>
@@ -285,7 +287,7 @@ const ThumbButton: React.FC<{
     className="relative p-0 border-0 bg-transparent cursor-pointer text-left transition-transform active:scale-96 duration-120"
   >
     <div
-      className={`relative h-24 overflow-hidden border transition-all ${isActive ? 'border-textPrimary/55' : 'border-textPrimary/15'}`}
+      className={`relative h-24 overflow-hidden border transition-all ${isActive ? 'border-accentPrimary/55' : 'border-accentPrimary/15'}`}
       style={{
         backgroundImage:
           project.imgback && !project.imgback.match(/\.gif$/i)
@@ -294,7 +296,8 @@ const ThumbButton: React.FC<{
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundColor: '#0a0825',
-        boxShadow: isActive ? '0 0 20px rgba(210,143,255,0.28)' : 'none',
+        filter: project.imgback ? DUOTONE_FILTER : undefined,
+        boxShadow: isActive ? '0 0 20px rgba(232,51,46,0.28)' : 'none',
         clipPath:
           'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
       }}
@@ -308,7 +311,7 @@ const ThumbButton: React.FC<{
           className="absolute inset-0"
           style={{
             backgroundImage:
-              'repeating-linear-gradient(135deg, rgba(210,143,255,0.05) 0 6px, transparent 6px 14px), linear-gradient(180deg, #0a0825 0%, #0d0b2e 100%)',
+              'repeating-linear-gradient(135deg, rgba(232,51,46,0.05) 0 6px, transparent 6px 14px), linear-gradient(180deg, #0a0825 0%, #0d0b2e 100%)',
           }}
         />
       )}
@@ -322,13 +325,13 @@ const ThumbButton: React.FC<{
       />
       {isActive && (
         <span
-          className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-textPrimary animate-pulse"
-          style={{ boxShadow: '0 0 8px #d28fff' }}
+          className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-accentPrimary animate-pulse"
+          style={{ boxShadow: '0 0 8px #e8332e' }}
         />
       )}
       <div className="absolute inset-0 p-2.5 flex flex-col justify-between">
         <span
-          className={`font-mono text-[7px] tracking-[0.15em] uppercase ${isActive ? 'text-textPrimary/85' : 'text-textPrimary/40'}`}
+          className={`font-mono text-[7px] tracking-[0.15em] uppercase ${isActive ? 'text-accentPrimary/85' : 'text-accentPrimary/40'}`}
         >
           {'#'}
           {String(index + 1).padStart(2, '0')}
@@ -342,7 +345,7 @@ const ThumbButton: React.FC<{
             {project.title}
           </div>
           <span
-            className={`block font-mono text-[7px] mt-0.5 tracking-wide ${isActive ? 'text-textPrimary/65' : 'text-gray-400/60'}`}
+            className={`block font-mono text-[7px] mt-0.5 tracking-wide ${isActive ? 'text-accentPrimary/65' : 'text-gray-400/60'}`}
           >
             {project.subtitle}
           </span>
@@ -350,8 +353,8 @@ const ThumbButton: React.FC<{
       </div>
       {isActive && (
         <>
-          <span className="absolute top-1 left-1 w-2 h-2 border-t border-l border-textPrimary/70" />
-          <span className="absolute bottom-1 left-1 w-2 h-2 border-b border-l border-textPrimary/70" />
+          <span className="absolute top-1 left-1 w-2 h-2 border-t border-l border-accentPrimary/70" />
+          <span className="absolute bottom-1 left-1 w-2 h-2 border-b border-l border-accentPrimary/70" />
         </>
       )}
     </div>

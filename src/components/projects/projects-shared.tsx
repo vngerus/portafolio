@@ -11,13 +11,13 @@ export const HoloOverlays: React.FC<{ intense?: boolean }> = ({ intense = true }
       className="absolute inset-0 pointer-events-none z-10 opacity-[0.07]"
       style={{
         backgroundImage:
-          'linear-gradient(rgba(210,143,255,0.8) 1px, transparent 1px),' +
-          'linear-gradient(90deg, rgba(210,143,255,0.8) 1px, transparent 1px)',
+          'linear-gradient(rgba(232,51,46,0.8) 1px, transparent 1px),' +
+          'linear-gradient(90deg, rgba(232,51,46,0.8) 1px, transparent 1px)',
         backgroundSize: '28px 28px',
       }}
     />
     <motion.div
-      className="absolute inset-0 pointer-events-none z-10 bg-linear-to-b from-textPrimary/0 via-buttonSelected/15 to-textPrimary/8"
+      className="absolute inset-0 pointer-events-none z-10 bg-linear-to-b from-accentPrimary/0 via-buttonSelected/15 to-accentPrimary/8"
       animate={intense ? { opacity: [0.5, 1, 0.6, 1, 0.5] } : { opacity: 0.6 }}
       transition={{ repeat: Infinity, duration: 5, ease: 'easeInOut' }}
     />
@@ -28,28 +28,28 @@ export const HoloOverlays: React.FC<{ intense?: boolean }> = ({ intense = true }
     )}
     <div className="absolute inset-0 pointer-events-none z-20 p-2.5">
       <div className="absolute top-2.5 left-2.5">
-        <div className="w-3 h-3 border-t border-l border-textPrimary/60" />
-        <p className="font-mono text-[6px] text-textPrimary/40 tracking-wider mt-0.5 uppercase">
+        <div className="w-3 h-3 border-t border-l border-accentPrimary/60" />
+        <p className="font-mono text-[6px] text-accentPrimary/40 tracking-wider mt-0.5 uppercase">
           SYS_LINK
         </p>
       </div>
       <div className="absolute top-2.5 right-2.5 text-right">
-        <div className="w-3 h-3 border-t border-r border-textPrimary/60 ml-auto" />
-        <p className="font-mono text-[6px] text-textPrimary/40 tracking-wider mt-0.5 uppercase">
+        <div className="w-3 h-3 border-t border-r border-accentPrimary/60 ml-auto" />
+        <p className="font-mono text-[6px] text-accentPrimary/40 tracking-wider mt-0.5 uppercase">
           ACTIVO
         </p>
       </div>
       <div className="absolute bottom-2.5 left-2.5">
-        <p className="font-mono text-[6px] text-textPrimary/30 tracking-wider mb-0.5 uppercase">
+        <p className="font-mono text-[6px] text-accentPrimary/30 tracking-wider mb-0.5 uppercase">
           OP_REC
         </p>
-        <div className="w-3 h-3 border-b border-l border-textPrimary/60" />
+        <div className="w-3 h-3 border-b border-l border-accentPrimary/60" />
       </div>
       <div className="absolute bottom-2.5 right-2.5 text-right">
-        <p className="font-mono text-[6px] text-textPrimary/30 tracking-wider mb-0.5 uppercase">
+        <p className="font-mono text-[6px] text-accentPrimary/30 tracking-wider mb-0.5 uppercase">
           NERV
         </p>
-        <div className="w-3 h-3 border-b border-r border-textPrimary/60 ml-auto" />
+        <div className="w-3 h-3 border-b border-r border-accentPrimary/60 ml-auto" />
       </div>
     </div>
   </>
@@ -60,19 +60,19 @@ export const ProjectPlaceholder: React.FC<{ label?: string }> = ({ label = 'prev
     className="absolute inset-0 flex items-center justify-center"
     style={{
       backgroundImage:
-        'repeating-linear-gradient(135deg, rgba(210,143,255,0.06) 0 8px, rgba(0,0,0,0) 8px 18px), linear-gradient(180deg, #0a0825 0%, #0d0b2e 100%)',
+        'repeating-linear-gradient(135deg, rgba(232,51,46,0.06) 0 8px, rgba(0,0,0,0) 8px 18px), linear-gradient(180deg, #0a0825 0%, #0d0b2e 100%)',
     }}
   >
     <div className="text-center">
       <div
-        className="w-9 h-9 mx-auto mb-2.5 border border-dashed border-textPrimary/30"
+        className="w-9 h-9 mx-auto mb-2.5 border border-dashed border-accentPrimary/30"
         style={{ transform: 'rotate(45deg)' }}
       />
-      <p className="font-mono text-[9px] text-textPrimary/40 tracking-[0.15em] uppercase">
+      <p className="font-mono text-[9px] text-accentPrimary/40 tracking-[0.15em] uppercase">
         {'// '}
         {label}
       </p>
-      <p className="font-mono text-[8px] text-textPrimary/20 tracking-[0.15em] uppercase mt-1">
+      <p className="font-mono text-[8px] text-accentPrimary/20 tracking-[0.15em] uppercase mt-1">
         SCREENSHOT_PENDING
       </p>
     </div>
@@ -91,8 +91,8 @@ export const DevPlaceholder: React.FC = () => (
           animate={{ opacity: [1, 0.3, 1] }}
           transition={{ repeat: Infinity, duration: 1.2, ease: 'easeInOut' }}
         />
-        <span className="text-[8px] text-textPrimary/55 tracking-widest uppercase">DEV_STREAM</span>
-        <span className="ml-auto text-[7px] text-textPrimary/30 tracking-wider">REC</span>
+        <span className="text-[8px] text-accentPrimary/55 tracking-widest uppercase">DEV_STREAM</span>
+        <span className="ml-auto text-[7px] text-accentPrimary/30 tracking-wider">REC</span>
       </div>
 
       <div className="space-y-1.5 mb-4">
@@ -102,22 +102,22 @@ export const DevPlaceholder: React.FC = () => (
           { label: 'TYPES  ', w: 41 },
         ].map(({ label, w }) => (
           <div key={label} className="flex items-center gap-2">
-            <span className="text-[6px] text-textPrimary/30 w-13 shrink-0">{label}</span>
-            <div className="flex-1 h-px bg-textPrimary/10 overflow-hidden">
+            <span className="text-[6px] text-accentPrimary/30 w-13 shrink-0">{label}</span>
+            <div className="flex-1 h-px bg-accentPrimary/10 overflow-hidden">
               <motion.div
-                className="h-full bg-textPrimary/50"
+                className="h-full bg-accentPrimary/50"
                 animate={{ width: [`${w - 8}%`, `${w}%`, `${w - 8}%`] }}
                 transition={{ repeat: Infinity, duration: 2.4 + w * 0.01, ease: 'easeInOut' }}
               />
             </div>
-            <span className="text-[6px] text-textPrimary/25">{w}%</span>
+            <span className="text-[6px] text-accentPrimary/25">{w}%</span>
           </div>
         ))}
       </div>
 
-      <div className="border-t border-textPrimary/10 pt-2.5">
-        <p className="text-[9px] text-textPrimary/50">
-          <span className="text-textPrimary/30">$ </span>
+      <div className="border-t border-accentPrimary/10 pt-2.5">
+        <p className="text-[9px] text-accentPrimary/50">
+          <span className="text-accentPrimary/30">$ </span>
           <motion.span
             animate={{ opacity: [1, 0, 1] }}
             transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}
@@ -125,7 +125,7 @@ export const DevPlaceholder: React.FC = () => (
             pnpm dev
           </motion.span>
         </p>
-        <p className="text-[7px] text-textPrimary/25 mt-1 tracking-wide">
+        <p className="text-[7px] text-accentPrimary/25 mt-1 tracking-wide">
           READY IN 1.4s · PORT 3000
         </p>
       </div>
@@ -166,7 +166,7 @@ export const SweepBar: React.FC = () => (
     className="absolute left-0 right-0 h-0.5 pointer-events-none z-28"
     style={{
       background:
-        'linear-gradient(90deg, transparent 0%, rgba(210,143,255,0.7) 40%, rgba(210,143,255,0.9) 50%, rgba(210,143,255,0.7) 60%, transparent 100%)',
+        'linear-gradient(90deg, transparent 0%, rgba(232,51,46,0.7) 40%, rgba(232,51,46,0.9) 50%, rgba(232,51,46,0.7) 60%, transparent 100%)',
       animation: 'op-sweep-bar 0.55s ease-in both',
     }}
   />
@@ -174,7 +174,7 @@ export const SweepBar: React.FC = () => (
 
 export const AnimatedPin: React.FC<{ logo: string | null; accent?: string }> = ({
   logo,
-  accent = '#d28fff',
+  accent = '#e8332e',
 }) => (
   <div
     className="absolute left-1/2 top-0 pointer-events-none z-30 -translate-x-1/2"
@@ -195,7 +195,7 @@ export const AnimatedPin: React.FC<{ logo: string | null; accent?: string }> = (
 
     {/* logo flotando, animación de entrada suave */}
     <div
-      className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center rounded-full border border-textPrimary/70 bg-background/90 overflow-hidden"
+      className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center rounded-full border border-accentPrimary/70 bg-background/90 overflow-hidden"
       style={{
         top: -84,
         width: 26,
@@ -207,7 +207,7 @@ export const AnimatedPin: React.FC<{ logo: string | null; accent?: string }> = (
       {logo ? (
         <Image src={logo} alt="" width={18} height={18} className="w-4.5 h-4.5 object-contain" />
       ) : (
-        <span className="w-1.5 h-1.5 rounded-full bg-textPrimary" />
+        <span className="w-1.5 h-1.5 rounded-full bg-accentPrimary" />
       )}
     </div>
 
@@ -218,7 +218,7 @@ export const AnimatedPin: React.FC<{ logo: string | null; accent?: string }> = (
         style={{ transform: 'translate(-50%, -50%) rotateX(70deg)' }}
       >
         <div
-          className="absolute inset-0 rounded-[50%] border border-textPrimary"
+          className="absolute inset-0 rounded-[50%] border border-accentPrimary"
           style={{ animation: 'op-pin-ripple 0.8s ease-out 0.4s both' }}
         />
       </div>
@@ -234,7 +234,7 @@ export const CompanyBanner: React.FC<{ company: WorkCompany }> = ({ company }) =
       style={{ clipPath: 'polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px)' }}
     >
       <div className="flex items-center gap-2.5">
-        <span className="font-mono text-[9px] text-textPrimary/55 tracking-[0.2em] uppercase">
+        <span className="font-mono text-[9px] text-accentPrimary/55 tracking-[0.2em] uppercase">
           {company.opCode}
         </span>
         <span className="w-px h-3 bg-gray-700" />
@@ -243,14 +243,14 @@ export const CompanyBanner: React.FC<{ company: WorkCompany }> = ({ company }) =
             <motion.span
               animate={{ opacity: [1, 0.25, 1] }}
               transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}
-              className="inline-block w-1.5 h-1.5 rounded-full bg-textPrimary"
-              style={{ boxShadow: '0 0 8px #d28fff' }}
+              className="inline-block w-1.5 h-1.5 rounded-full bg-accentPrimary"
+              style={{ boxShadow: '0 0 8px #e8332e' }}
             />
           ) : (
             <span className="inline-block w-1.5 h-1.5 rounded-full bg-gray-600" />
           )}
           <span
-            className={`font-mono text-[8px] tracking-[0.2em] uppercase ${isActive ? 'text-textPrimary/70' : 'text-gray-600'}`}
+            className={`font-mono text-[8px] tracking-[0.2em] uppercase ${isActive ? 'text-accentPrimary/70' : 'text-gray-600'}`}
           >
             {company.status}
           </span>
@@ -260,7 +260,7 @@ export const CompanyBanner: React.FC<{ company: WorkCompany }> = ({ company }) =
           {company.location}
         </span>
       </div>
-      <span className="font-mono text-[10px] text-textPrimary/35 tracking-wider">
+      <span className="font-mono text-[10px] text-accentPrimary/35 tracking-wider">
         [ {company.period} ]
       </span>
     </div>
