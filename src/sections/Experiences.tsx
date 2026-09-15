@@ -5,28 +5,6 @@ import { motion, useScroll, useSpring } from 'motion/react';
 import { experiences, type Experience } from '@/data';
 import SysLabel from '@/components/SysLabel';
 
-// ── Tech categorization ──────────────────────────────────────────────────────
-const TECH_CATEGORIES: Record<string, string> = {
-  'Next.js': 'FRONTEND', 'React': 'FRONTEND', 'Tailwind CSS': 'FRONTEND',
-  'JavaScript': 'FRONTEND', 'TypeScript': 'FRONTEND', 'ElectronJS': 'FRONTEND',
-  'Python': 'BACKEND', 'Node.js': 'BACKEND', 'SQL': 'BACKEND', 'FastAPI': 'BACKEND',
-  'Power BI': 'DATA', 'Figma': 'DESIGN',
-};
-
-const CATEGORY_TONES: Record<string, string> = {
-  FRONTEND: '#e8332e', BACKEND: '#8a97a6', DATA: '#ffcc00', DESIGN: '#eae6da', OTROS: '#9a938a',
-};
-
-const CATEGORY_ORDER = ['FRONTEND', 'BACKEND', 'DATA', 'DESIGN', 'OTROS'];
-
-function groupTech(tech: string[]) {
-  const groups: Record<string, string[]> = {};
-  tech.forEach((t) => { const c = TECH_CATEGORIES[t] ?? 'OTROS'; (groups[c] ??= []).push(t); });
-  const ordered: Record<string, string[]> = {};
-  CATEGORY_ORDER.forEach((c) => { if (groups[c]) ordered[c] = groups[c]; });
-  return ordered;
-}
-
 // ── Ticket constants ─────────────────────────────────────────────────────────
 const BARCODE_PATTERN = [2, 1, 3, 1, 1, 4, 2, 1, 3, 1, 2, 1, 4, 1, 2, 3, 1, 1, 2, 4, 1, 3, 2, 1];
 const BAND_COLORS = ['#e8332e', '#8a97a6', '#ffcc00'];
@@ -135,7 +113,7 @@ const Experiences: React.FC = () => {
             style={{ display: 'flex', gap: 24, marginBottom: 32, position: 'relative', alignItems: 'stretch' }}
           >
             <div style={{ flexShrink: 0, width: 44, display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 20, position: 'relative', zIndex: 2 }}>
-              <div style={{ position: 'relative', width: 14, height: 14, borderRadius: '50%', border: '2px solid #e8332e', background: '#010103', boxShadow: exp.status === 'ACTIVE' ? '0 0 14px #e8332e, 0 0 22px rgba(232,51,46,0.5)' : '0 0 10px rgba(232,51,46,0.5)' }}>
+              <div style={{ position: 'relative', width: 14, height: 14, borderRadius: '50%', border: '2px solid #e8332e', background: '#010103', boxShadow: exp.status === 'ACTIVE' ? '0 0 14px #e8332e, 0 0 22px rgba(232,51,46,0.5)' : '0 0 8px rgba(232,51,46,0.5)' }}>
                 {exp.status === 'ACTIVE' && (
                   <span style={{ position: 'absolute', inset: -6, borderRadius: '50%', border: '1px solid #e8332e', animation: 'op-pin-ripple 2s ease-out infinite' }} />
                 )}
