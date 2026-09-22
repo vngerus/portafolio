@@ -7,7 +7,7 @@ import SysLabel from '@/components/SysLabel';
 
 // ── Ticket constants ─────────────────────────────────────────────────────────
 const BARCODE_PATTERN = [2, 1, 3, 1, 1, 4, 2, 1, 3, 1, 2, 1, 4, 1, 2, 3, 1, 1, 2, 4, 1, 3, 2, 1];
-const BAND_COLORS = ['#e8332e', '#8a97a6', '#ffcc00'];
+const BAND_COLORS = ['#a855f7', '#8a97a6', '#ffcc00'];
 
 // ── TicketCard ───────────────────────────────────────────────────────────────
 const TicketCard: React.FC<{ exp: Experience; index: number }> = ({ exp, index }) => {
@@ -37,7 +37,7 @@ const TicketCard: React.FC<{ exp: Experience; index: number }> = ({ exp, index }
             {exp.company}
           </span>
         </div>
-        <span style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 9, letterSpacing: '0.15em', textTransform: 'uppercase', color: isActive ? '#e8332e' : '#5a554c', border: `1px solid ${isActive ? '#e8332e' : '#5a554c'}`, padding: '3px 9px', flexShrink: 0 }}>
+        <span style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 9, letterSpacing: '0.15em', textTransform: 'uppercase', color: isActive ? '#a855f7' : '#5a554c', border: `1px solid ${isActive ? '#a855f7' : '#5a554c'}`, padding: '3px 9px', flexShrink: 0 }}>
           {exp.status}
         </span>
       </div>
@@ -113,18 +113,18 @@ const Experiences: React.FC = () => {
             style={{ display: 'flex', gap: 24, marginBottom: 32, position: 'relative', alignItems: 'stretch' }}
           >
             <div style={{ flexShrink: 0, width: 44, display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 20, position: 'relative', zIndex: 2 }}>
-              <div style={{ position: 'relative', width: 14, height: 14, borderRadius: '50%', border: '2px solid #e8332e', background: '#010103', boxShadow: exp.status === 'ACTIVE' ? '0 0 14px #e8332e, 0 0 22px rgba(232,51,46,0.5)' : '0 0 8px rgba(232,51,46,0.5)' }}>
+              <div style={{ position: 'relative', width: 14, height: 14, borderRadius: '50%', border: '2px solid #a855f7', background: '#010103', boxShadow: exp.status === 'ACTIVE' ? '0 0 14px #a855f7, 0 0 22px rgba(168,85,247,0.5)' : '0 0 8px rgba(168,85,247,0.5)' }}>
                 {exp.status === 'ACTIVE' && (
-                  <span style={{ position: 'absolute', inset: -6, borderRadius: '50%', border: '1px solid #e8332e', animation: 'op-pin-ripple 2s ease-out infinite' }} />
+                  <span style={{ position: 'absolute', inset: -6, borderRadius: '50%', border: '1px solid #a855f7', animation: 'op-pin-ripple 2s ease-out infinite' }} />
                 )}
               </div>
-              <span style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 8, color: 'rgba(232,51,46,0.55)', marginTop: 8, writingMode: 'vertical-rl', transform: 'rotate(180deg)', letterSpacing: '0.25em', textTransform: 'uppercase' }}>
+              <span style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 8, color: 'rgba(168,85,247,0.55)', marginTop: 8, writingMode: 'vertical-rl', transform: 'rotate(180deg)', letterSpacing: '0.25em', textTransform: 'uppercase' }}>
                 {exp.missionCode}
               </span>
             </div>
 
-            <div style={{ position: 'absolute', left: 44, top: 27, width: 22, height: 1, background: 'linear-gradient(90deg, #e8332e 0%, rgba(232,51,46,0.3) 100%)', zIndex: 1, animation: `op-trace-grow 0.6s ease-out ${index * 0.08 + 0.2}s both`, transformOrigin: 'left' }} />
-            <div style={{ position: 'absolute', left: 62, top: 24, width: 6, height: 6, background: '#e8332e', transform: 'rotate(45deg)', zIndex: 1, animation: `op-fade 0.4s ease ${index * 0.08 + 0.5}s both`, boxShadow: '0 0 6px #e8332e' }} />
+            <div style={{ position: 'absolute', left: 44, top: 27, width: 22, height: 1, background: 'linear-gradient(90deg, #a855f7 0%, rgba(168,85,247,0.3) 100%)', zIndex: 1, animation: `op-trace-grow 0.6s ease-out ${index * 0.08 + 0.2}s both`, transformOrigin: 'left' }} />
+            <div style={{ position: 'absolute', left: 62, top: 24, width: 6, height: 6, background: '#a855f7', transform: 'rotate(45deg)', zIndex: 1, animation: `op-fade 0.4s ease ${index * 0.08 + 0.5}s both`, boxShadow: '0 0 8px #a855f7' }} />
 
             <TicketCard exp={exp} index={index} />
           </div>

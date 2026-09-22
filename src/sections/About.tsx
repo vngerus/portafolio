@@ -30,7 +30,7 @@ const NervCard: React.FC<{
   children: React.ReactNode;
 }> = ({ recId, label, status = null, className = '', children }) => (
   <div
-    className={`group relative overflow-hidden border border-bone/30 hover:border-accentPrimary/50 bg-background-secondary transition-all duration-300 hover:shadow-[0_4px_24px_#e8332e12] flex flex-col ${className}`}
+    className={`group relative overflow-hidden border border-bone/30 hover:border-accentPrimary/50 bg-background-secondary transition-all duration-300 hover:shadow-[0_4px_24px_#a855f718] flex flex-col ${className}`}
   >
     <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-accentPrimary/50 to-transparent" />
     <div className="flex items-center justify-between px-4 py-2 bg-buttonUnselected/20 border-b border-gray-700/40 shrink-0">
@@ -226,7 +226,7 @@ const About: React.FC = () => {
           <NervCard recId="REC_03A" label="// PERFIL" status="ACTIVO" className="h-full">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-14 h-14 flex-shrink-0 border-2 border-bone bg-background flex items-center justify-center">
-                <span className="font-akira text-accentPrimary text-lg" style={{ textShadow: '0 0 8px #e8332e' }}>
+                <span className="font-akira text-accentPrimary text-lg" style={{ textShadow: '0 0 10px #a855f7' }}>
                   AS
                 </span>
               </div>

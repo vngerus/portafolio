@@ -22,18 +22,18 @@ const NeoTokyoCanvas: React.FC<NeoTokyoCanvasProps> = ({ className = '' }) => {
     let animationFrameId: number;
     let isDisposed = false;
 
-    // Dimensions
-    const getWidth = () => container.clientWidth || 860;
-    const getHeight = () => container.clientHeight || 640;
+    // Dimensions - dynamically matches container / viewport for full-bleed background
+    const getWidth = () => container.clientWidth || window.innerWidth || 1200;
+    const getHeight = () => container.clientHeight || window.innerHeight || 800;
 
     let width = getWidth();
     let height = getHeight();
 
-    // Scene & Camera - matched to Sketchfab 3/4 isometric perspective
+    // Scene & Camera - perfectly framed so the circular island fits comfortably without cropping left/right
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
-    camera.position.set(0, 1.9, 4.3);
-    camera.lookAt(0, -0.12, 0);
+    camera.position.set(0, 1.62, 3.85);
+    camera.lookAt(0, -0.58, 0);
 
     // Renderer
     const renderer = new THREE.WebGLRenderer({
@@ -44,7 +44,7 @@ const NeoTokyoCanvas: React.FC<NeoTokyoCanvasProps> = ({ className = '' }) => {
     });
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.15;
+    renderer.toneMappingExposure = 1.32;
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.setSize(width, height, false);
 
@@ -164,6 +164,7 @@ const NeoTokyoCanvas: React.FC<NeoTokyoCanvasProps> = ({ className = '' }) => {
             mesh.material = new THREE.MeshBasicMaterial({
               color: 0x000000,
             });
+            mesh.scale.multiplyScalar(1.35);
           }
 
           // 3. BLAST CRATER EXPANSION (BOMBAC): Pure blinding glowing white
@@ -189,7 +190,7 @@ const NeoTokyoCanvas: React.FC<NeoTokyoCanvasProps> = ({ className = '' }) => {
                 color: 0xcccccc,
               });
             } else {
-              // Outer rim and cylinder base
+              // Outer rim and cylinder base - pure black to melt seamlessly into background
               mesh.material = new THREE.MeshBasicMaterial({
                 color: 0x000000,
               });
@@ -228,7 +229,7 @@ const NeoTokyoCanvas: React.FC<NeoTokyoCanvasProps> = ({ className = '' }) => {
         box.getCenter(center);
 
         const maxDim = Math.max(size.x, size.y, size.z) || 1;
-        const scale = 4.4 / maxDim;
+        const scale = 4.65 / maxDim;
 
         model.scale.setScalar(scale);
         model.position.sub(center.multiplyScalar(scale));
@@ -247,8 +248,8 @@ const NeoTokyoCanvas: React.FC<NeoTokyoCanvasProps> = ({ className = '' }) => {
       animationFrameId = requestAnimationFrame(animate);
 
       if (loadedModel) {
-        // Idle gentle rotation around Y
-        loadedModel.rotation.y += 0.0028;
+        // Idle very gentle, subtle rotation around Y (slow cinematic drift)
+        loadedModel.rotation.y += 0.0006;
 
         // Subtle mouse parallax damping
         currentTiltX += (mouseTargetY * 0.08 - currentTiltX) * 0.05;

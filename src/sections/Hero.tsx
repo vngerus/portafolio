@@ -4,28 +4,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import { gsap } from 'gsap';
 import { useTextScramble } from '@/hooks/useTextScramble';
-import SysLabel from '@/components/SysLabel';
 import NeoTokyoCanvas from '@/components/NeoTokyoCanvas';
 
-const TextGenerate: React.FC<{ text: string; className?: string; delay?: number }> = ({
-  text,
-  className = '',
-  delay = 0,
-}) => (
-  <span className={className}>
-    {text.split(' ').map((word, i) => (
-      <motion.span
-        key={i}
-        className="inline-block mr-[0.25em]"
-        initial={{ opacity: 0, filter: 'blur(8px)', y: 8 }}
-        animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
-        transition={{ delay: delay + i * 0.06, duration: 0.45, ease: 'easeOut' }}
-      >
-        {word}
-      </motion.span>
-    ))}
-  </span>
-);
+
 
 const NAME_SHARDS = [
   [
@@ -39,7 +20,7 @@ const NAME_SHARDS = [
 ];
 
 const ScrambleName: React.FC = () => {
-  const display = useTextScramble('Ángel Smith', 1100, 80);
+  const display = useTextScramble('ANGEL SMITH', 1100, 80);
   const [visible, setVisible] = useState(false);
   const words = display.split(' ');
 
@@ -50,12 +31,12 @@ const ScrambleName: React.FC = () => {
 
   return (
     <span
-      className="font-jetbrains tracking-wide flex flex-col items-center gap-1"
+      className="flex flex-col items-center gap-1.5"
       style={{ opacity: visible ? 1 : 0, transition: 'opacity 0.05s' }}
       suppressHydrationWarning
     >
       {words.map((word, wi) => (
-        <span key={wi} className="relative inline-block px-2 py-1">
+        <span key={wi} className="relative inline-block px-2 py-0.5">
           {NAME_SHARDS[wi % NAME_SHARDS.length].map((shard, si) => (
             <span
               key={si}
@@ -73,7 +54,7 @@ const ScrambleName: React.FC = () => {
               }}
             />
           ))}
-          <span className="relative text-4xl sm:text-5xl md:text-6xl font-bold text-bone leading-[0.92] font-akira uppercase block">
+          <span className="relative text-5xl sm:text-6xl md:text-7xl lg:text-[5.25rem] font-black text-bone leading-[0.88] font-akira uppercase block italic tracking-[0.02em] drop-shadow-[0_4px_24px_rgba(0,0,0,0.98)] [text-shadow:_0_3px_18px_rgba(0,0,0,1),_0_0_16px_rgba(168,85,247,0.75),_0_0_5px_rgba(0,0,0,1)]">
             {word}
           </span>
         </span>
@@ -111,91 +92,74 @@ const Hero: React.FC = () => {
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10 opacity-25"
         style={{
-          background: 'radial-gradient(ellipse 60% 45% at 50% 0%, #e8332e29, transparent)',
+          background: 'radial-gradient(ellipse 60% 45% at 50% 0%, #a855f725, transparent)',
         }}
       />
 
+      {/* Immersive Full-Bleed 3D Diorama Background */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-20 flex items-center justify-center"
+        className="pointer-events-none absolute inset-0 -z-10 w-full h-full overflow-hidden flex items-center justify-center"
       >
-        <svg width="640" height="640" viewBox="0 0 640 640" className="opacity-40 max-w-[92vw] max-h-[92vw]" style={{ animation: 'ringPulse 6s ease-in-out infinite' }}>
-          <circle cx="320" cy="320" r="300" fill="none" stroke="#e8332e" strokeWidth="1.5" opacity="0.3" />
-          <circle cx="320" cy="320" r="230" fill="none" stroke="#e8332e" strokeWidth="1.5" opacity="0.45" />
-          <circle cx="320" cy="320" r="160" fill="none" stroke="#e8332e" strokeWidth="2" opacity="0.65" />
-          <circle cx="320" cy="320" r="90" fill="#0b0a08" stroke="#e8332e" strokeWidth="2" />
-        </svg>
-      </div>
-
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center"
-      >
-        <div className="w-[860px] h-[640px] max-w-[96vw] max-h-[85vh]">
-          <NeoTokyoCanvas />
-        </div>
+        <NeoTokyoCanvas className="w-full h-full" />
+        {/* Soft radial and horizontal vignette so the circular diorama fades smoothly into the background on all sides */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 58% 52% at 50% 48%, transparent 46%, #0b0a08 84%), ' +
+              'linear-gradient(to right, #0b0a08 0%, transparent 12%, transparent 88%, #0b0a08 100%)',
+          }}
+        />
       </div>
 
       <div className="relative z-10 flex flex-col items-center gap-5 max-w-2xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, x: -12 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.4, delay: 0.05 }}
-        >
-          <SysLabel left="// SYS_INIT" right="PILOT_TERMINAL" />
-        </motion.div>
-
-        <motion.p
-          className="font-mono text-textPrimary/80 text-sm sm:text-base text-center"
-          initial={{ opacity: 0, x: -16 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <span className="text-textPrimary/40 mr-2 select-none">&gt;</span>
-          Hola, mi nombre es
-        </motion.p>
-
         <h1 className="relative">
           <ScrambleName />
         </h1>
 
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-accentPrimary font-akira">
-          <TextGenerate text="[ Desarrollador Front-End ]" delay={0.9} />
-        </h2>
+        {/* Sleek Cyberpunk Status Pill for Subtitle */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#0b0a08]/85 backdrop-blur-md border border-accentPrimary/40 shadow-[0_4px_20px_rgba(0,0,0,0.85)]"
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-accentPrimary animate-pulse shadow-[0_0_8px_rgba(168,85,247,0.9)]" />
+          <h2 className="font-akira text-xs sm:text-sm tracking-[0.2em] text-bone uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,1)]">
+            Desarrollador <span className="text-accentPrimary">Front-End</span>
+          </h2>
+        </motion.div>
 
-        <div className="max-w-xl text-center">
-          <TextGenerate
-            text="Especializado en Front, con gusto por el Back-End. Actualmente trabajando en"
-            className="text-sm sm:text-base text-gray-400 leading-relaxed"
-            delay={1.2}
-          />
-          <motion.a
-            href="https://www.booksandbits.cl"
-            target="_blank"
-            rel="noreferrer"
-            className="text-textPrimary underline hover:text-accentWhite transition-colors ml-1 text-sm sm:text-base"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 2.0, duration: 0.4 }}
-          >
-            Books&Bits
-          </motion.a>
-          <motion.span
-            className="text-gray-400"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 2.05, duration: 0.3 }}
-          >
+        {/* Frosted Glass Bio Card: 100% Readable over the 3D diorama */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="max-w-lg mx-auto px-6 py-3 rounded-xl bg-[#0b0a08]/80 backdrop-blur-md border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.85)]"
+        >
+          <p className="text-center text-xs sm:text-sm md:text-[15px] text-bone/90 font-mono tracking-wide leading-relaxed">
+            Especializado en <span className="text-white font-medium">Front-End</span> con gusto por el{' '}
+            <span className="text-white font-medium">Back-End</span>. Actualmente creando en{' '}
+            <a
+              href="https://www.booksandbits.cl"
+              target="_blank"
+              rel="noreferrer"
+              className="text-accentPrimary font-bold hover:text-bone underline decoration-accentPrimary/60 underline-offset-4 transition-colors"
+            >
+              Books&Bits
+            </a>
             .
-          </motion.span>
-        </div>
+          </p>
+        </motion.div>
 
-        <div ref={ctaRef} className="opacity-0 flex gap-4 pt-4">
+        {/* High-Impact Cyberpunk Action Buttons */}
+        <div ref={ctaRef} className="opacity-0 flex gap-3.5 pt-2">
           <button
             onClick={() =>
               document.getElementById('experiences')?.scrollIntoView({ behavior: 'smooth' })
             }
-            className="px-6 py-2.5 border border-accentPrimary text-accentPrimary font-mono text-sm hover:bg-accentPrimary/10 transition-all active:scale-97"
+            className="px-5 py-2.5 sm:px-6 bg-accentPrimary text-bone font-mono text-xs sm:text-sm font-bold tracking-wider uppercase hover:bg-accentPrimary/85 transition-all shadow-[0_0_24px_rgba(168,85,247,0.6)] active:scale-95 cursor-pointer"
             style={{ clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)' }}
           >
             [ Iniciar Secuencia ]
@@ -204,17 +168,17 @@ const Hero: React.FC = () => {
             onClick={() =>
               document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
             }
-            className="px-6 py-2.5 bg-accentPrimary/10 text-accentPrimary font-mono text-sm hover:bg-accentPrimary/20 transition-all border border-accentPrimary/30 active:scale-97"
+            className="px-5 py-2.5 sm:px-6 bg-[#0b0a08]/80 hover:bg-[#0b0a08] text-bone hover:text-accentPrimary font-mono text-xs sm:text-sm font-semibold tracking-wider uppercase transition-all border border-bone/25 hover:border-accentPrimary active:scale-95 shadow-[0_2px_12px_rgba(0,0,0,0.8)] backdrop-blur-sm cursor-pointer"
             style={{ clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)' }}
           >
             Contacto
           </button>
         </div>
 
-        <div className="flex flex-col items-center gap-1 mt-4 w-56">
-          <div className="h-px w-full bg-accentPrimary opacity-85" />
-          <div className="h-px w-[55%] bg-accentPrimary opacity-85" />
-          <div className="h-px w-[30%] bg-accentPrimary opacity-85" />
+        {/* Minimalist Telemetry Deco Lines */}
+        <div className="flex flex-col items-center gap-1 mt-2 w-40 opacity-70">
+          <div className="h-px w-full bg-accentPrimary shadow-[0_0_8px_rgba(168,85,247,0.7)]" />
+          <div className="h-px w-1/2 bg-accentPrimary shadow-[0_0_8px_rgba(168,85,247,0.7)]" />
         </div>
       </div>
     </section>

@@ -62,7 +62,7 @@ const Contact: React.FC = () => {
           className="w-full h-1.5 rounded-sm mb-10 opacity-40"
           style={{
             backgroundImage:
-              'repeating-linear-gradient(45deg, #e8332e, #e8332e 10px, #0b0a08 10px, #0b0a08 20px)',
+              'repeating-linear-gradient(45deg, #a855f7, #a855f7 10px, #0b0a08 10px, #0b0a08 20px)',
           }}
         />
 

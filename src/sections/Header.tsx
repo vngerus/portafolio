@@ -77,7 +77,7 @@ const NavLink: React.FC<{
       {isActive && (
         <motion.div
           layoutId="nav-underline"
-          className="absolute bottom-0 left-0 right-0 h-px bg-accentPrimary shadow-[0_0_6px_#e8332e]"
+          className="absolute bottom-0 left-0 right-0 h-px bg-accentPrimary shadow-[0_0_8px_#a855f7]"
           transition={{ type: 'spring', stiffness: 350, damping: 30 }}
         />
       )}
@@ -131,7 +131,7 @@ const Header: React.FC = () => {
       <div
         className="h-[3px]"
         style={{
-          backgroundImage: 'repeating-linear-gradient(135deg, #e8332e 0 10px, #0b0a08 10px 20px)',
+          backgroundImage: 'repeating-linear-gradient(135deg, #a855f7 0 10px, #0b0a08 10px 20px)',
         }}
       />
       <nav className="flex items-center justify-between max-w-300 mx-auto px-6 py-4">

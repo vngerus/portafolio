@@ -48,7 +48,7 @@ export const experiences: Experience[] = [
     status: 'ACTIVE',
     location: 'CL · Hybrid',
     sigilLabel: 'B&B',
-    sigilTone: '#e8332e',
+    sigilTone: '#a855f7',
     position: 'Front-end',
     team: 'Engineering',
     mode: 'Hybrid',
