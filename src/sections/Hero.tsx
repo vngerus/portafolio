@@ -3,10 +3,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTextScramble } from '@/hooks/useTextScramble';
 import SysLabel from '@/components/SysLabel';
-import Scene from '@/components/Scene';
+import NeoTokyoCanvas from '@/components/NeoTokyoCanvas';
 
 const TextGenerate: React.FC<{ text: string; className?: string; delay?: number }> = ({
   text,
@@ -28,9 +27,21 @@ const TextGenerate: React.FC<{ text: string; className?: string; delay?: number 
   </span>
 );
 
+const NAME_SHARDS = [
+  [
+    { top: '4%', left: '-8%', width: '46%', height: '62%', rotate: '-9deg', clip: 'polygon(12% 0%, 55% 8%, 100% 0%, 88% 42%, 100% 78%, 55% 62%, 42% 100%, 18% 70%, 0% 90%, 10% 38%)' },
+    { bottom: '-6%', right: '-10%', width: '48%', height: '65%', rotate: '7deg', clip: 'polygon(18% 0%, 60% 10%, 100% 0%, 82% 48%, 100% 85%, 48% 62%, 40% 100%, 12% 66%, 0% 92%, 14% 40%)' },
+  ],
+  [
+    { top: '-8%', left: '-6%', width: '44%', height: '60%', rotate: '6deg', clip: 'polygon(15% 0%, 58% 6%, 100% 0%, 85% 45%, 100% 82%, 50% 60%, 38% 100%, 14% 68%, 0% 88%, 12% 36%)' },
+    { bottom: '2%', right: '-8%', width: '46%', height: '58%', rotate: '-7deg', clip: 'polygon(10% 0%, 55% 10%, 100% 0%, 90% 40%, 100% 80%, 52% 60%, 44% 100%, 16% 70%, 0% 92%, 8% 38%)' },
+  ],
+];
+
 const ScrambleName: React.FC = () => {
   const display = useTextScramble('Ángel Smith', 1100, 80);
   const [visible, setVisible] = useState(false);
+  const words = display.split(' ');
 
   useEffect(() => {
     const id = requestAnimationFrame(() => setVisible(true));
@@ -39,18 +50,40 @@ const ScrambleName: React.FC = () => {
 
   return (
     <span
-      className="font-jetbrains tracking-wide"
+      className="font-jetbrains tracking-wide flex flex-col items-center gap-1"
       style={{ opacity: visible ? 1 : 0, transition: 'opacity 0.05s' }}
       suppressHydrationWarning
     >
-      {display}
+      {words.map((word, wi) => (
+        <span key={wi} className="relative inline-block px-2 py-1">
+          {NAME_SHARDS[wi % NAME_SHARDS.length].map((shard, si) => (
+            <span
+              key={si}
+              aria-hidden
+              className="absolute -z-10 opacity-90 bg-accentPrimary"
+              style={{
+                top: shard.top,
+                left: shard.left,
+                bottom: shard.bottom,
+                right: shard.right,
+                width: shard.width,
+                height: shard.height,
+                clipPath: shard.clip,
+                transform: `rotate(${shard.rotate})`,
+              }}
+            />
+          ))}
+          <span className="relative text-4xl sm:text-5xl md:text-6xl font-bold text-bone leading-[0.92] font-akira uppercase block">
+            {word}
+          </span>
+        </span>
+      ))}
     </span>
   );
 };
 
 const Hero: React.FC = () => {
   const ctaRef = useRef<HTMLDivElement>(null);
-  const scrollProgressRef = useRef(0);
   const heroSectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -69,37 +102,16 @@ const Hero: React.FC = () => {
     );
   }, []);
 
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    const section = heroSectionRef.current;
-    if (!section) return;
-
-    const st = ScrollTrigger.create({
-      trigger: section,
-      start: 'top top',
-      end: 'bottom top',
-      scrub: true,
-      onUpdate: (self) => {
-        scrollProgressRef.current = self.progress;
-      },
-    });
-
-    return () => st.kill();
-  }, []);
-
   return (
     <section
       ref={heroSectionRef}
-      className="relative flex flex-col items-center justify-center min-h-[calc(100vh-4rem)] px-8 sm:px-12 md:px-16 lg:px-24 overflow-hidden text-center"
+      className="relative isolate flex flex-col items-center justify-center min-h-[calc(100vh-4rem)] px-8 sm:px-12 md:px-16 lg:px-24 overflow-hidden text-center"
     >
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10 opacity-25"
         style={{
-          background:
-            'radial-gradient(ellipse 80% 60% at 50% -20%, #6d448a55, transparent),' +
-            'radial-gradient(ellipse 60% 40% at 80% 80%, #d28fff22, transparent)',
-          animation: 'aurora 20s ease-in-out infinite alternate',
+          background: 'radial-gradient(ellipse 60% 45% at 50% 0%, #e8332e29, transparent)',
         }}
       />
 
@@ -111,15 +123,16 @@ const Hero: React.FC = () => {
           <circle cx="320" cy="320" r="300" fill="none" stroke="#e8332e" strokeWidth="1.5" opacity="0.3" />
           <circle cx="320" cy="320" r="230" fill="none" stroke="#e8332e" strokeWidth="1.5" opacity="0.45" />
           <circle cx="320" cy="320" r="160" fill="none" stroke="#e8332e" strokeWidth="2" opacity="0.65" />
+          <circle cx="320" cy="320" r="90" fill="#0b0a08" stroke="#e8332e" strokeWidth="2" />
         </svg>
       </div>
 
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center opacity-90"
+        className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center"
       >
-        <div className="w-[480px] h-[480px] max-w-[85vw] max-h-[85vw]">
-          <Scene scrollProgressRef={scrollProgressRef} />
+        <div className="w-[860px] h-[640px] max-w-[96vw] max-h-[85vh]">
+          <NeoTokyoCanvas />
         </div>
       </div>
 
@@ -142,21 +155,9 @@ const Hero: React.FC = () => {
           Hola, mi nombre es
         </motion.p>
 
-        <div className="relative inline-block px-2 py-1">
-          <div
-            aria-hidden
-            className="absolute -z-10 opacity-90"
-            style={{
-              top: '4%', left: '-8%', width: '46%', height: '62%',
-              background: '#e8332e',
-              clipPath: 'polygon(12% 0%, 55% 8%, 100% 0%, 88% 42%, 100% 78%, 55% 62%, 42% 100%, 18% 70%, 0% 90%, 10% 38%)',
-              transform: 'rotate(-9deg)',
-            }}
-          />
-          <h1 className="relative text-4xl sm:text-5xl md:text-6xl font-bold text-bone leading-tight font-akira uppercase">
-            <ScrambleName />
-          </h1>
-        </div>
+        <h1 className="relative">
+          <ScrambleName />
+        </h1>
 
         <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-accentPrimary font-akira">
           <TextGenerate text="[ Desarrollador Front-End ]" delay={0.9} />

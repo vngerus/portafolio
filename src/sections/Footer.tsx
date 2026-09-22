@@ -61,6 +61,27 @@ const Footer: React.FC = () => {
           powered by cats
         </p>
         <p className="footer-item font-mono text-[10px] text-gray-700">
+          Hero 3D:{' '}
+          <a
+            href="https://sketchfab.com/3d-models/a-regular-day-in-neo-tokyo-b5474d6b71004295a856ca77107e08fb"
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            className="text-gray-600 hover:text-textPrimary transition-colors"
+          >
+            &ldquo;A regular day in Neo-Tokyo&rdquo;
+          </a>{' '}
+          by{' '}
+          <a
+            href="https://sketchfab.com/navaza"
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            className="text-gray-600 hover:text-textPrimary transition-colors"
+          >
+            NAVAZA
+          </a>
+          , CC-BY-4.0
+        </p>
+        <p className="footer-item font-mono text-[10px] text-gray-700">
           © {new Date().getFullYear()} · Ángel &ldquo;
           <a
             href="https://www.linkedin.com/in/angelsmithl/"
