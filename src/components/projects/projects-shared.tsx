@@ -6,16 +6,16 @@ import Image from 'next/image';
 import type { CompanyStatus, WorkCompany, WorkProject } from '@/data';
 
 export const DUOTONE_FILTER =
-  'sepia(1) saturate(3.2) hue-rotate(-42deg) contrast(1.15) brightness(0.85)';
+  'sepia(1) saturate(2.6) hue-rotate(220deg) contrast(1.18) brightness(0.88)';
 
 export const HoloOverlays: React.FC<{ intense?: boolean }> = ({ intense = true }) => (
   <>
     <div
-      className="absolute inset-0 pointer-events-none z-10 opacity-[0.07]"
+      className="absolute inset-0 pointer-events-none z-10 opacity-[0.08]"
       style={{
         backgroundImage:
-          'linear-gradient(rgba(232,51,46,0.8) 1px, transparent 1px),' +
-          'linear-gradient(90deg, rgba(232,51,46,0.8) 1px, transparent 1px)',
+          'linear-gradient(rgba(168,85,247,0.7) 1px, transparent 1px),' +
+          'linear-gradient(90deg, rgba(168,85,247,0.7) 1px, transparent 1px)',
         backgroundSize: '28px 28px',
       }}
     />
@@ -63,7 +63,7 @@ export const ProjectPlaceholder: React.FC<{ label?: string }> = ({ label = 'prev
     className="absolute inset-0 flex items-center justify-center"
     style={{
       backgroundImage:
-        'repeating-linear-gradient(135deg, rgba(232,51,46,0.06) 0 8px, rgba(0,0,0,0) 8px 18px), linear-gradient(180deg, #0b0a08 0%, #141210 100%)',
+        'repeating-linear-gradient(135deg, rgba(168,85,247,0.08) 0 8px, rgba(0,0,0,0) 8px 18px), linear-gradient(180deg, #0b0a08 0%, #141210 100%)',
     }}
   >
     <div className="text-center">
@@ -175,7 +175,7 @@ export const SweepBar: React.FC = () => (
     className="absolute left-0 right-0 h-0.5 pointer-events-none z-28"
     style={{
       background:
-        'linear-gradient(90deg, transparent 0%, rgba(232,51,46,0.7) 40%, rgba(232,51,46,0.9) 50%, rgba(232,51,46,0.7) 60%, transparent 100%)',
+        'linear-gradient(90deg, transparent 0%, rgba(168,85,247,0.7) 40%, rgba(168,85,247,0.9) 50%, rgba(168,85,247,0.7) 60%, transparent 100%)',
       animation: 'op-sweep-bar 0.55s ease-in both',
     }}
   />
@@ -183,7 +183,7 @@ export const SweepBar: React.FC = () => (
 
 export const AnimatedPin: React.FC<{ logo: string | null; accent?: string }> = ({
   logo,
-  accent = '#e8332e',
+  accent = '#a855f7',
 }) => (
   <div
     className="absolute left-1/2 top-0 pointer-events-none z-30 -translate-x-1/2"
@@ -253,7 +253,7 @@ export const CompanyBanner: React.FC<{ company: WorkCompany }> = ({ company }) =
               animate={{ opacity: [1, 0.25, 1] }}
               transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}
               className="inline-block w-1.5 h-1.5 rounded-full bg-accentPrimary"
-              style={{ boxShadow: '0 0 8px #e8332e' }}
+              style={{ boxShadow: '0 0 10px #a855f7' }}
             />
           ) : (
             <span className="inline-block w-1.5 h-1.5 rounded-full bg-gray-600" />

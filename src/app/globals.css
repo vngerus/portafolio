@@ -1,5 +1,6 @@
 @import url('https://fonts.cdnfonts.com/css/general-sans') layer(base);
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap') layer(base);
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap') layer(base);
 @import url('/fonts/akira-expanded.css') layer(base);
 
 @import 'tailwindcss';
@@ -86,6 +87,20 @@ body {
 
 .font-akira {
   font-family: 'Akira Expanded', 'Inter', sans-serif;
+}
+
+.font-pixel {
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  image-rendering: pixelated;
+}
+
+@keyframes pixelBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.animate-pixel-bob {
+  animation: pixelBob 1s steps(2, start) infinite;
 }
 
 @keyframes ringPulse {

@@ -80,6 +80,11 @@ const NeoTokyoCanvas: React.FC<NeoTokyoCanvasProps> = ({ className = '' }) => {
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.25);
     scene.add(ambientLight);
 
+    // Subtle purple ambient rim light to harmonize with the Electric Purple theme
+    const purpleRimLight = new THREE.PointLight(0xa855f7, 2.8, 25, 1.8);
+    purpleRimLight.position.set(0, 1.6, -1.2);
+    scene.add(purpleRimLight);
+
     // Pivot group with diorama isometric tilt
     const modelGroup = new THREE.Group();
     const BASE_TILT_X = 0.50; // ~29 deg downward tilt

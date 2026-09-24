@@ -44,7 +44,7 @@ const CompanyCardMobile: React.FC<{ company: WorkCompany }> = ({ company }) => {
           <span className="w-px h-2.5 bg-gray-700" />
           <span
             className={`w-1.5 h-1.5 rounded-full ${company.status === 'ACTIVE' ? 'bg-accentPrimary animate-pulse' : 'bg-gray-600'}`}
-            style={{ boxShadow: company.status === 'ACTIVE' ? '0 0 6px #e8332e' : 'none' }}
+            style={{ boxShadow: company.status === 'ACTIVE' ? '0 0 8px #a855f7' : 'none' }}
           />
           <span
             className={`font-mono text-[7px] tracking-[0.2em] uppercase ${company.status === 'ACTIVE' ? 'text-accentPrimary/70' : 'text-gray-600'}`}
@@ -72,7 +72,7 @@ const CompanyCardMobile: React.FC<{ company: WorkCompany }> = ({ company }) => {
           className="absolute inset-0 overflow-hidden border border-accentPrimary/45 animate-card-swap"
           style={{
             backgroundColor: '#0b0a08',
-            boxShadow: '0 0 28px rgba(232,51,46,0.22), 0 12px 24px rgba(0,0,0,0.55)',
+            boxShadow: '0 0 28px rgba(168,85,247,0.25), 0 12px 24px rgba(0,0,0,0.55)',
             clipPath: CARD_CLIP,
           }}
         >
@@ -158,7 +158,7 @@ const CompanyCardMobile: React.FC<{ company: WorkCompany }> = ({ company }) => {
                 className={`relative h-17.5 overflow-hidden border transition-all ${isActive ? 'border-accentPrimary/55' : 'border-accentPrimary/15'}`}
                 style={{
                   backgroundColor: '#0b0a08',
-                  boxShadow: isActive ? '0 0 16px rgba(232,51,46,0.25)' : 'none',
+                  boxShadow: isActive ? '0 0 16px rgba(168,85,247,0.3)' : 'none',
                   clipPath:
                     'polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px)',
                 }}
@@ -187,7 +187,7 @@ const CompanyCardMobile: React.FC<{ company: WorkCompany }> = ({ company }) => {
                     className="absolute inset-0"
                     style={{
                       backgroundImage:
-                        'repeating-linear-gradient(135deg, rgba(232,51,46,0.05) 0 6px, transparent 6px 12px), linear-gradient(180deg, #0b0a08 0%, #141210 100%)',
+                        'repeating-linear-gradient(135deg, rgba(168,85,247,0.08) 0 6px, transparent 6px 12px), linear-gradient(180deg, #0b0a08 0%, #141210 100%)',
                     }}
                   />
                 )}
@@ -202,7 +202,7 @@ const CompanyCardMobile: React.FC<{ company: WorkCompany }> = ({ company }) => {
                 {isActive && (
                   <span
                     className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-accentPrimary animate-pulse"
-                    style={{ boxShadow: '0 0 6px #e8332e' }}
+                    style={{ boxShadow: '0 0 8px #a855f7' }}
                   />
                 )}
                 <div className="absolute inset-0 p-1.5 flex flex-col justify-between">

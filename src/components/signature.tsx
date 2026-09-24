@@ -3,6 +3,7 @@ import React, { useEffect, useLayoutEffect, useRef, useState, useCallback } from
 import { Canvas, useFrame } from '@react-three/fiber';
 import { motion, AnimatePresence } from 'motion/react';
 import * as THREE from 'three';
+import { Moon, Sun, BatteryCharging, Radio } from 'lucide-react';
 import BananaCat, { ActionName } from './model/BananaCat';
 
 const DRAIN_PER_TICK = 3;
@@ -14,8 +15,6 @@ const STAND_ANIM_MS = 1500;
 
 type Phase = 'active' | 'glitching' | 'sitting-down' | 'resting' | 'standing-up';
 type DialogVariant = 'greeting' | 'curious' | 'tired' | 'glitch' | 'ready';
-
-const CLIP = 'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)';
 
 const GLITCH_SEQUENCE: ActionName[] = [
   'bananaBones|walk',
@@ -43,69 +42,96 @@ const FollowGroup: React.FC<{
   return <group ref={groupRef}>{children}</group>;
 };
 
-const WavingHand: React.FC = () => (
+const CyberSignal: React.FC = () => (
   <motion.span
-    className="inline-block origin-bottom-right ml-1"
-    animate={{ rotate: [0, 22, -8, 22, 0] }}
-    transition={{ repeat: Infinity, duration: 0.7, ease: 'easeInOut', repeatDelay: 0.4 }}
+    className="inline-flex items-center ml-1 text-purple-400 align-middle"
+    animate={{ opacity: [0.3, 1, 0.3] }}
+    transition={{ repeat: Infinity, duration: 1.2, ease: 'easeInOut' }}
   >
-    👋
+    <Radio className="w-3.5 h-3.5" />
   </motion.span>
 );
 
 const Dialog: React.FC<{ msg: string; variant: DialogVariant }> = ({ msg, variant }) => {
-  const pulseProps =
-    variant === 'glitch'
-      ? {
-          animate: { opacity: [1, 0, 1, 0, 1, 0.3, 1] },
-          transition: {
-            repeat: Infinity,
-            duration: 0.3,
-            ease: 'linear' as const,
-            times: [0, 0.15, 0.3, 0.5, 0.65, 0.8, 1],
-          },
-        }
-      : variant === 'tired'
-        ? {
-            animate: { opacity: [1, 0.5, 1] },
-            transition: { repeat: Infinity, duration: 2.4, ease: 'easeInOut' as const },
-          }
-        : variant === 'greeting'
-          ? {
-              animate: { opacity: [1, 0.7, 1] },
-              transition: { repeat: Infinity, duration: 0.9, ease: 'easeInOut' as const },
-            }
-          : variant === 'curious'
-            ? {
-                animate: { opacity: [1, 0.6, 1] },
-                transition: { repeat: Infinity, duration: 0.6, ease: 'easeInOut' as const },
-              }
-            : {
-                animate: { opacity: [1, 0.6, 1] },
-                transition: { repeat: Infinity, duration: 1.4, ease: 'easeInOut' as const },
-              };
+  const isGlitch = variant === 'glitch';
+  const borderColor = isGlitch ? 'rgba(239, 68, 68, 0.6)' : 'rgba(168, 85, 247, 0.4)';
 
   return (
     <div
-      className="relative border border-textPrimary/40 px-3 py-2.5 backdrop-blur-sm"
-      style={{ clipPath: CLIP, backgroundColor: 'rgba(10,8,37,0.95)' }}
+      className="relative px-3 py-2 select-none font-mono bg-[#0c0a14]/95 backdrop-blur-md border shadow-[0_4px_20px_rgba(0,0,0,0.7)]"
+      style={{ borderColor }}
     >
-      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-textPrimary/50 to-transparent" />
-      <p className="font-mono text-[7px] text-textPrimary/40 tracking-[0.2em] uppercase mb-1">
-        {variant === 'glitch' ? '// ERR_MSG' : '// SYS_MSG'}
+      <p className="font-mono text-xs font-medium leading-relaxed text-white flex items-start gap-1">
+        <span>{msg}</span>
+        {variant === 'greeting' && <CyberSignal />}
       </p>
-      <motion.p
-        className={`font-mono text-[10px] leading-relaxed ${
-          variant === 'glitch' ? 'text-red-400' : 'text-gray-300'
-        }`}
-        {...pulseProps}
-      >
-        {msg}
-        {variant === 'greeting' && <WavingHand />}
-      </motion.p>
-      <div className="absolute -right-1.25 top-1/2 -translate-y-1/2 w-0 h-0 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent border-l-[5px] border-l-textPrimary/40" />
+
+      {/* Subtle Tail pointing to Banana Cat */}
+      <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-0 h-0 border-t-4 border-t-transparent border-b-4 border-b-transparent border-l-4 border-l-accentPrimary/40 pointer-events-none" />
     </div>
   );
+};
+
+const IconActionButton: React.FC<{
+  onClick: () => void;
+  tooltip: string;
+  delay?: number;
+  className?: string;
+  children: React.ReactNode;
+}> = ({ onClick, tooltip, delay = 0, className = '', children }) => (
+  <motion.button
+    initial={{ opacity: 0, x: 10, scale: 0.85 }}
+    animate={{ opacity: 1, x: 0, scale: 1 }}
+    exit={{ opacity: 0, x: 10, scale: 0.85 }}
+    transition={{ duration: 0.15, delay }}
+    onClick={onClick}
+    className={`group relative w-9 h-9 flex items-center justify-center border backdrop-blur-md bg-[#0b0a12]/95 shadow-[0_4px_16px_rgba(0,0,0,0.6)] cursor-pointer active:translate-y-0.5 transition-colors ${className}`}
+  >
+    {children}
+    <span className="pointer-events-none absolute right-full mr-2 top-1/2 -translate-y-1/2 whitespace-nowrap px-2 py-1 text-[10px] font-mono text-white bg-[#0c0a14] border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity">
+      {tooltip}
+    </span>
+  </motion.button>
+);
+
+const NPC_PHRASES = [
+  '¡Hola! Me alegra que pases a verme. ¿Seguimos explorando juntos?',
+  'A veces me da hambre de tanto moverme por la pantalla... ¿me alimentas?',
+  '¿Ya viste la sección de proyectos? Me encantaría acompañarte a mirarla.',
+  'Ángel Smith me hizo con mucho cariño, ¿se nota?',
+  'Si me quedo sin energía me voy a sentar a descansar un rato, ¡tranquilo!',
+  '¡Meow! No soy solo un ícono, me gusta pensar que soy tu compañero de viaje.',
+  'Cada scroll que haces me hace caminar un poco. ¡Sigamos explorando!',
+  'Haz clic en mí cuando quieras charlar o darme de comer.',
+  'Hoy me siento con harta energía. ¿Qué exploramos primero?',
+];
+
+const SLEEP_NPC_PHRASES = [
+  'Zzz... estoy descansando un poco. Haz clic si quieres que me levante.',
+  'Sentado, recargando energía de a poco... se siente bien así.',
+  'Un ratito más aquí sentado y vuelvo con toda la energía.',
+];
+
+const HUNGRY_THRESHOLD = 40;
+
+const HUNGRY_NPC_PHRASES = [
+  'Tengo hambre... ¿me convidas una banana?',
+  'Se me está acabando la energía, un bocadito me vendría genial.',
+  'Mi pancita está sonando. ¿Me alimentas un rato?',
+];
+
+// Small emote reflecting how the cat feels right now, shown above the dock.
+const getEmote = (phase: Phase, energy: number, isGlitching: boolean, actionName: ActionName): string => {
+  if (isGlitching) return '⚡';
+  if (phase === 'resting') return '😴';
+  if (phase === 'sitting-down') return '🥱';
+  if (phase === 'standing-up') return '🙂';
+  if (energy < HUNGRY_THRESHOLD) return '🍌';
+  if (actionName === 'bananaBones|hiiiiiiiii') return '👋';
+  if (actionName === 'bananaBones|walk') return '🚶';
+  if (actionName === 'bananaBones|lookAround') return '👀';
+  if (actionName === 'bananaBones|jump') return '✨';
+  return '😊';
 };
 
 const Signature: React.FC = () => {
@@ -118,28 +144,87 @@ const Signature: React.FC = () => {
   const [dialogVisible, setDialogVisible] = useState(false);
 
   const phaseRef = useRef<Phase>('active');
+  const energyRef = useRef(100);
   useLayoutEffect(() => {
     phaseRef.current = phase;
+    energyRef.current = energy;
   });
+
+  // Debounced emote — avoids flickering between walk/lookAround on every scroll tick.
+  const [displayedEmote, setDisplayedEmote] = useState(() => getEmote(phase, energy, isGlitching, actionName));
+  const emoteTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => {
+    const next = getEmote(phase, energy, isGlitching, actionName);
+    if (next === displayedEmote) return;
+    if (emoteTimerRef.current) clearTimeout(emoteTimerRef.current);
+    emoteTimerRef.current = setTimeout(() => setDisplayedEmote(next), 450);
+    return () => {
+      if (emoteTimerRef.current) clearTimeout(emoteTimerRef.current);
+    };
+  }, [phase, energy, isGlitching, actionName, displayedEmote]);
   const hasRestedRef = useRef(false);
   const scrollTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const mouseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const dialogTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const targetRotYRef = useRef(0.05);
+  const lastHoverTimeRef = useRef(0);
+  const lastNpcIndexRef = useRef(-1);
+
+  const speak = useCallback(
+    (msg: string, variant: DialogVariant = 'ready', autoHide = true, hideMs = 3200, show = true) => {
+      setDialogMsg(msg);
+      setDialogVariant(variant);
+      if (show) {
+        setDialogVisible(true);
+        if (dialogTimerRef.current) clearTimeout(dialogTimerRef.current);
+        if (autoHide) {
+          dialogTimerRef.current = setTimeout(() => setDialogVisible(false), hideMs);
+        }
+      }
+    },
+    []
+  );
+
+  // Only fires on an explicit click on the cat — no more surprise popups from hover/scroll.
+  const handleCatSelect = useCallback(() => {
+    const now = Date.now();
+    if (now - lastHoverTimeRef.current < 1600) return;
+    lastHoverTimeRef.current = now;
+
+    if (phaseRef.current === 'glitching') return;
+
+    if (phaseRef.current === 'resting') {
+      const idx = Math.floor(Math.random() * SLEEP_NPC_PHRASES.length);
+      speak(SLEEP_NPC_PHRASES[idx], 'tired', true, 3500);
+      return;
+    }
+
+    const pool = energyRef.current < HUNGRY_THRESHOLD ? HUNGRY_NPC_PHRASES : NPC_PHRASES;
+    let nextIndex: number;
+    do {
+      nextIndex = Math.floor(Math.random() * pool.length);
+    } while (pool.length > 1 && nextIndex === lastNpcIndexRef.current);
+    lastNpcIndexRef.current = nextIndex;
+
+    const phrase = pool[nextIndex];
+    speak(phrase, pool === HUNGRY_NPC_PHRASES ? 'tired' : 'curious', true, 4000);
+
+    if (phaseRef.current === 'active') {
+      setActionName('bananaBones|hiiiiiiiii');
+      setTimeout(() => {
+        if (phaseRef.current === 'active') setActionName('bananaBones|idle');
+      }, 1500);
+    }
+  }, [speak]);
 
   useEffect(() => {
-    setDialogMsg("yooo'");
-    setDialogVariant('greeting');
-    setDialogVisible(true);
-    const hideGreeting = setTimeout(() => setDialogVisible(false), 3200);
+    // Silent: sets the panel's chat text without popping the dialog open on load.
+    speak('¡Hola! Soy Banana Cat. Voy a acompañarte mientras recorres el portafolio.', 'greeting', true, 4000, false);
     const goIdle = setTimeout(() => {
       if (phaseRef.current === 'active') setActionName('bananaBones|idle');
     }, 2200);
-    return () => {
-      clearTimeout(hideGreeting);
-      clearTimeout(goIdle);
-    };
-  }, []);
+    return () => clearTimeout(goIdle);
+  }, [speak]);
 
   const handleScroll = useCallback(() => {
     if (phaseRef.current !== 'active') return;
@@ -158,6 +243,9 @@ const Signature: React.FC = () => {
     targetRotYRef.current = -normalized * 0.35 + 0.05;
 
     const el = document.elementFromPoint(e.clientX, e.clientY);
+    const isCompanion = el && el.closest('[data-companion]');
+    if (isCompanion) return;
+
     const isInteractive =
       el && (el.tagName === 'A' || el.tagName === 'BUTTON' || el.hasAttribute('data-interactive'));
     if (isInteractive) setActionName('bananaBones|lookAround');
@@ -201,9 +289,7 @@ const Signature: React.FC = () => {
   useEffect(() => {
     if (phase !== 'glitching') return;
     setIsGlitching(true);
-    setDialogMsg('// ERR · SOBRECARGA');
-    setDialogVariant('glitch');
-    setDialogVisible(true);
+    speak('Uy... me estoy quedando sin energía. Necesito sentarme un momento.', 'glitch', true, 2500, false);
     let i = 0;
     const interval = setInterval(() => {
       setActionName(GLITCH_SEQUENCE[i % GLITCH_SEQUENCE.length]);
@@ -222,7 +308,7 @@ const Signature: React.FC = () => {
       }
     }, 110);
     return () => clearInterval(interval);
-  }, [phase]);
+  }, [phase, speak]);
 
   useEffect(() => {
     if (phase !== 'resting') return;
@@ -250,43 +336,208 @@ const Signature: React.FC = () => {
   useEffect(() => {
     if (phase === 'resting') {
       hasRestedRef.current = true;
-      if (dialogTimerRef.current) clearTimeout(dialogTimerRef.current);
-      setDialogMsg('Estoy cansado, jefe...');
-      setDialogVariant('tired');
-      setDialogVisible(true);
+      speak('Ya estoy sin energía y sentado descansando. Haz clic en mí si quieres despertarme o alimentarme.', 'tired', true, 5000, false);
     } else if (phase === 'active' && hasRestedRef.current) {
       hasRestedRef.current = false;
-      setDialogMsg('¡Here we go again!');
-      setDialogVariant('ready');
-      setDialogVisible(true);
-      dialogTimerRef.current = setTimeout(() => setDialogVisible(false), 3000);
+      speak('¡Me siento renovado! Energía al 100%, sigamos explorando.', 'ready', true, 3000, false);
     }
-    return () => {
-      if (dialogTimerRef.current) clearTimeout(dialogTimerRef.current);
-    };
-  }, [phase]);
+  }, [phase, speak]);
 
+  const [isAtBottom, setIsAtBottom] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [particles, setParticles] = useState<{ id: number; text: string; x: number; y: number }[]>([]);
+
+  // ── Spawn floating particle ────────────────────────────────────────────────
+  const spawnParticle = (text: string) => {
+    const id = Date.now() + Math.random();
+    setParticles(prev => [...prev, { id, text, x: Math.random() * 20 - 10, y: 0 }]);
+    setTimeout(() => {
+      setParticles(prev => prev.filter(p => p.id !== id));
+    }, 1300);
+  };
+
+  // ── Feed Banana Action ─────────────────────────────────────────────────────
+  const handleFeedBanana = useCallback(() => {
+    if (energy >= 100) {
+      spawnParticle('¡ESTOY LLENO!');
+      setActionName('bananaBones|lookAround');
+      speak('¡Uff, ya no me cabe más! Estoy completamente satisfecho, gracias.', 'ready');
+      setTimeout(() => {
+        if (phaseRef.current === 'active') setActionName('bananaBones|idle');
+      }, 1600);
+      return;
+    }
+
+    const nextEnergy = Math.min(100, energy + 25);
+    setEnergy(nextEnergy);
+    spawnParticle('+25% ENERGÍA');
+
+    if (phaseRef.current === 'resting') {
+      phaseRef.current = 'standing-up';
+      setPhase('standing-up');
+      setActionName('bananaBones|standUp');
+      speak(
+        nextEnergy >= 100
+          ? '¡Me despertaste con la panza llena! Me siento genial.'
+          : `Gracias por el bocado, me ayuda bastante. Energía al ${nextEnergy}%.`,
+        'ready'
+      );
+      setTimeout(() => {
+        phaseRef.current = 'active';
+        setPhase('active');
+        setActionName('bananaBones|jump');
+        setTimeout(() => {
+          if (phaseRef.current === 'active') setActionName('bananaBones|idle');
+        }, 1400);
+      }, STAND_ANIM_MS);
+    } else {
+      setActionName('bananaBones|jump');
+      speak(
+        nextEnergy >= 100
+          ? '¡Ñam! Ya llegué al 100%, me siento lleno de energía.'
+          : `¡Gracias! Se siente bien comer algo. Energía al ${nextEnergy}%.`,
+        'ready'
+      );
+      setTimeout(() => {
+        if (phaseRef.current === 'active') setActionName('bananaBones|idle');
+      }, 1300);
+    }
+  }, [energy, speak]);
+
+  // ── Take a break (sits down, stays seated recovering energy) ───────────────
+  const handleTakeBreak = useCallback(() => {
+    if (phaseRef.current === 'resting') return;
+    phaseRef.current = 'sitting-down';
+    setPhase('sitting-down');
+    setActionName('bananaBones|sitDown');
+    spawnParticle('MODO REPOSO');
+    speak('Voy a sentarme un rato para recuperar fuerzas. Vuelvo pronto.', 'tired');
+    setTimeout(() => {
+      phaseRef.current = 'resting';
+      setPhase('resting');
+      setActionName('bananaBones|sit');
+    }, SIT_ANIM_MS);
+  }, [speak]);
+
+  // ── Get back up from the break ──────────────────────────────────────────────
+  const handleGetUp = useCallback(() => {
+    if (phaseRef.current !== 'resting') return;
+    phaseRef.current = 'standing-up';
+    setPhase('standing-up');
+    setActionName('bananaBones|standUp');
+    spawnParticle('SISTEMA ACTIVO');
+    speak('¡Ya me siento mejor! Sigamos explorando juntos.', 'ready');
+    setTimeout(() => {
+      phaseRef.current = 'active';
+      setPhase('active');
+      setActionName('bananaBones|idle');
+    }, STAND_ANIM_MS);
+  }, [speak]);
+
+  // ── Bottom detection (IntersectionObserver + Scroll fallback) ─────────────
   useEffect(() => {
-    if (actionName !== 'bananaBones|lookAround' || phase !== 'active') return;
-    if (dialogTimerRef.current) clearTimeout(dialogTimerRef.current);
-    setDialogMsg('eh eh ¿viste eso??');
-    setDialogVariant('curious');
-    setDialogVisible(true);
-    dialogTimerRef.current = setTimeout(() => setDialogVisible(false), 2200);
-    return () => {
-      if (dialogTimerRef.current) clearTimeout(dialogTimerRef.current);
+    const handleScrollBottom = () => {
+      const scrollPos = window.innerHeight + window.scrollY;
+      const threshold = document.documentElement.scrollHeight - 600;
+      setIsAtBottom(scrollPos >= threshold);
     };
-  }, [actionName, phase]);
 
-  const barColor =
-    energy > 60
-      ? 'from-green-400 to-emerald-300'
-      : energy > 25
-        ? 'from-yellow-400 to-amber-300'
-        : 'from-red-500 to-rose-400';
+    let observer: IntersectionObserver | null = null;
+    const footer = document.querySelector('footer');
+    if (footer && 'IntersectionObserver' in window) {
+      observer = new IntersectionObserver(
+        entries => {
+          const entry = entries[0];
+          if (entry?.isIntersecting) {
+            setIsAtBottom(true);
+          } else if (window.scrollY < 1000) {
+            setIsAtBottom(false);
+          }
+        },
+        { rootMargin: '150px 0px 50px 0px', threshold: 0.05 }
+      );
+      observer.observe(footer);
+    }
+
+    const handleCustomMenu = () => {
+      setMenuOpen(prev => !prev);
+    };
+
+    window.addEventListener('scroll', handleScrollBottom, { passive: true });
+    window.addEventListener('banana-cat-menu', handleCustomMenu);
+    return () => {
+      if (observer && footer) observer.unobserve(footer);
+      window.removeEventListener('scroll', handleScrollBottom);
+      window.removeEventListener('banana-cat-menu', handleCustomMenu);
+    };
+  }, []);
+
+  // Reaching the footer never opens anything by itself — it just primes the text for when clicked.
+  useEffect(() => {
+    if (isAtBottom && !menuOpen) {
+      speak('Llegamos hasta el final juntos. Haz clic en mí si quieres charlar.', 'curious', true, 4000, false);
+    }
+  }, [isAtBottom, menuOpen, speak]);
 
   return (
     <>
+      {/* Floating telemetry particles */}
+      <div className="fixed right-6 bottom-32 pointer-events-none z-[60]">
+        {particles.map(p => (
+          <motion.div
+            key={p.id}
+            initial={{ opacity: 1, y: 0, scale: 0.9 }}
+            animate={{ opacity: 0, y: -55, scale: 1.05 }}
+            transition={{ duration: 1, ease: 'easeOut' }}
+            className="absolute font-mono text-[10px] font-bold text-accentPrimary drop-shadow-[0_0_8px_rgba(168,85,247,0.6)] whitespace-nowrap bg-[#0c0a14]/90 border border-accentPrimary/40 px-2 py-0.5"
+            style={{ left: `${p.x}px` }}
+          >
+            {p.text}
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Floating Action Buttons — only the food/rest buttons, no big panel */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div data-companion="true" className="fixed right-14 bottom-10 z-[75] flex flex-col gap-2.5">
+            <IconActionButton
+              onClick={handleFeedBanana}
+              tooltip={energy >= 100 ? 'Lleno (100%)' : 'Alimentar gatito (+25%)'}
+              delay={0.04}
+              className={
+                energy >= 100
+                  ? 'border-white/10 text-textPrimary/50'
+                  : 'border-accentPrimary/40 text-accentPrimary hover:bg-accentPrimary hover:text-black'
+              }
+            >
+              <BatteryCharging className="w-4 h-4" />
+            </IconActionButton>
+
+            {phase === 'resting' ? (
+              <IconActionButton
+                onClick={handleGetUp}
+                tooltip="Levantar gatito"
+                delay={0.08}
+                className="border-amber-400/40 text-amber-300 hover:bg-amber-400 hover:text-black"
+              >
+                <Sun className="w-4 h-4" />
+              </IconActionButton>
+            ) : (
+              <IconActionButton
+                onClick={handleTakeBreak}
+                tooltip="Tomar un descanso"
+                delay={0.08}
+                className="border-white/10 text-purple-300 hover:border-purple-400/40 hover:bg-white/5"
+              >
+                <Moon className="w-4 h-4" />
+              </IconActionButton>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Standard Dialog for Banana Cat speeches */}
       <AnimatePresence>
         {dialogVisible && (
           <motion.div
@@ -294,22 +545,53 @@ const Signature: React.FC = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 10 }}
             transition={{ duration: 0.2 }}
-            className="fixed right-14.5 bottom-27.5 w-40 z-50"
+            className="fixed right-16 bottom-28 w-56 sm:w-60 z-50"
           >
             <Dialog msg={dialogMsg} variant={dialogVariant} />
           </motion.div>
         )}
       </AnimatePresence>
 
+      {/* Banana Cat 3D Canvas in Dock */}
       <div className="flex flex-col items-center fixed right-0 bottom-0 h-full w-12.5 justify-end z-50">
         <div
+          onClick={() => {
+            const opening = !menuOpen;
+            setMenuOpen(prev => !prev);
+            if (opening) handleCatSelect();
+          }}
+          onMouseEnter={handleCatSelect}
+          title="Pasa el mouse o haz clic para interactuar con Banana Cat"
           style={{ height: '100px', width: '50px' }}
-          className={isGlitching ? 'animate-nerv-glitch' : ''}
+          className={`cursor-pointer group relative transition-transform hover:scale-105 active:scale-95 duration-150 ${
+            isGlitching ? 'animate-nerv-glitch' : ''
+          }`}
         >
+          {/* Emote thought-bubble — reflects how the cat currently feels */}
+          <div className="absolute -top-10 left-1/2 -translate-x-1/2 pointer-events-none flex flex-col items-center z-20">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={displayedEmote}
+                initial={{ opacity: 0, scale: 0.4, y: 6 }}
+                animate={{ opacity: 1, scale: 1, y: [0, -4, 0] }}
+                exit={{ opacity: 0, scale: 0.4 }}
+                transition={{
+                  opacity: { duration: 0.25 },
+                  scale: { duration: 0.25 },
+                  y: { repeat: Infinity, duration: 1.4, ease: 'easeInOut' },
+                }}
+                className="flex items-center justify-center w-7 h-7 rounded-full text-sm select-none bg-[#0c0a14]/95 border border-accentPrimary/40 shadow-[0_0_10px_rgba(168,85,247,0.5)] group-hover:scale-110 transition-transform duration-150"
+              >
+                {displayedEmote}
+              </motion.div>
+            </AnimatePresence>
+            {/* Thought-bubble tail dots */}
+            <span className="w-1.5 h-1.5 rounded-full bg-[#0c0a14]/95 border border-accentPrimary/30 mt-0.5" />
+            <span className="w-1 h-1 rounded-full bg-[#0c0a14]/95 border border-accentPrimary/20 mt-0.5" />
+          </div>
+
           <Canvas camera={{ position: [0, 0, 12], fov: 50 }}>
             <ambientLight intensity={1.4} />
-            {/* FollowGroup intercepta el useFrame del Canvas
-                            y lerp la rotación Y del gato hacia el cursor */}
             <FollowGroup targetRef={targetRotYRef} enabled={phase === 'active'}>
               <BananaCat
                 actionName={actionName}
@@ -321,22 +603,22 @@ const Signature: React.FC = () => {
           </Canvas>
         </div>
 
-        <div className="w-full px-1 mt-1" title={`Energía: ${energy}%`}>
-          <div
-            className={`relative h-1.5 bg-gray-800 rounded-full overflow-hidden ${isGlitching ? 'animate-nerv-glitch' : ''}`}
-          >
+        {/* Dock Energy Bar */}
+        <div
+          onClick={() => setMenuOpen(prev => !prev)}
+          className="w-10 px-0.5 mt-2 cursor-pointer group flex flex-col items-center select-none"
+          title={`Energía: ${energy}%`}
+        >
+          <div className="w-full flex items-center justify-between text-[7px] font-mono text-textPrimary/60 mb-0.5 px-0.5">
+            <span>HP</span>
+            <span className="text-white font-bold">{energy}%</span>
+          </div>
+          <div className="w-full h-1.5 bg-white/10 border border-white/10 p-0.2 relative overflow-hidden group-hover:border-accentPrimary/50 transition-all">
             <motion.div
-              className={`h-full rounded-full bg-linear-to-r ${barColor}`}
+              className={`h-full ${energy > 20 ? 'bg-accentPrimary' : 'bg-red-500 animate-pulse'}`}
               animate={{ width: `${energy}%` }}
               transition={{ duration: 0.25, ease: 'linear' }}
             />
-            {phase === 'resting' && (
-              <motion.div
-                className="absolute inset-0 rounded-full bg-white/15"
-                animate={{ opacity: [0, 0.6, 0] }}
-                transition={{ repeat: Infinity, duration: 1.4, ease: 'easeInOut' }}
-              />
-            )}
           </div>
         </div>
 

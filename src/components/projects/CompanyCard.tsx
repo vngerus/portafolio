@@ -17,7 +17,7 @@ import {
 const CARD_CLIP =
   'polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)';
 const TILT_DEG = 5;
-const DEFAULT_ACCENT = '#e8332e';
+const DEFAULT_ACCENT = '#a855f7';
 
 function hexToRgba(hex: string, alpha: number) {
   const h = hex.replace('#', '');
@@ -50,8 +50,8 @@ const CompanyCard: React.FC<{ company: WorkCompany }> = ({ company }) => {
   const onMouseLeave = () => setTilt({ x: 0, y: 0, hover: false });
 
   const transition = tilt.hover
-    ? 'transform 0.12s ease-out'
-    : 'transform 0.6s cubic-bezier(.2,.7,.3,1)';
+    ? 'transform 0.16s cubic-bezier(0.23, 1, 0.32, 1)'
+    : 'transform 0.65s cubic-bezier(0.23, 1, 0.32, 1)';
 
   const bgImage =
     current.imgback && !current.imgback.match(/\.gif$/i) && !current.videoback
@@ -101,7 +101,7 @@ const CompanyCard: React.FC<{ company: WorkCompany }> = ({ company }) => {
                 className="relative w-full h-full overflow-hidden border border-accentPrimary/45"
                 style={{
                   backgroundColor: '#0b0a08',
-                  boxShadow: '0 0 36px rgba(232,51,46,0.22), 0 18px 40px rgba(0,0,0,0.55)',
+                  boxShadow: '0 0 36px rgba(168,85,247,0.25), 0 18px 40px rgba(0,0,0,0.55)',
                   clipPath: CARD_CLIP,
                 }}
               >
@@ -301,7 +301,7 @@ const ThumbButton: React.FC<{
       className={`relative h-24 overflow-hidden border transition-all ${isActive ? 'border-accentPrimary/55' : 'border-accentPrimary/15'}`}
       style={{
         backgroundColor: '#0b0a08',
-        boxShadow: isActive ? '0 0 20px rgba(232,51,46,0.28)' : 'none',
+        boxShadow: isActive ? '0 0 20px rgba(168,85,247,0.32)' : 'none',
         clipPath:
           'polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px)',
       }}
@@ -332,7 +332,7 @@ const ThumbButton: React.FC<{
           className="absolute inset-0"
           style={{
             backgroundImage:
-              'repeating-linear-gradient(135deg, rgba(232,51,46,0.05) 0 6px, transparent 6px 14px), linear-gradient(180deg, #0b0a08 0%, #141210 100%)',
+              'repeating-linear-gradient(135deg, rgba(168,85,247,0.08) 0 6px, transparent 6px 14px), linear-gradient(180deg, #0b0a08 0%, #141210 100%)',
           }}
         />
       )}
@@ -347,7 +347,7 @@ const ThumbButton: React.FC<{
       {isActive && (
         <span
           className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-accentPrimary animate-pulse"
-          style={{ boxShadow: '0 0 8px #e8332e' }}
+          style={{ boxShadow: '0 0 10px #a855f7' }}
         />
       )}
       <div className="absolute inset-0 p-2.5 flex flex-col justify-between">

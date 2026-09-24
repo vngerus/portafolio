@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Comparativa de Diseño: 3 Opciones para el Portafolio</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;600;700;900&display=swap">
+  <link rel="stylesheet" href="/fonts/akira-expanded.css">
+  <style>
+    :root {
+      --bg: #06050a;
+      --purple: #a855f7;
+      --purple-glow: rgba(168, 85, 247, 0.4);
+      --purple-bright: #c084fc;
+      --cyan: #38bdf8;
+      --cyan-glow: rgba(56, 189, 248, 0.35);
+      --bone: #eae6da;
+      --paper: #eae6da;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: #eae6da;
+      font-family: 'Inter', system-ui, sans-serif;
+      padding: 32px 20px 80px;
+      line-height: 1.5;
+    }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .akira { font-family: 'Akira Expanded', 'Inter', sans-serif; }
+    
+    .header {
+      max-width: 1480px;
+      margin: 0 auto 36px;
+      border-bottom: 1px solid rgba(168, 85, 247, 0.25);
+      padding-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .header-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--purple-bright);
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .header-badge::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--purple);
+      box-shadow: 0 0 8px var(--purple);
+    }
+    h1 {
+      font-size: 26px;
+      font-weight: 800;
+      color: #fff;
+      margin-top: 6px;
+      letter-spacing: -0.02em;
+    }
+    .subtitle {
+      font-size: 13px;
+      color: rgba(234, 230, 218, 0.65);
+      margin-top: 4px;
+    }
+    .legend {
+      display: flex;
+      gap: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+    }
+    .legend-item { display: flex; align-items: center; gap: 8px; }
+    .dot-1 { width: 10px; height: 10px; background: #6b7280; border-radius: 2px; }
+    .dot-2 { width: 10px; height: 10px; background: var(--purple); border-radius: 2px; box-shadow: 0 0 8px var(--purple); }
+    .dot-3 { width: 10px; height: 10px; background: var(--cyan); border-radius: 2px; box-shadow: 0 0 8px var(--cyan); }
+
+    .container {
+      max-width: 1480px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .section-block {
+      background: #0b0912;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .section-title-bar {
+      padding: 14px 20px;
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+    }
+    .section-name {
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-name span { color: var(--purple-bright); }
+    .section-badge {
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(168, 85, 247, 0.12);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      color: var(--purple-bright);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      divide-x: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    @media (max-width: 1100px) {
+      .comparison-grid { grid-template-columns: 1fr; divide-x: none; }
+    }
+
+    .col {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .col-header {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
+    }
+    .col-1-title { color: #9ca3af; }
+    .col-2-title { color: var(--purple-bright); font-weight: 700; }
+    .col-3-title { color: var(--cyan); font-weight: 800; display: flex; align-items: center; gap: 6px; }
+
+    /* PREVIEW COMPONENTS */
+    
+    /* Experiences Previews */
+    .ticket-1 {
+      background: #eae6da;
+      color: #141210;
+      border: 2px solid #0b0a08;
+      padding: 14px;
+      display: flex;
+      gap: 12px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .ticket-1 .logo-box {
+      width: 44px; height: 44px; background: #141210; color: #a855f7;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Akira Expanded', sans-serif; font-size: 13px;
+    }
+
+    .ticket-2 {
+      background: rgba(15, 12, 22, 0.85);
+      border: 1px solid rgba(168, 85, 247, 0.35);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.8);
+      padding: 16px;
+      clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+      display: flex; gap: 14px; position: relative;
+    }
+    .ticket-2 .logo-box {
+      width: 48px; height: 48px; background: #09070e;
+      border: 1px solid rgba(168, 85, 247, 0.5); box-shadow: 0 0 12px rgba(168,85,247,0.3);
+      color: #fff; display: flex; align-items: center; justify-content: center;
+      font-family: 'Akira Expanded', sans-serif; font-size: 13px; flex-shrink: 0;
+    }
+
+    .ticket-3 {
+      background: linear-gradient(135deg, rgba(20, 15, 35, 0.85) 0%, rgba(10, 8, 16, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      box-shadow: 0 10px 32px rgba(0,0,0,0.9), 0 0 20px rgba(56, 189, 248, 0.15);
+      padding: 16px;
+      clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+      display: flex; gap: 14px; position: relative;
+      transition: all 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+      cursor: pointer;
+    }
+    .ticket-3:hover {
+      transform: translateY(-4px) scale(1.01);
+      border-color: var(--cyan);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.95), 0 0 25px rgba(56, 189, 248, 0.35);
+    }
+    .ticket-3 .logo-box {
+      width: 48px; height: 48px; background: #05060b;
+      border: 1px solid var(--cyan); box-shadow: 0 0 14px var(--cyan-glow);
+      color: #fff; display: flex; align-items: center; justify-content: center;
+      font-family: 'Akira Expanded', sans-serif; font-size: 13px; flex-shrink: 0;
+      position: relative;
+    }
+    .ticket-3 .laser-scan {
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+      box-shadow: 0 0 8px var(--cyan);
+      animation: scanAnim 3s ease-in-out infinite;
+    }
+    @keyframes scanAnim {
+      0%, 100% { top: 0; opacity: 0.2; }
+      50% { top: 100%; opacity: 1; }
+    }
+
+    .key-points {
+      list-style: none;
+      font-size: 11.5px;
+      color: rgba(234, 230, 218, 0.75);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .key-points.col-1 li::before { content: "▪ "; color: #6b7280; }
+    .key-points.col-2 li::before { content: "✓ "; color: var(--purple-bright); }
+    .key-points.col-3 li::before { content: "✦ "; color: var(--cyan); }
+
+    .tech-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      padding: 2px 7px;
+      border-radius: 3px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(234,230,218,0.85);
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div>
+      <div class="header-badge">// ARQUITECTURA DE EXPERIENCIA · 3 ENFOQUES</div>
+      <h1>Evolución del Portafolio: 3 Opciones de Diseño</h1>
+      <p class="subtitle">Compara el estado actual vs. la armonización estética vs. la experiencia hiper-interactiva con Three.js + GSAP.</p>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><div class="dot-1"></div><span>1. Actual</span></div>
+      <div class="legend-item"><div class="dot-2"></div><span>2. Armonización Morado Neón</span></div>
+      <div class="legend-item"><div class="dot-3"></div><span>3. Three.js + GSAP Hiper-Interactiva</span></div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- FILA 1: EXPERIENCIAS -->
+    <div class="section-block">
+      <div class="section-title-bar">
+        <div class="section-name"><span>01</span> Sección Experiencias</div>
+        <div class="section-badge">DOSSIER & LÍNEA DE TIEMPO</div>
+      </div>
+      <div class="comparison-grid">
+        
+        <!-- Opción 1 -->
+        <div class="col">
+          <div class="col-header">
+            <span class="col-1-title">Opción 1: Actual</span>
+            <span class="mono" style="color: #6b7280;">Básico</span>
+          </div>
+          <div class="ticket-1">
+            <div class="logo-box">B&B</div>
+            <div style="flex: 1; font-size: 11px;">
+              <div style="font-weight: 700; margin-bottom: 2px;">BOOKS&BITS</div>
+              <div style="color: #666; font-size: 10px;">Desarrollador Web Front-end · 2025</div>
+            </div>
+          </div>
+          <ul class="key-points col-1">
+            <li>Ticket de papel beige (#eae6da) plano.</li>
+            <li>Aspecto impreso retro que no encaja con el Hero.</li>
+            <li>Sin respuesta cinemática al cursor.</li>
+          </ul>
+        </div>
+
+        <!-- Opción 2 -->
+        <div class="col">
+          <div class="col-header">
+            <span class="col-2-title">Opción 2: Armonización Estética</span>
+            <span class="mono" style="color: var(--purple-bright);">Glassmorphism</span>
+          </div>
+          <div class="ticket-2">
+            <div class="logo-box">B&B</div>
+            <div style="flex: 1; font-family: 'JetBrains Mono', monospace; font-size: 11px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <span style="font-weight: 700; color: #fff;">BOOKS&BITS</span>
+                <span style="font-size: 8px; color: var(--purple-bright); background: rgba(168,85,247,0.15); padding: 2px 6px; border: 1px solid rgba(168,85,247,0.4);">● OP_ACTIVE</span>
+              </div>
+              <div style="color: rgba(234,230,218,0.7); font-size: 10px;">Front-End · Ene 2025 — Presente</div>
+            </div>
+          </div>
+          <ul class="key-points col-2">
+            <li>Cristal esmerilado oscuro (#0f0c18) idéntico a la bio del Hero.</li>
+            <li>Bisel cyberpunk a 45° en esquinas.</li>
+            <li>Sello digital y chips morado neón (#a855f7).</li>
+          </ul>
+        </div>
+
+        <!-- Opción 3 -->
+        <div class="col">
+          <div class="col-header">
+            <span class="col-3-title">Opción 3: Three.js + GSAP Hiper-Interactiva</span>
+            <span class="mono" style="color: var(--cyan); font-weight: 800;">Awwwards Level</span>
+          </div>
+          <div class="ticket-3">
+            <div class="laser-scan"></div>
+            <div class="logo-box">B&B</div>
+            <div style="flex: 1; font-family: 'JetBrains Mono', monospace; font-size: 11px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <span style="font-weight: 800; color: #fff; letter-spacing: 0.05em;">BOOKS&BITS</span>
+                <span style="font-size: 8px; color: var(--cyan); background: rgba(56,189,248,0.15); padding: 2px 6px; border: 1px solid var(--cyan);">● HOLO_SYNC</span>
+              </div>
+              <div style="color: rgba(234,230,218,0.85); font-size: 10px;">FE Specialist · Ene 2025 — Presente</div>
+              <div style="display: flex; gap: 4px; margin-top: 6px;">
+                <span class="tech-badge">Next.js</span>
+                <span class="tech-badge">Three.js</span>
+                <span class="tech-badge">GSAP</span>
+              </div>
+            </div>
+          </div>
+          <ul class="key-points col-3">
+            <li><strong>Tilt Físico en GSAP (Emil Kowalski Craft):</strong> La tarjeta se inclina suavemente siguiendo el cursor con resplandor especular dinámico (spring physics).</li>
+            <li><strong>Sincronización con Cámara Three.js:</strong> Al scrollear a esta sección, la cámara 3D del Hero vuela suavemente hacia la coordenada del edificio corporativo en el diorama.</li>
+            <li><strong>Láser de Escaneo Holo:</strong> Línea láser cian/morada animada que decodifica datos al hacer hover.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FILA 2: PROYECTOS -->
+    <div class="section-block">
+      <div class="section-title-bar">
+        <div class="section-name"><span>02</span> Sección Proyectos</div>
+        <div class="section-badge">VITRINA DE OPERACIONES</div>
+      </div>
+      <div class="comparison-grid">
+        
+        <div class="col">
+          <div class="col-header"><span class="col-1-title">Opción 1: Actual</span></div>
+          <div style="background: #141210; border: 1px solid #333; padding: 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px;">
+            <div style="color: #888; font-size: 9px;">OP_01 · SISTEMA DE DESPACHO</div>
+            <div style="color: #fff; font-weight: 700; margin-top: 2px;">Books&Bits Logistics</div>
+          </div>
+          <ul class="key-points col-1">
+            <li>Tarjetas en fondo gris carbón sin profundidad.</li>
+            <li>Valores de color residuales en rojo.</li>
+          </ul>
+        </div>
+
+        <div class="col">
+          <div class="col-header"><span class="col-2-title">Opción 2: Armonización Estética</span></div>
+          <div style="background: rgba(15,12,22,0.85); border: 1px solid rgba(168,85,247,0.35); padding: 14px; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); font-family: 'JetBrains Mono', monospace; font-size: 11px;">
+            <div style="color: var(--purple-bright); font-size: 9px;">[ SEC_02 // OP_LOGISTICS ]</div>
+            <div style="color: #fff; font-weight: 700; margin-top: 2px;">Books&Bits Logistics Hub</div>
+          </div>
+          <ul class="key-points col-2">
+            <li>Cristal translúcido y bordes en morado neón.</li>
+            <li>Biselado en esquinas y tags claros.</li>
+          </ul>
+        </div>
+
+        <div class="col">
+          <div class="col-header"><span class="col-3-title">Opción 3: Three.js + GSAP Hiper-Interactiva</span></div>
+          <div style="background: linear-gradient(135deg, rgba(20,15,35,0.9) 0%, rgba(10,8,16,0.95) 100%); border: 1px solid rgba(56,189,248,0.4); box-shadow: 0 8px 24px rgba(56,189,248,0.15); padding: 14px; clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px); font-family: 'JetBrains Mono', monospace; font-size: 11px; position: relative;">
+            <div style="display: flex; justify-content: space-between;">
+              <span style="color: var(--cyan); font-size: 9px; letter-spacing: 0.15em;">[ SEC_02 // HOLO_DECK ]</span>
+              <span style="color: rgba(255,255,255,0.4); font-size: 9px;">3D VIEW ACTIVE</span>
+            </div>
+            <div style="color: #fff; font-weight: 800; margin-top: 2px;">Books&Bits Logistics Hub</div>
+          </div>
+          <ul class="key-points col-3">
+            <li><strong>Shader de Distorsión Holográfica (Three.js):</strong> La vista previa del proyecto tiene un efecto de glitch cromático interactivo al pasar el ratón.</li>
+            <li><strong>Efecto Scramble Decrypt en GSAP:</strong> Los títulos y códigos se descifran carácter a carácter al entrar en el viewport con animación de terminal militar.</li>
+            <li><strong>Filtro Duotono Dinámico:</strong> Las capturas de pantalla se tiñen automáticamente con el gradiente morado/cian al estilo Akira.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FILA 3: INTERACCIÓN GLOBAL -->
+    <div class="section-block">
+      <div class="section-title-bar">
+        <div class="section-name"><span>03</span> Interacción y Navegación Global</div>
+        <div class="section-badge">EXPERIENCIA COMPLETA</div>
+      </div>
+      <div class="comparison-grid">
+        
+        <div class="col">
+          <div class="col-header"><span class="col-1-title">Opción 1: Actual</span></div>
+          <p class="mono" style="font-size: 11px; color: #888;">Navegación tradicional por scroll de página.</p>
+          <ul class="key-points col-1">
+            <li>El modelo 3D solo vive en el Hero. Al bajar se pierde de vista.</li>
+            <li>Cursor magnético básico.</li>
+          </ul>
+        </div>
+
+        <div class="col">
+          <div class="col-header"><span class="col-2-title">Opción 2: Armonización Estética</span></div>
+          <p class="mono" style="font-size: 11px; color: var(--purple-bright);">Continuidad visual en morado neón y cristal.</p>
+          <ul class="key-points col-2">
+            <li>Todas las secciones comparten la misma paleta y bordes.</li>
+            <li>Sensación de portafolio limpio, moderno y cohesivo.</li>
+          </ul>
+        </div>
+
+        <div class="col">
+          <div class="col-header"><span class="col-3-title">Opción 3: Three.js + GSAP Hiper-Interactiva</span></div>
+          <p class="mono" style="font-size: 11px; color: var(--cyan);">Navegación cinematográfica continua por el mundo 3D.</p>
+          <ul class="key-points col-3">
+            <li><strong>ScrollTrigger Camera Flight:</strong> El diorama 3D permanece como fondo ambiental sutil o viaja en perspectiva (rotación y ángulo cenital) mientras navegas por las diferentes secciones.</li>
+            <li><strong>Magnetic Cursor Pro (GSAP quickTo):</strong> El cursor reacciona magnéticamente a botones y tarjetas con amortiguación elástica de alta fidelidad.</li>
+            <li><strong>Audio Feedback Táctil (Opcional):</strong> Micro-sonidos sutiles de interfaz cyberpunk / sci-fi al hacer click en los botones del Hero.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+</body>
+</html>

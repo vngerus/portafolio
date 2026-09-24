@@ -31,14 +31,32 @@ interface BananaCatProps {
     scale?: [number, number, number];
 }
 
+const ONE_SHOT_ACTIONS: ReadonlySet<ActionName> = new Set([
+    "bananaBones|hiiiiiiiii",
+    "bananaBones|jump",
+    "bananaBones|sitDown",
+    "bananaBones|standUp",
+    "bananaBones|damaged",
+]);
+
 const BananaCat: React.FC<BananaCatProps> = ({ actionName, position = [0, 0, 0], rotation = [0, 0, 0], scale = [1, 1, 1], ...props }) => {
     const group = useRef<THREE.Group>(null!);
     const { nodes, materials, animations } = useGLTF("/models/bananacat.glb") as unknown as GLTFResult;
     const { actions } = useAnimations(animations, group);
 
     useEffect(() => {
-        if (actionName && actions[actionName]) {
-            actions[actionName]?.reset().fadeIn(0.5).play();
+        const action = actionName ? actions[actionName] : undefined;
+        if (action) {
+            // Imperative three.js AnimationAction API, not React state.
+            if (actionName && ONE_SHOT_ACTIONS.has(actionName)) {
+                action.setLoop(THREE.LoopOnce, 1);
+                // eslint-disable-next-line react-hooks/immutability
+                action.clampWhenFinished = true;
+            } else {
+                action.setLoop(THREE.LoopRepeat, Infinity);
+                action.clampWhenFinished = false;
+            }
+            action.reset().fadeIn(0.5).play();
         }
 
         return () => {

@@ -69,81 +69,133 @@ const Contact: React.FC = () => {
         <div className="flex flex-col w-full mb-8">
           <SysLabel left="// COMM_LINK" right="ESTABLECER CANAL SEGURO" />
           <div className="flex items-center w-full">
-            <span className="text-textPrimary font-mono text-lg mr-4">04.</span>
+            <span className="text-accentPrimary font-mono text-lg mr-4">03.</span>
             <h2 className="text-3xl font-bold text-white whitespace-nowrap">Contacto</h2>
             <div className="flex-1 h-px bg-gray-700 ml-4" />
           </div>
         </div>
 
         <div className="w-full max-w-2xl mx-auto">
-          <p className="text-gray-400 text-center mb-10 leading-relaxed">
-            ¿Tienes un proyecto en mente o simplemente quieres saludar?{' '}
-            <span className="text-accentPrimary">Escríbeme</span>, estaré encantado de responder.
-          </p>
-
-          <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div className="flex flex-col gap-2">
-                <label
-                  htmlFor="name"
-                  className="font-mono text-[10px] text-accentPrimary tracking-[0.2em] uppercase"
-                >
-                  {'// Nombre'}
-                </label>
-                <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  value={form.name}
-                  onChange={handleChange}
-                  placeholder="Steve Jobs"
-                  className="bg-background-secondary border border-bone/20 rounded px-4 py-3 text-gray-200 text-sm placeholder-gray-600 focus:outline-none focus:border-accentPrimary transition-colors"
-                />
-              </div>
-              <div className="flex flex-col gap-2">
-                <label
-                  htmlFor="email"
-                  className="font-mono text-[10px] text-accentPrimary tracking-[0.2em] uppercase"
-                >
-                  {'// Email'}
-                </label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={form.email}
-                  onChange={handleChange}
-                  placeholder="sjobs@apple.com"
-                  className="bg-background-secondary border border-bone/20 rounded px-4 py-3 text-gray-200 text-sm placeholder-gray-600 focus:outline-none focus:border-accentPrimary transition-colors"
-                />
-              </div>
-            </div>
-            <div className="flex flex-col gap-2">
-              <label
-                htmlFor="message"
-                className="font-mono text-[10px] text-accentPrimary tracking-[0.2em] uppercase"
-              >
-                {'// Mensaje'}
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                value={form.message}
-                onChange={handleChange}
-                rows={6}
-                placeholder="Hola Angel, me gustaría hablar sobre..."
-                className="bg-background-secondary border border-bone/20 rounded px-4 py-3 text-gray-200 text-sm placeholder-gray-600 focus:outline-none focus:border-accentPrimary transition-colors resize-none"
-              />
-            </div>
-            <button
-              type="submit"
-              disabled={loading}
-              style={{ clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)' }}
-              className="self-start px-8 py-3 border border-accentPrimary text-accentPrimary font-mono text-sm hover:bg-accentPrimary/10 active:scale-97 transition-[background-color,transform] duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
+          {/* NERV Comm Terminal Card */}
+          <div
+            className="relative overflow-hidden"
+            style={{
+              background: 'rgba(15, 12, 22, 0.88)',
+              backdropFilter: 'blur(16px)',
+              border: '1px solid rgba(168, 85, 247, 0.35)',
+              clipPath:
+                'polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px)',
+              boxShadow:
+                '0 16px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(168, 85, 247, 0.15)',
+            }}
+          >
+            {/* Terminal Top Bar */}
+            <div
+              className="flex items-center justify-between px-5 py-3 border-b border-accentPrimary/25 bg-accentPrimary/5"
             >
-              {loading ? '[ Conectando... ]' : '[ Transmitir ]'}
-            </button>
-          </form>
+              <div className="flex items-center gap-2.5">
+                <span className="w-2 h-2 rounded-full bg-accentPrimary animate-pulse shadow-[0_0_8px_#a855f7]" />
+                <span className="font-mono text-[9px] tracking-[0.2em] text-accentPrimary uppercase font-semibold">
+                  [ COMM_LINK // SECURE_RELAY ]
+                </span>
+              </div>
+              <span className="font-mono text-[8px] tracking-[0.15em] text-accentPrimary/60 uppercase hidden sm:inline-block">
+                FREQ: 142.85 MHz · TLS_v1.3
+              </span>
+            </div>
+
+            {/* Terminal Body */}
+            <div className="p-6 sm:p-8">
+              <p className="font-mono text-xs text-gray-300 mb-8 leading-relaxed">
+                ¿Tienes un proyecto en mente, una consulta de ingeniería o simplemente quieres coordinar?{' '}
+                <span className="text-accentPrimary font-semibold">Inicia una transmisión</span> a través de este canal seguro.
+              </p>
+
+              <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="name"
+                      className="font-mono text-[9px] text-accentPrimary tracking-[0.2em] uppercase font-semibold"
+                    >
+                      [ 01 // NOMBRE_IDENTIFICADOR ]
+                    </label>
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      value={form.name}
+                      onChange={handleChange}
+                      placeholder="Ej. Shinji Ikari / Tech Lead"
+                      className="bg-[#0b0a0e]/90 border border-accentPrimary/25 px-4 py-3 text-gray-100 text-sm font-mono placeholder-gray-600 focus:outline-none focus:border-accentPrimary focus:shadow-[0_0_15px_rgba(168,85,247,0.25)] transition-all duration-200"
+                      style={{
+                        clipPath: 'polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%)',
+                      }}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="email"
+                      className="font-mono text-[9px] text-accentPrimary tracking-[0.2em] uppercase font-semibold"
+                    >
+                      [ 02 // FRECUENCIA_EMAIL ]
+                    </label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={form.email}
+                      onChange={handleChange}
+                      placeholder="tu-correo@empresa.com"
+                      className="bg-[#0b0a0e]/90 border border-accentPrimary/25 px-4 py-3 text-gray-100 text-sm font-mono placeholder-gray-600 focus:outline-none focus:border-accentPrimary focus:shadow-[0_0_15px_rgba(168,85,247,0.25)] transition-all duration-200"
+                      style={{
+                        clipPath: 'polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%)',
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <label
+                    htmlFor="message"
+                    className="font-mono text-[9px] text-accentPrimary tracking-[0.2em] uppercase font-semibold"
+                  >
+                    [ 03 // CUERPO_DE_LA_TRANSMISIÓN ]
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={form.message}
+                    onChange={handleChange}
+                    rows={5}
+                    placeholder="Describe el requerimiento, proyecto o mensaje..."
+                    className="bg-[#0b0a0e]/90 border border-accentPrimary/25 px-4 py-3 text-gray-100 text-sm font-mono placeholder-gray-600 focus:outline-none focus:border-accentPrimary focus:shadow-[0_0_15px_rgba(168,85,247,0.25)] transition-all duration-200 resize-none"
+                    style={{
+                      clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
+                    }}
+                  />
+                </div>
+
+                <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    style={{
+                      clipPath:
+                        'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
+                    }}
+                    className="px-8 py-3.5 bg-accentPrimary/15 border border-accentPrimary text-accentPrimary font-mono text-xs font-bold tracking-[0.2em] uppercase hover:bg-accentPrimary hover:text-black active:scale-[0.97] transition-all duration-200 shadow-[0_0_18px_rgba(168,85,247,0.25)] hover:shadow-[0_0_24px_rgba(168,85,247,0.5)] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                  >
+                    {loading ? '[ TRANSMITIENDO... ]' : '[ INICIAR TRANSMISIÓN ]'}
+                  </button>
+
+                  <span className="font-mono text-[8px] text-accentPrimary/40 tracking-[0.2em] uppercase">
+                    NERV_RELAY_OK
+                  </span>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       </section>
     </>
