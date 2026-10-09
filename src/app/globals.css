@@ -24,6 +24,10 @@
   --color-steel: #8a97a6;
   --color-hazard: #ffcc00;
   --color-surface1: #141210;
+  --color-muted: #b8b3a8;
+  --color-dim: #8f8a80;
+  --color-line: #1f1c18;
+  --color-edge: #2a2622;
 
   --animate-spotlight: spotlight 2s ease 0.75s 1 forwards;
   --animate-aurora: aurora 60s linear infinite;
@@ -76,8 +80,15 @@
   scroll-behavior: smooth;
 }
 
+::selection {
+  background: #d28fff;
+  color: #0b0a08;
+}
+
 body {
   background: #0b0a08;
+  color: #eae6da;
+  -webkit-font-smoothing: antialiased;
   font-family: "General Sans", sans-serif;
 }
 

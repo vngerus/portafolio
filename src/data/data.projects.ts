@@ -1,25 +1,15 @@
-export type CompanyStatus = 'ACTIVE' | 'ARCHIVED';
-
-export interface WorkProjectMetrics {
-  lh: number;
-  build: string;
-  deps: number;
-}
-
 export interface WorkProject {
+  id: string;
   title: string;
-  subtitle: string;
   kind: string;
-  imgback: string | null;
-  videoback?: string;
-  imglogo: string | null;
-  link: string;
-  github?: string;
   description: string;
-  techStack: number[];
-  metrics: WorkProjectMetrics;
+  stack: string[];
+  cover?: string;
+  link?: string;
+  github?: string;
   dev?: boolean;
-  accentColor?: string;
+  confidential?: boolean;
+  featured?: boolean;
 }
 
 export interface WorkCompany {
@@ -27,115 +17,118 @@ export interface WorkCompany {
   company: string;
   role: string;
   period: string;
-  status: CompanyStatus;
-  location: string;
-  opCode: string;
   projects: WorkProject[];
 }
 
 export const workCompanies: WorkCompany[] = [
   {
+    id: 'bb',
+    company: 'Books&Bits',
+    role: 'Desarrollador Full-stack',
+    period: '2025 → presente',
+    projects: [
+      {
+        id: 'bb-intranet',
+        title: 'Intranet corporativa',
+        kind: 'Web app interna',
+        description:
+          'Nueva intranet corporativa y páginas web de alto rendimiento, consumiendo APIs RESTful propias.',
+        stack: ['Next.js', 'TypeScript', 'Node.js', 'SQL'],
+        confidential: true,
+        featured: true,
+      },
+      {
+        id: 'bb-mail',
+        title: 'Migración de correos',
+        kind: 'Migración VB → Python',
+        description:
+          'Migración del sistema de correos escrito en Visual Basic a servicios en Python, parte de la modernización de servicios legacy.',
+        stack: ['Python', 'SQL'],
+        confidential: true,
+      },
+      {
+        id: 'bb-despacho',
+        title: 'Sistema de despachos',
+        kind: 'Desktop · ElectronJS',
+        description:
+          'Migración de sistemas desktop a ElectronJS para la gestión de despachos y comandas.',
+        stack: ['ElectronJS', 'Node.js', 'SQL'],
+        confidential: true,
+      },
+      {
+        id: 'bb-boletas',
+        title: 'Búsqueda de boletas',
+        kind: 'Landing',
+        description: 'Landing pública para que clientes busquen sus boletas de forma rápida.',
+        stack: ['Next.js', 'Tailwind CSS'],
+        confidential: true,
+      },
+    ],
+  },
+  {
     id: 'cib',
     company: 'CIB',
     role: 'Front-end Developer',
     period: '2024.03 → 2025.01',
-    status: 'ARCHIVED',
-    location: 'CL · Remote',
-    opCode: 'OP_02',
     projects: [
       {
+        id: 'cib-landing',
         title: 'CIB Landing',
-        subtitle: 'Consultants in Blockchain',
         kind: 'Landing corporativa',
-        imgback: '/project/CibBack.webp',
-        imglogo: '/project/CIB.webp',
-        link: 'https://cib.app',
-        github: 'https://github.com/vngerus',
         description:
           'Landing principal de Consultants in Blockchain. Diseño moderno alineado con la identidad blockchain, animaciones en scroll y secciones para destacar servicios y partners.',
-        techStack: [1, 2, 3, 4],
-        metrics: { lh: 96, build: '0.42s', deps: 18 },
-        accentColor: '#3ec9d8',
+        stack: ['React', 'Tailwind CSS', 'TypeScript', 'Framer Motion'],
+        cover: '/project/CibBack.webp',
+        link: 'https://cib.app',
+        github: 'https://github.com/vngerus',
+        featured: true,
       },
       {
+        id: 'cib-museum',
         title: 'Museum NFT',
-        subtitle: 'Galería de colecciones',
         kind: 'Web app · Galería',
-        imgback: null,
-        imglogo: null,
-        dev: true,
-        link: '#',
         description:
           'Plataforma para curaduría y exposición de colecciones NFT con preview interactivo, filtros por categoría y ficha técnica por pieza.',
-        techStack: [6, 3, 2],
-        metrics: { lh: 92, build: '0.61s', deps: 24 },
-        accentColor: '#ffc864',
+        stack: ['Next.js', 'TypeScript', 'Tailwind CSS'],
+        dev: true,
       },
       {
+        id: 'cib-iny',
         title: 'Iny App',
-        subtitle: 'Landing + prototipado',
         kind: 'Prototipo · Mobile-first',
-        imgback: null,
-        imglogo: null,
-        dev: true,
-        link: '#',
         description:
           'Landing de alto rendimiento y prototipo navegable. Sistema de componentes reutilizables y flow móvil completo.',
-        techStack: [1, 3, 2],
-        metrics: { lh: 98, build: '0.31s', deps: 12 },
-        accentColor: '#b496ff',
+        stack: ['React', 'TypeScript', 'Tailwind CSS'],
+        dev: true,
       },
     ],
   },
   {
     id: 'personal',
     company: 'Personal · Lab',
-    role: 'Self-directed',
+    role: 'Proyectos propios',
     period: '2023 → presente',
-    status: 'ACTIVE',
-    location: 'Open source',
-    opCode: 'OP_03',
     projects: [
       {
+        id: 'avida',
         title: 'Avida',
-        subtitle: 'Reconectar con la naturaleza',
         kind: 'Proyecto integrador',
-        imgback: '/project/AvidaBack.webp',
-        imglogo: '/project/Avida.webp',
-        link: 'https://avida.vercel.app',
-        github: 'https://github.com/vngerus',
         description:
           'Explora rutas, humedales y áreas verdes cercanas a la ciudad. Promueve el redescubrimiento de espacios naturales y destaca la conservación de fauna autóctona.',
-        techStack: [6, 3, 2, 4],
-        metrics: { lh: 94, build: '0.55s', deps: 22 },
-        accentColor: '#3ec9d8',
+        stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
+        cover: '/project/AvidaBack.webp',
+        link: 'https://avida.vercel.app',
+        github: 'https://github.com/vngerus',
+        featured: true,
       },
       {
+        id: 'bananacat',
         title: 'Banana Cat 3D',
-        subtitle: 'WebGL playground',
         kind: 'Experimento · R3F',
-        imgback: null,
-        imglogo: null,
-        dev: true,
-        link: '#',
         description:
           'Modelo 3D animado en React Three Fiber con controles paramétricos, post-processing y carga progresiva.',
-        techStack: [1, 3, 2],
-        metrics: { lh: 89, build: '0.78s', deps: 32 },
-        accentColor: '#d28fff',
-      },
-      {
-        title: 'Portfolio v2',
-        subtitle: 'Este sitio',
-        kind: 'Personal · Showcase',
-        imgback: null,
-        imglogo: null,
-        link: '#',
-        description:
-          'Iteración con estética NERV: scanlines, telemetría y stack 3D para mostrar proyectos por empresa.',
-        techStack: [6, 3, 2, 4],
-        metrics: { lh: 97, build: '0.48s', deps: 20 },
-        accentColor: '#d28fff',
+        stack: ['React', 'Three.js', 'TypeScript'],
+        dev: true,
       },
     ],
   },

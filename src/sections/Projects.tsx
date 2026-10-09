@@ -1,56 +1,61 @@
-'use client';
+import { workCompanies, type WorkProject } from '@/data';
+import SectionHead from '@/components/SectionHead';
 
-import React from 'react';
-import { workCompanies } from '@/data';
-import { useIsMobile } from '@/hooks/isMobile';
-import { useGsapStagger } from '@/hooks/useGsapReveal';
-import SysLabel from '@/components/SysLabel';
-import CompanyCard from '@/components/projects/CompanyCard';
-import CompanyCardMobile from '@/components/projects/CompanyCardMobile';
+const badge =
+  'font-jetbrains absolute top-3 left-3 rounded-full border border-edge bg-background px-2.5 py-1 text-[10px] tracking-[0.08em] text-muted';
 
-const Projects: React.FC = () => {
-  const isMobile = useIsMobile();
-  const listRef = useGsapStagger<HTMLDivElement>('.project-company-card', {
-    y: 50,
-    stagger: 0.2,
-    start: 'top 80%',
-  });
+function Card({ p, company }: { p: WorkProject; company: string }) {
+  const href = p.link ?? p.github;
+  const Tag = href ? 'a' : 'div';
+  return (
+    <Tag
+      {...(href ? { href, target: '_blank', rel: 'noreferrer' } : {})}
+      className="group flex min-w-0 flex-col gap-3.5"
+    >
+      <div className="relative flex aspect-4/3 items-center justify-center overflow-hidden rounded-2xl border border-line bg-surface1 transition-colors group-hover:border-accent">
+        {p.cover ? (
+          <div
+            role="img"
+            aria-label={p.title}
+            className="size-full bg-cover bg-center"
+            style={{ backgroundImage: `url(${p.cover})` }}
+          />
+        ) : (
+          <span className="font-jetbrains text-xs tracking-[0.08em] text-dim">{p.title}</span>
+        )}
+        <div className="absolute inset-0 flex translate-y-2.5 flex-col justify-between gap-3 bg-background/95 p-5 opacity-0 transition duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+          <p className="line-clamp-5 text-sm leading-normal text-pretty">{p.description}</p>
+          <span className="font-jetbrains text-[11px] text-muted">{p.stack.join(' · ')}</span>
+        </div>
+        {p.dev && <span className={badge}>EN DESARROLLO</span>}
+        {p.confidential && <span className={badge}>CONFIDENCIAL</span>}
+      </div>
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex min-w-0 flex-col gap-1">
+          <span className="text-[17px] font-medium">{p.title}</span>
+          <span className="text-sm text-muted">
+            {company} · {p.kind}
+          </span>
+        </div>
+        {href && <span className="text-lg leading-none text-accent">↗</span>}
+      </div>
+    </Tag>
+  );
+}
 
-  const totalOps = workCompanies.reduce((sum, c) => sum + c.projects.length, 0);
-
+export default function Projects() {
+  const all = workCompanies.flatMap(c => c.projects.map(p => ({ p, company: c.company })));
   return (
     <section
-      id="projects"
-      className="flex flex-col mx-auto max-w-250 px-4 py-12 min-h-screen mt-12 overflow-hidden box-border"
+      id="proyectos"
+      className="mx-auto max-w-280 scroll-mt-18 border-t border-line px-[clamp(20px,4vw,40px)] py-[clamp(48px,8vw,96px)]"
     >
-      <div className="flex flex-col w-full mb-8">
-        <SysLabel left="// OP_RECORD" right="REGISTRO DE OPERACIONES" />
-        <div className="flex items-center w-full">
-          <span className="text-textPrimary font-mono text-lg mr-4">02.</span>
-          <h2 className="text-3xl font-bold text-white whitespace-nowrap">Proyectos</h2>
-          <div className="flex-1 h-px bg-gray-700 ml-4" />
-        </div>
-      </div>
-
-      <div ref={listRef}>
-        {workCompanies.map((company) => (
-          <div key={company.id} className="project-company-card">
-            {isMobile ? (
-              <CompanyCardMobile company={company} />
-            ) : (
-              <CompanyCard company={company} />
-            )}
-          </div>
+      <SectionHead num="02" title="Proyectos" />
+      <div className="grid gap-6 [grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))]">
+        {all.map(({ p, company }) => (
+          <Card key={p.id} p={p} company={company} />
         ))}
-      </div>
-
-      <div className="mt-3 pt-2.5 border-t border-dashed border-textPrimary/15 flex justify-end">
-        <span className="font-mono text-[8px] text-textPrimary/30 tracking-[0.2em] uppercase">
-          {'// EOF · '}{totalOps}{' OPS REGISTRADAS'}
-        </span>
       </div>
     </section>
   );
-};
-
-export default Projects;
+}

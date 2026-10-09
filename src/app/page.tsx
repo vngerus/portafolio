@@ -1,5 +1,3 @@
-import Signature from '@/components/signature';
-import Socials from '@/components/socials';
 import Header from '@/sections/Header';
 import Hero from '@/sections/Hero';
 import Experiences from '@/sections/Experiences';
@@ -10,24 +8,14 @@ import Footer from '@/sections/Footer';
 
 export default function Home() {
   return (
-    <div className="relative flex min-h-screen text-white bg-background">
-      <div className="hidden md:block">
-        <Socials />
-      </div>
-
-      <main className="flex-1 mx-auto max-w-300 px-4">
-        <Header />
-        <Hero />
-        <Experiences />
-        <Projects />
-        <About />
-        <Contact />
-        <Footer />
-      </main>
-
-      <div className="hidden md:block">
-        <Signature />
-      </div>
-    </div>
+    <main className="min-h-screen bg-background text-bone">
+      <Header />
+      <Hero />
+      <Experiences />
+      <Projects />
+      <About />
+      <Contact />
+      <Footer />
+    </main>
   );
 }
