@@ -15,12 +15,16 @@ export default function Hero() {
         <div className="flex flex-wrap gap-3">
           <a
             href="#proyectos"
+            data-cat="¡Vamos a ver proyectos!"
+            data-cat-e="🚀"
             className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-medium text-background transition-colors hover:bg-[#e2b5ff]"
           >
             Ver proyectos <span>↓</span>
           </a>
           <a
             href="#"
+            data-cat="El CV llega pronto"
+            data-cat-e="📄"
             className="inline-flex items-center gap-2 rounded-full border border-edge px-5 py-3 text-sm transition-colors hover:border-accent hover:text-accent"
           >
             Descargar CV <span className="font-jetbrains text-[11px]">PDF</span>

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { toast, Toaster } from 'sonner';
 import SectionHead from '@/components/SectionHead';
+import { catEvent } from '@/lib/cat';
 
 const INITIAL = { name: '', email: '', message: '' };
 
@@ -34,12 +35,15 @@ export default function Contact() {
       });
       if (res.ok) {
         toast.success('¡Mensaje enviado! Te responderé pronto.');
+        catEvent('celebrate', '¡Mensaje enviado!');
         setForm(INITIAL);
       } else {
         toast.error('Ocurrió un error. Inténtalo nuevamente.');
+        catEvent('oops', 'Algo falló al enviar…');
       }
     } catch {
       toast.error('Error de conexión. Inténtalo más tarde.');
+      catEvent('oops', 'Sin conexión…');
     } finally {
       setLoading(false);
     }
@@ -66,7 +70,15 @@ export default function Contact() {
                 </>
               );
               return l.href ? (
-                <a key={l.name} href={l.href} target="_blank" rel="noreferrer" className={rowCls}>
+                <a
+                  key={l.name}
+                  href={l.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  data-cat={`¡Sígueme en ${l.name}!`}
+                  data-cat-e="🔗"
+                  className={rowCls}
+                >
                   {inner}
                 </a>
               ) : (
@@ -79,6 +91,8 @@ export default function Contact() {
         </div>
         <form
           onSubmit={onSubmit}
+          data-cat="Te leo con atención"
+          data-cat-e="📝"
           className="flex flex-col gap-4 rounded-[20px] border border-line bg-surface1 p-[clamp(20px,3vw,32px)]"
         >
           <label className="flex flex-col gap-2 text-[13px] text-muted">

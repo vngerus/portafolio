@@ -11,6 +11,10 @@ function Card({ p, company }: { p: WorkProject; company: string }) {
   return (
     <Tag
       {...(href ? { href, target: '_blank', rel: 'noreferrer' } : {})}
+      data-cat={
+        p.dev ? `${p.title} sigue en desarrollo` : p.confidential ? `${p.title} es confidencial, shhh` : `${p.title}: ¡échale un vistazo!`
+      }
+      data-cat-e={p.dev ? '🚧' : p.confidential ? '🤫' : '👉'}
       className="group flex min-w-0 flex-col gap-3.5"
     >
       <div className="relative flex aspect-4/3 items-center justify-center overflow-hidden rounded-2xl border border-line bg-surface1 transition-colors group-hover:border-accent">

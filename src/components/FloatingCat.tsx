@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { Armchair, ArrowUp, Eye, Footprints, Hand, X, Zap, type LucideIcon } from 'lucide-react';
+import { Armchair, ArrowUp, Eye, Footprints, Hand, MessageSquare, MessageSquareOff, X, Zap, type LucideIcon } from 'lucide-react';
 import type { ActionName } from '@/components/model/BananaCat';
 
 const CatCanvas = dynamic(() => import('@/components/CatCanvas'), { ssr: false });
@@ -37,8 +37,9 @@ const WALK_BUDGET_MS = 20000; // scrolling this long tires the cat out
 const REST_MS = 5000;
 
 // Icons fan out on a quarter circle: left of the cat (180°) up to above it (270°).
-const FAN = ACTIONS.map((_, i) => {
-  const a = (Math.PI * (180 + (90 / (ACTIONS.length - 1)) * i)) / 180;
+// +1 slot for the mute toggle
+const FAN = Array.from({ length: ACTIONS.length + 1 }, (_, i) => {
+  const a = (Math.PI * (180 + (90 / ACTIONS.length) * i)) / 180;
   return { x: Math.cos(a), y: Math.sin(a) };
 });
 
@@ -46,6 +47,11 @@ export default function FloatingCat() {
   const [action, setAction] = useState<ActionName>(IDLE);
   const [open, setOpen] = useState(false);
   const [bubble, setBubble] = useState<{ emoji: string; text: string; cta?: Cta; show: boolean }>({ emoji: '', text: '', show: false });
+  const rootRef = useRef<HTMLDivElement>(null);
+  const bubbleRef = useRef<HTMLDivElement>(null);
+  const [muted, setMuted] = useState(false);
+  const mutedRef = useRef(false);
+  const sleeping = useRef(false);
   const rotRef = useRef(0); // target Y rotation, follows the cursor
   const lock = useRef(false); // true while a manual action or a rest is running
   const clicks = useRef(0);
@@ -69,7 +75,8 @@ export default function FloatingCat() {
   };
 
   // bubbles with a button stay longer so there is time to click it
-  const say = (line: Phrase, ms = 2200) => {
+  const say = (line: Phrase, ms = 2200, force = false) => {
+    if (mutedRef.current && !force) return;
     setBubble({ emoji: line.e, text: line.t, cta: line.cta, show: true });
     hideIn(line.cta ? Math.max(ms, 7000) : ms);
   };
@@ -87,19 +94,68 @@ export default function FloatingCat() {
     timers.current.forEach(clearTimeout);
     timers.current.clear();
     setOpen(false);
+    sleeping.current = false;
     lock.current = true;
     setAction(clip);
-    say(lines[clicks.current++ % lines.length], Math.max(ms, 2200));
+    say(lines[clicks.current++ % lines.length], Math.max(ms, 2200), true);
     later(() => {
       lock.current = false;
       setAction(IDLE);
     }, ms);
   };
 
+  // mute lasts for this visit only (in memory): nothing is stored in the browser
+  const toggleMute = () => {
+    const next = !mutedRef.current;
+    mutedRef.current = next;
+    setMuted(next);
+    if (next) dismiss();
+    else say({ e: '🎤', t: '¡Vuelvo a hablar!' }, 2200, true);
+  };
+
   // Reacts to the page: greeting, scroll, cursor, hovered controls, tiredness, sections.
   useEffect(() => {
     let walked = 0;
     let last = 0;
+    let idleT: ReturnType<typeof setTimeout> | undefined;
+
+    // falls asleep after a while without activity
+    const arm = () => {
+      clearTimeout(idleT);
+      idleT = setTimeout(() => {
+        if (lock.current) return arm();
+        sleeping.current = true;
+        setAction('bananaBones|sit');
+        say({ e: '😴', t: 'Zzz…' }, 2500);
+      }, 30000);
+    };
+    const wake = () => {
+      if (sleeping.current) {
+        sleeping.current = false;
+        setAction(IDLE);
+        say({ e: '👀', t: '¡Ah, sigues ahí!' }, 2000);
+      }
+      arm();
+    };
+
+    // reacts to anything in the page tagged data-cat="text" (data-cat-e="emoji")
+    const seenAt = new Map<Element, number>();
+    const react = (target: EventTarget | null) => {
+      const el = (target as Element | null)?.closest?.<HTMLElement>('[data-cat]');
+      if (!el || lock.current) return;
+      const now = Date.now();
+      if (now - (seenAt.get(el) ?? 0) < 10000) return;
+      seenAt.set(el, now);
+      auto(LOOK);
+      say({ e: el.dataset.catE ?? '👀', t: el.dataset.cat ?? '' }, 2600);
+    };
+    const onOver = (e: Event) => react(e.target);
+
+    const onCat = (e: Event) => {
+      const { kind, text } = (e as CustomEvent<{ kind: string; text?: string }>).detail;
+      if (kind === 'celebrate') play('bananaBones|jump', 1800, [{ e: '🎉', t: text ?? '¡Genial!' }]);
+      if (kind === 'oops') play('bananaBones|damaged', 700, [{ e: '😬', t: text ?? 'Ups…' }]);
+    };
 
     const tire = () => {
       lock.current = true;
@@ -118,6 +174,7 @@ export default function FloatingCat() {
     };
 
     const onScroll = () => {
+      wake();
       if (lock.current) return;
       const now = performance.now();
       if (last && now - last < 200) walked += now - last;
@@ -132,6 +189,7 @@ export default function FloatingCat() {
     };
 
     const onMove = (e: MouseEvent) => {
+      wake();
       rotRef.current = -((e.clientX / window.innerWidth) * 2 - 1) * 0.5;
       const el = document.elementFromPoint(e.clientX, e.clientY);
       if (el?.closest('a, button')) auto(LOOK);
@@ -170,10 +228,20 @@ export default function FloatingCat() {
 
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('mousemove', onMove, { passive: true });
+    window.addEventListener('keydown', wake);
+    document.addEventListener('mouseover', onOver);
+    document.addEventListener('focusin', onOver);
+    window.addEventListener('cat', onCat);
+    arm();
     const pending = timers.current;
     return () => {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('keydown', wake);
+      document.removeEventListener('mouseover', onOver);
+      document.removeEventListener('focusin', onOver);
+      window.removeEventListener('cat', onCat);
+      clearTimeout(idleT);
       io.disconnect();
       pending.forEach(clearTimeout);
       pending.clear();
@@ -184,6 +252,17 @@ export default function FloatingCat() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // clicking anywhere outside closes the bubble and the icon menu
+  useEffect(() => {
+    const onDown = (e: PointerEvent) => {
+      const t = e.target as Node;
+      if (!bubbleRef.current?.contains(t)) dismiss();
+      if (!rootRef.current?.contains(t)) setOpen(false);
+    };
+    document.addEventListener('pointerdown', onDown);
+    return () => document.removeEventListener('pointerdown', onDown);
+  }, []);
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
@@ -192,7 +271,7 @@ export default function FloatingCat() {
   }, [open]);
 
   return (
-    <div className="fixed right-0 bottom-3 z-30 [--r:80px] md:-right-2 md:bottom-6 md:[--r:122px]">
+    <div ref={rootRef} className="fixed right-0 bottom-3 z-30 [--r:80px] md:-right-2 md:bottom-6 md:[--r:122px]">
       <div className="relative h-[106px] w-[84px] md:h-[213px] md:w-[167px]">
         <CatCanvas action={action} rotRef={rotRef} />
         <button
@@ -225,7 +304,28 @@ export default function FloatingCat() {
           </button>
         ))}
 
+        <button
+          type="button"
+          title={muted ? 'Activar mensajes' : 'Silenciar mensajes'}
+          aria-label={muted ? 'Activar mensajes' : 'Silenciar mensajes'}
+          aria-pressed={muted}
+          tabIndex={open ? 0 : -1}
+          onClick={toggleMute}
+          style={{
+            transform: open
+              ? `translate(calc(${FAN[ACTIONS.length].x} * var(--r)), calc(${FAN[ACTIONS.length].y} * var(--r)))`
+              : 'translate(0, 0) scale(0.4)',
+            transitionDelay: open ? `${ACTIONS.length * 30}ms` : '0ms',
+          }}
+          className={`absolute top-1/2 left-1/2 -mt-4 -ml-4 flex size-8 items-center justify-center rounded-full border bg-background/90 backdrop-blur-sm transition duration-300 ease-[cubic-bezier(.2,.7,.2,1)] hover:border-accent hover:text-accent md:-mt-4.5 md:-ml-4.5 md:size-9 ${
+            muted ? 'border-accent text-accent' : 'border-edge text-muted'
+          } ${open ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
+        >
+          {muted ? <MessageSquareOff className="size-4 md:size-[18px]" /> : <MessageSquare className="size-4 md:size-[18px]" />}
+        </button>
+
         <div
+          ref={bubbleRef}
           aria-live="polite"
           onPointerEnter={() => clearTimeout(bubbleTimer.current)}
           onPointerLeave={() => bubble.show && hideIn(2000)}
@@ -261,6 +361,13 @@ export default function FloatingCat() {
                   {bubble.cta.label} →
                 </Link>
               )}
+              <button
+                type="button"
+                onClick={toggleMute}
+                className="mt-0.5 cursor-pointer self-start text-[10px] text-dim transition-colors hover:text-bone"
+              >
+                No mostrar más
+              </button>
             </div>
             <span className="absolute -bottom-1.25 right-8 size-2.5 rotate-45 border-r border-b border-accent/40 bg-background" />
           </div>
