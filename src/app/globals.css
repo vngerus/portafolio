@@ -85,6 +85,27 @@
   color: #0b0a08;
 }
 
+/* custom scrollbar: thin, dark track, violet thumb on hover */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #2a2622 #0b0a08;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0b0a08;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a2622;
+  border-radius: 999px;
+  border: 2px solid #0b0a08;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d28fff;
+}
+
 body {
   background: #0b0a08;
   color: #eae6da;
