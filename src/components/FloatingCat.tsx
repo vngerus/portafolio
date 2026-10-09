@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { Armchair, ArrowUp, Eye, Footprints, Hand, MessageSquare, MessageSquareOff, X, Zap, type LucideIcon } from 'lucide-react';
+import { emoteSrc } from '@/lib/emotes';
 import type { ActionName } from '@/components/model/BananaCat';
 
 const CatCanvas = dynamic(() => import('@/components/CatCanvas'), { ssr: false });
@@ -17,9 +18,9 @@ const LOOK: ActionName = 'bananaBones|lookAround';
 
 // ms = how long to hold the clip before going back to idle (clip lengths from the GLB).
 const ACTIONS: { label: string; say: Phrase[]; icon: LucideIcon; clip: ActionName; ms: number }[] = [
-  { label: 'Saludar', say: [{ e: '👋', t: '¡Hola! Soy Banana Cat' }, { e: '🍌', t: '¡Bienvenido al portafolio!' }], icon: Hand, clip: 'bananaBones|hiiiiiiiii', ms: 2000 },
+  { label: 'Saludar', say: [{ e: '👋', t: '¡Hola! Soy Banana Cat' }, { e: '🤗', t: '¡Bienvenido al portafolio!' }], icon: Hand, clip: 'bananaBones|hiiiiiiiii', ms: 2000 },
   { label: 'Saltar', say: [{ e: '🦘', t: '¡Hop!' }, { e: '🚀', t: '¡Más alto!' }], icon: ArrowUp, clip: 'bananaBones|jump', ms: 1800 },
-  { label: 'Caminar', say: [{ e: '🚶', t: 'Voy a dar una vuelta…' }, { e: '👣', t: 'Paso a paso' }], icon: Footprints, clip: WALK, ms: 3000 },
+  { label: 'Caminar', say: [{ e: '😎', t: 'Voy a dar una vuelta…' }, { e: '👣', t: 'Paso a paso' }], icon: Footprints, clip: WALK, ms: 3000 },
   { label: 'Mirar', say: [{ e: '👀', t: '¿Qué hay por aquí?' }, { e: '🤔', t: 'Mmm… interesante' }], icon: Eye, clip: LOOK, ms: 4100 },
   { label: 'Sentarse', say: [{ e: '😌', t: 'Un descansito' }, { e: '☕', t: 'Zzz… ¿me traes un café?' }], icon: Armchair, clip: 'bananaBones|sit', ms: 3000 },
   { label: 'Golpe', say: [{ e: '😵', t: '¡Auch!' }, { e: '💥', t: '¡Eso dolió!' }], icon: Zap, clip: 'bananaBones|damaged', ms: 700 },
@@ -27,10 +28,10 @@ const ACTIONS: { label: string; say: Phrase[]; icon: LucideIcon; clip: ActionNam
 
 // Said once, the first time each section scrolls into view.
 const SECTION_LINES: Record<string, Phrase> = {
-  experiencia: { e: '👨‍💻', t: 'Este es el camino recorrido' },
+  experiencia: { e: '💻', t: 'Este es el camino recorrido' },
   proyectos: { e: '🚀', t: 'Lo bueno: pasa el mouse por las tarjetas', cta: { label: 'Ver todos', href: '/proyectos' } },
-  'sobre-mi': { e: '🙋', t: 'Un poco sobre quién escribe el código' },
-  contacto: { e: '✉️', t: '¿Hablamos? Escríbele a Angel', cta: { label: 'Escribir mensaje', href: '/#contacto', focus: 'input[name="name"]' } },
+  'sobre-mi': { e: '😊', t: 'Un poco sobre quién escribe el código' },
+  contacto: { e: '💌', t: '¿Hablamos? Escríbele a Angel', cta: { label: 'Escribir mensaje', href: '/#contacto', focus: 'input[name="name"]' } },
 };
 
 const WALK_BUDGET_MS = 20000; // scrolling this long tires the cat out
@@ -110,7 +111,7 @@ export default function FloatingCat() {
     mutedRef.current = next;
     setMuted(next);
     if (next) dismiss();
-    else say({ e: '🎤', t: '¡Vuelvo a hablar!' }, 2200, true);
+    else say({ e: '😄', t: '¡Vuelvo a hablar!' }, 2200, true);
   };
 
   // Reacts to the page: greeting, scroll, cursor, hovered controls, tiredness, sections.
@@ -343,7 +344,12 @@ export default function FloatingCat() {
               <X className="size-3" />
             </button>
             <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-accent/15 text-xl leading-none">
-              {bubble.emoji}
+              {emoteSrc(bubble.emoji) ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={emoteSrc(bubble.emoji)!} alt="" width={30} height={30} className="size-[30px]" />
+              ) : (
+                bubble.emoji
+              )}
             </span>
             <div className="flex flex-col gap-0.5">
               <span className="font-jetbrains text-[9px] tracking-[0.14em] text-accent">BANANA CAT</span>

@@ -24,7 +24,7 @@ export default function Hero() {
           <a
             href="#"
             data-cat="El CV llega pronto"
-            data-cat-e="📄"
+            data-cat-e="😉"
             className="inline-flex items-center gap-2 rounded-full border border-edge px-5 py-3 text-sm transition-colors hover:border-accent hover:text-accent"
           >
             Descargar CV <span className="font-jetbrains text-[11px]">PDF</span>

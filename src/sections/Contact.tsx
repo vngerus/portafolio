@@ -76,7 +76,7 @@ export default function Contact() {
                   target="_blank"
                   rel="noreferrer"
                   data-cat={`¡Sígueme en ${l.name}!`}
-                  data-cat-e="🔗"
+                  data-cat-e="🤩"
                   className={rowCls}
                 >
                   {inner}
@@ -92,7 +92,7 @@ export default function Contact() {
         <form
           onSubmit={onSubmit}
           data-cat="Te leo con atención"
-          data-cat-e="📝"
+          data-cat-e="🧐"
           className="flex flex-col gap-4 rounded-[20px] border border-line bg-surface1 p-[clamp(20px,3vw,32px)]"
         >
           <label className="flex flex-col gap-2 text-[13px] text-muted">
