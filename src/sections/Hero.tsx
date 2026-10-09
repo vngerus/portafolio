@@ -33,11 +33,8 @@ export default function Hero() {
           </a>
         </div>
       </div>
-      <div className="relative aspect-square max-h-120 w-full overflow-hidden rounded-3xl border border-line bg-surface1">
+      <div className="relative aspect-square max-h-120 w-full">
         <CatCanvas />
-        <span className="font-jetbrains pointer-events-none absolute bottom-4 left-4.5 text-[11px] tracking-[0.08em] text-dim">
-          Arrastra para girar · toca un icono
-        </span>
       </div>
     </section>
   );
