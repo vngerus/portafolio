@@ -9,45 +9,67 @@ import BananaCat, { type ActionName } from '@/components/model/BananaCat';
 const IDLE: ActionName = 'bananaBones|idle';
 
 // ms = how long to hold the clip before going back to idle (clip lengths from the GLB).
-const ACTIONS: { label: string; icon: LucideIcon; clip: ActionName; ms: number; pos: string }[] = [
-  { label: 'Saludar', icon: Hand, clip: 'bananaBones|hiiiiiiiii', ms: 2000, pos: 'left-[6%] top-[18%]' },
-  { label: 'Saltar', icon: ArrowUp, clip: 'bananaBones|jump', ms: 1800, pos: 'left-[2%] top-[45%]' },
-  { label: 'Caminar', icon: Footprints, clip: 'bananaBones|walk', ms: 3000, pos: 'left-[6%] top-[72%]' },
-  { label: 'Mirar', icon: Eye, clip: 'bananaBones|lookAround', ms: 4100, pos: 'right-[6%] top-[18%]' },
-  { label: 'Sentarse', icon: Armchair, clip: 'bananaBones|sit', ms: 3000, pos: 'right-[2%] top-[45%]' },
-  { label: 'Golpe', icon: Zap, clip: 'bananaBones|damaged', ms: 700, pos: 'right-[6%] top-[72%]' },
+const ACTIONS: { label: string; say: string[]; icon: LucideIcon; clip: ActionName; ms: number; pos: string }[] = [
+  { label: 'Saludar', say: ['¡Hola! Soy Banana Cat 🍌', '¡Bienvenido al portafolio!'], icon: Hand, clip: 'bananaBones|hiiiiiiiii', ms: 2000, pos: 'left-[6%] top-[18%]' },
+  { label: 'Saltar', say: ['¡Hop! 🦘', '¡Más alto!'], icon: ArrowUp, clip: 'bananaBones|jump', ms: 1800, pos: 'left-[2%] top-[45%]' },
+  { label: 'Caminar', say: ['Voy a dar una vuelta… 🚶', 'Paso a paso 👣'], icon: Footprints, clip: 'bananaBones|walk', ms: 3000, pos: 'left-[6%] top-[72%]' },
+  { label: 'Mirar', say: ['¿Qué hay por aquí? 👀', 'Mmm… interesante 🤔'], icon: Eye, clip: 'bananaBones|lookAround', ms: 4100, pos: 'right-[6%] top-[18%]' },
+  { label: 'Sentarse', say: ['Un descansito 😌', 'Zzz… ¿me traes un café? ☕'], icon: Armchair, clip: 'bananaBones|sit', ms: 3000, pos: 'right-[2%] top-[45%]' },
+  { label: 'Golpe', say: ['¡Auch! 😵', '¡Eso dolió! 💥'], icon: Zap, clip: 'bananaBones|damaged', ms: 700, pos: 'right-[6%] top-[72%]' },
 ];
 
 // The GLB is ~248 units tall (feet at y=0, centered on x/z), so scale 0.01 -> ~2.5 tall.
 export default function CatCanvas() {
   const [action, setAction] = useState<ActionName>(IDLE);
+  const [bubble, setBubble] = useState({ text: '', show: false });
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const clicks = useRef(0);
+  const bubbleTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
-  useEffect(() => () => clearTimeout(timer.current), []);
+  useEffect(
+    () => () => {
+      clearTimeout(timer.current);
+      clearTimeout(bubbleTimer.current);
+    },
+    []
+  );
 
-  const play = (clip: ActionName, ms: number) => {
+  const play = (clip: ActionName, ms: number, say: string[]) => {
     clearTimeout(timer.current);
+    clearTimeout(bubbleTimer.current);
     setAction(clip);
+    setBubble({ text: say[clicks.current++ % say.length], show: true });
     timer.current = setTimeout(() => setAction(IDLE), ms);
+    // keep the bubble readable even for very short clips
+    bubbleTimer.current = setTimeout(() => setBubble(b => ({ ...b, show: false })), Math.max(ms, 2200));
   };
 
   return (
     <>
-      <Canvas camera={{ position: [0, 0, 5.5], fov: 40 }}>
+      <Canvas camera={{ position: [0, 0, 6.3], fov: 40 }}>
         <ambientLight intensity={1.4} />
         <directionalLight position={[3, 4, 3]} intensity={1.6} />
         <pointLight position={[-3, 1, 2]} intensity={0.8} color="#d28fff" />
         <Suspense fallback={null}>
-          <BananaCat actionName={action} scale={[0.01, 0.01, 0.01]} position={[0, -1.25, 0.15]} />
+          <BananaCat actionName={action} scale={[0.01, 0.01, 0.01]} position={[0, -1.4, 0.15]} />
         </Suspense>
         <OrbitControls enableZoom={false} enablePan={false} />
       </Canvas>
-      {ACTIONS.map(({ label, icon: Icon, clip, ms, pos }) => (
+      <div
+        aria-live="polite"
+        className={`pointer-events-none absolute top-4 left-1/2 max-w-[60%] -translate-x-1/2 rounded-2xl bg-bone px-3.5 py-2 text-center text-sm font-medium text-background transition duration-200 ${
+          bubble.show ? 'translate-y-0 opacity-100' : '-translate-y-1 opacity-0'
+        }`}
+      >
+        {bubble.text}
+        <span className="absolute -bottom-1 left-1/2 size-2.5 -translate-x-1/2 rotate-45 bg-bone" />
+      </div>
+      {ACTIONS.map(({ label, icon: Icon, clip, ms, pos, say }) => (
         <button
           key={clip}
           type="button"
           aria-label={label}
-          onClick={() => play(clip, ms)}
+          onClick={() => play(clip, ms, say)}
           className={`group absolute ${pos} flex size-11 cursor-pointer items-center justify-center rounded-full border transition-colors ${
             action === clip
               ? 'border-accent bg-accent text-background'
