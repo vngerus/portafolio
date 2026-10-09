@@ -40,7 +40,7 @@ export default function CatCanvas() {
         <Suspense fallback={null}>
           <BananaCat actionName={action} scale={[0.01, 0.01, 0.01]} position={[0, -1.25, 0.15]} />
         </Suspense>
-        <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={1.5} />
+        <OrbitControls enableZoom={false} enablePan={false} />
       </Canvas>
       {ACTIONS.map(({ label, icon: Icon, clip, ms, pos }) => (
         <button
