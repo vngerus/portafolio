@@ -95,11 +95,11 @@ export default function Contact() {
           data-cat-e="🧐"
           className="flex flex-col gap-4 rounded-[20px] border border-line bg-surface1 p-[clamp(20px,3vw,32px)]"
         >
-          <label className="flex flex-col gap-2 text-[13px] text-muted">
+          <label data-cat="¿Cómo te llamas?" data-cat-e="😊" className="flex flex-col gap-2 text-[13px] text-muted">
             Nombre
             <input name="name" required value={form.name} onChange={onChange} className={fieldCls} />
           </label>
-          <label className="flex flex-col gap-2 text-[13px] text-muted">
+          <label data-cat="Tranqui, no hago spam" data-cat-e="🤞" className="flex flex-col gap-2 text-[13px] text-muted">
             Email
             <input
               name="email"
@@ -110,7 +110,7 @@ export default function Contact() {
               className={fieldCls}
             />
           </label>
-          <label className="flex flex-col gap-2 text-[13px] text-muted">
+          <label data-cat="Cuéntame, que soy todo orejas" data-cat-e="🧐" className="flex flex-col gap-2 text-[13px] text-muted">
             Mensaje
             <textarea
               name="message"
@@ -123,6 +123,8 @@ export default function Contact() {
           </label>
           <button
             type="submit"
+            data-cat="¡Dale, envíalo!"
+            data-cat-e="🚀"
             disabled={loading}
             className="mt-1 cursor-pointer rounded-full bg-accent px-5 py-3.5 text-[15px] font-medium text-background transition-colors hover:bg-[#e2b5ff] disabled:opacity-60"
           >

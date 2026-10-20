@@ -30,7 +30,7 @@ export const workCompanies: WorkCompany[] = [
       {
         id: 'bb-intranet',
         title: 'Intranet corporativa',
-        kind: 'Web app interna',
+        kind: 'Aplicación web interna',
         description:
           'Nueva intranet corporativa y páginas web de alto rendimiento, consumiendo APIs RESTful propias.',
         stack: ['Next.js', 'TypeScript', 'Node.js', 'SQL'],
@@ -49,7 +49,7 @@ export const workCompanies: WorkCompany[] = [
       {
         id: 'bb-despacho',
         title: 'Sistema de despachos',
-        kind: 'Desktop · ElectronJS',
+        kind: 'Escritorio · ElectronJS',
         description:
           'Migración de sistemas desktop a ElectronJS para la gestión de despachos y comandas.',
         stack: ['ElectronJS', 'Node.js', 'SQL'],
@@ -58,7 +58,7 @@ export const workCompanies: WorkCompany[] = [
       {
         id: 'bb-boletas',
         title: 'Búsqueda de boletas',
-        kind: 'Landing',
+        kind: 'Página web',
         description: 'Landing pública para que clientes busquen sus boletas de forma rápida.',
         stack: ['Next.js', 'Tailwind CSS'],
         confidential: true,
@@ -68,13 +68,13 @@ export const workCompanies: WorkCompany[] = [
   {
     id: 'cib',
     company: 'CIB',
-    role: 'Front-end Developer',
+    role: 'Desarrollador Front-end',
     period: '2024.03 → 2025.01',
     projects: [
       {
         id: 'cib-landing',
         title: 'CIB Landing',
-        kind: 'Landing corporativa',
+        kind: 'Sitio corporativo',
         description:
           'Landing principal de Consultants in Blockchain. Diseño moderno alineado con la identidad blockchain, animaciones en scroll y secciones para destacar servicios y partners.',
         stack: ['React', 'Tailwind CSS', 'TypeScript', 'Framer Motion'],
@@ -86,7 +86,7 @@ export const workCompanies: WorkCompany[] = [
       {
         id: 'cib-museum',
         title: 'Museum NFT',
-        kind: 'Web app · Galería',
+        kind: 'Aplicación web · Galería',
         description:
           'Plataforma para curaduría y exposición de colecciones NFT con preview interactivo, filtros por categoría y ficha técnica por pieza.',
         stack: ['Next.js', 'TypeScript', 'Tailwind CSS'],
@@ -95,7 +95,7 @@ export const workCompanies: WorkCompany[] = [
       {
         id: 'cib-iny',
         title: 'Iny App',
-        kind: 'Prototipo · Mobile-first',
+        kind: 'Prototipo · Móvil primero',
         description:
           'Landing de alto rendimiento y prototipo navegable. Sistema de componentes reutilizables y flow móvil completo.',
         stack: ['React', 'TypeScript', 'Tailwind CSS'],

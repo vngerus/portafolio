@@ -12,6 +12,8 @@ export default function Experiences() {
         {experiences.map(e => (
           <div
             key={e.company}
+            data-cat={e.catLine}
+            data-cat-e={e.status === 'ACTIVE' ? '💪' : '🧐'}
             className="grid gap-x-10 gap-y-3 border-b border-line py-7 [grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))]"
           >
             <div className="flex flex-col gap-1.5">
@@ -27,6 +29,10 @@ export default function Experiences() {
                 {e.tech.map(t => (
                   <span
                     key={t}
+                    data-cat={`${t}: parte del arsenal`}
+                    data-cat-e="💪"
+                    data-cat-once
+                    data-cat-group="tech"
                     className="font-jetbrains rounded-full border border-edge px-2.5 py-1 text-[11px] text-muted"
                   >
                     {t}

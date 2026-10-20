@@ -9,6 +9,7 @@ const tag =
 
 export default function ProjectArchive({ companies }: { companies: WorkCompany[] }) {
   const [filter, setFilter] = useState('all');
+  const [openId, setOpenId] = useState<string | null>(null);
   const rows = companies
     .filter(c => filter === 'all' || c.id === filter)
     .flatMap(c => c.projects.map(p => ({ p, company: c.company, year: c.period.slice(0, 4) })));
@@ -17,7 +18,7 @@ export default function ProjectArchive({ companies }: { companies: WorkCompany[]
   return (
     <>
       <div className="mt-9 mb-12 flex flex-wrap items-end justify-between gap-6">
-        <div className="flex flex-col gap-3.5">
+        <div data-cat="El archivo completo, sin censura (casi)" data-cat-e="🧐" className="flex flex-col gap-3.5">
           <span className="font-jetbrains text-xs tracking-[0.08em] text-accent">
             {rows.length} proyectos
           </span>
@@ -29,6 +30,8 @@ export default function ProjectArchive({ companies }: { companies: WorkCompany[]
           {filters.map(f => (
             <button
               key={f.id}
+              data-cat={`Filtrar: ${f.label}`}
+              data-cat-e="🤔"
               onClick={() => setFilter(f.id)}
               className={cn(
                 'cursor-pointer rounded-full border px-3.5 py-[7px] text-[13px] transition-colors',
@@ -53,14 +56,22 @@ export default function ProjectArchive({ companies }: { companies: WorkCompany[]
 
       {rows.map(({ p, company, year }) => {
         const href = p.link ?? p.github;
-        const Tag = href ? 'a' : 'div';
+        const isOpen = openId === p.id;
         return (
-          <Tag
+          <div
             key={p.id}
-            {...(href ? { href, target: '_blank', rel: 'noreferrer' } : {})}
-            className="group flex flex-col border-b border-line"
+            data-cat={
+              p.dev ? `${p.title} sigue en desarrollo` : p.confidential ? `${p.title} es confidencial, shhh` : `${p.title}: ¡échale un vistazo!`
+            }
+            data-cat-e={p.dev ? '🚧' : p.confidential ? '🤫' : '👉'}
+            className="relative border-b border-line"
           >
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 py-4.5">
+            <button
+              type="button"
+              aria-expanded={isOpen}
+              onClick={() => setOpenId(isOpen ? null : p.id)}
+              className="group flex w-full cursor-pointer flex-wrap items-center gap-x-4 gap-y-2 py-4.5 pr-8 text-left"
+            >
               <span className="font-jetbrains basis-14 text-xs text-dim">{year}</span>
               <div className="flex min-w-0 flex-1 basis-55 items-center gap-3">
                 <div className="flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-[10px] border border-edge bg-surface1">
@@ -81,7 +92,7 @@ export default function ProjectArchive({ companies }: { companies: WorkCompany[]
                     </span>
                   )}
                 </div>
-                <span className="text-lg font-semibold transition-colors group-hover:text-accent">
+                <span className={cn('text-lg font-semibold transition-colors duration-200', isOpen && 'text-accent')}>
                   {p.title}
                 </span>
                 {p.confidential && <span className={tag}>NDA</span>}
@@ -89,9 +100,24 @@ export default function ProjectArchive({ companies }: { companies: WorkCompany[]
               </div>
               <span className="hidden basis-40 text-sm text-muted sm:block">{company}</span>
               <span className="hidden basis-50 text-sm text-muted md:block">{p.kind}</span>
-              <span className="basis-5 text-base text-accent">{href ? '↗' : ''}</span>
-            </div>
-            <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 group-hover:grid-rows-[1fr]">
+            </button>
+            {href && (
+              <a
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Abrir ${p.title}`}
+                className="absolute top-4.5 right-0 text-base leading-none text-accent"
+              >
+                ↗
+              </a>
+            )}
+            <div
+              className={cn(
+                'grid transition-[grid-template-rows,opacity] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]',
+                isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+              )}
+            >
               <div className="min-h-0 overflow-hidden">
                 <div className="flex max-w-190 flex-col gap-2.5 pb-5 sm:pl-18">
                   <p className="text-sm leading-[1.6] text-muted text-pretty">{p.description}</p>
@@ -99,7 +125,7 @@ export default function ProjectArchive({ companies }: { companies: WorkCompany[]
                 </div>
               </div>
             </div>
-          </Tag>
+          </div>
         );
       })}
     </>

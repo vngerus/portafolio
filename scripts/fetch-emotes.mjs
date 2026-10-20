@@ -6,7 +6,7 @@ import { mkdir, writeFile } from 'node:fs/promises';
 const CPS = [
   '1f44b', '1f917', '1f998', '1f680', '1f60e', '1f463', '1f440', '1f914', '1f60c', '2615',
   '1f635', '1f4a5', '1f62e_200d_1f4a8', '1f4aa', '1f973', '1f633', '1f62c', '1f634', '1f9d0',
-  '1f92b', '1f6a7', '1f449', '1f389', '1f604', '1f60a', '1f48c', '1f4bb', '1f609', '1f929',
+  '1f92b', '1f6a7', '1f449', '1f389', '1f604', '1f60a', '1f48c', '1f4bb', '1f609', '1f929', '1f97a', '1f622', '1f62d', '1f494', '1f431',
 ];
 
 await mkdir('public/emotes', { recursive: true });

@@ -1,8 +1,8 @@
 export default function Footer() {
   return (
     <footer className="font-jetbrains mx-auto flex max-w-280 flex-wrap justify-between gap-4 border-t border-line px-[clamp(20px,4vw,40px)] py-7 text-[11px] text-dim">
-      <span>© 2026 Angel Smith</span>
-      <span>
+      <span data-cat="Ya llegaste al final…" data-cat-e="😌">© 2026 Angel Smith</span>
+      <span data-cat="Hecho con cariño (y café)" data-cat-e="☕">
         Hecho con Next.js · Santiago, Chile · Emotes:{' '}
         <a
           href="https://googlefonts.github.io/noto-emoji-animation/"

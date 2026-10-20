@@ -15,7 +15,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Ángel Smith - Developer",
+  title: "Ángel Smith - Desarrollador",
   description: "Portfolio de Ángel Smith",
 };
 

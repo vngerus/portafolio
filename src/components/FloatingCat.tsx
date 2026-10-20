@@ -44,6 +44,14 @@ const FAN = Array.from({ length: ACTIONS.length + 1 }, (_, i) => {
   return { x: Math.cos(a), y: Math.sin(a) };
 });
 
+// last words when muted
+const SAD: Phrase[] = [
+  { e: '🥺', t: '¿Estás seguro…?' },
+  { e: '😢', t: 'Okey… me quedo calladito' },
+  { e: '😭', t: 'Yo que quería contarte cosas…' },
+  { e: '💔', t: 'Ni un adiós, qué frío' },
+];
+
 export default function FloatingCat() {
   const [action, setAction] = useState<ActionName>(IDLE);
   const [open, setOpen] = useState(false);
@@ -53,6 +61,8 @@ export default function FloatingCat() {
   const [muted, setMuted] = useState(false);
   const mutedRef = useRef(false);
   const sleeping = useRef(false);
+  const ctaUntil = useRef(0); // a bubble with a button is protected from hover comments until then
+  const quietUntil = useRef(0); // system lines (greeting, sleep, section...) are not pre-empted by hover comments
   const rotRef = useRef(0); // target Y rotation, follows the cursor
   const lock = useRef(false); // true while a manual action or a rest is running
   const clicks = useRef(0);
@@ -80,11 +90,18 @@ export default function FloatingCat() {
     if (mutedRef.current && !force) return;
     setBubble({ emoji: line.e, text: line.t, cta: line.cta, show: true });
     hideIn(line.cta ? Math.max(ms, 7000) : ms);
+    ctaUntil.current = line.cta ? Date.now() + 7000 : 0;
   };
 
   const dismiss = () => {
+    ctaUntil.current = 0;
     clearTimeout(bubbleTimer.current);
     setBubble(b => ({ ...b, show: false }));
+  };
+
+  const sys = (line: Phrase, ms: number) => {
+    quietUntil.current = Date.now() + Math.min(ms, 3000);
+    say(line, ms);
   };
 
   const auto = (clip: ActionName) => {
@@ -110,7 +127,7 @@ export default function FloatingCat() {
     const next = !mutedRef.current;
     mutedRef.current = next;
     setMuted(next);
-    if (next) dismiss();
+    if (next) say(SAD[Math.floor(Math.random() * SAD.length)], 2800, true);
     else say({ e: '😄', t: '¡Vuelvo a hablar!' }, 2200, true);
   };
 
@@ -127,30 +144,50 @@ export default function FloatingCat() {
         if (lock.current) return arm();
         sleeping.current = true;
         setAction('bananaBones|sit');
-        say({ e: '😴', t: 'Zzz…' }, 2500);
+        sys({ e: '😴', t: 'Zzz…' }, 2500);
       }, 30000);
     };
     const wake = () => {
       if (sleeping.current) {
         sleeping.current = false;
         setAction(IDLE);
-        say({ e: '👀', t: '¡Ah, sigues ahí!' }, 2000);
+        sys({ e: '👀', t: '¡Ah, sigues ahí!' }, 1500);
       }
       arm();
     };
 
     // reacts to anything in the page tagged data-cat="text" (data-cat-e="emoji")
     const seenAt = new Map<Element, number>();
-    const react = (target: EventTarget | null) => {
-      const el = (target as Element | null)?.closest?.<HTMLElement>('[data-cat]');
-      if (!el || lock.current) return;
+    const groupAt = new Map<string, number>();
+    const tagged = (t: EventTarget | null) => (t as Element | null)?.closest?.<HTMLElement>('[data-cat]') ?? null;
+    const react = (el: HTMLElement | null) => {
+      if (!el) return;
       const now = Date.now();
-      if (now - (seenAt.get(el) ?? 0) < 10000) return;
+      if (now < ctaUntil.current || now < quietUntil.current) return;
+      if (now - (seenAt.get(el) ?? 0) < 1500) return;
+      // data-cat-once: comment on this element only the first time
+      if (el.dataset.catOnce !== undefined && seenAt.has(el)) return;
+      // data-cat-group: items of a group (e.g. tech chips) share a cooldown, so sweeping over them doesn't chatter
+      const g = el.dataset.catGroup;
+      if (g && now - (groupAt.get(g) ?? 0) < 8000) return;
+      if (g) groupAt.set(g, now);
       seenAt.set(el, now);
-      auto(LOOK);
-      say({ e: el.dataset.catE ?? '👀', t: el.dataset.cat ?? '' }, 2600);
+      auto(LOOK); // no-op while a manual action runs, but the comment still shows
+      say({ e: el.dataset.catE ?? '👀', t: el.dataset.cat ?? '' }, 2200);
     };
-    const onOver = (e: Event) => react(e.target);
+    // pointer detection polls the element under the cursor on every move (robust to overlays/tilt)
+    let hovered: HTMLElement | null = null;
+    let pt: [number, number] | null = null;
+    const track = (x: number, y: number) => {
+      const el = tagged(document.elementFromPoint(x, y));
+      if (el === hovered) return;
+      hovered = el;
+      react(el);
+    };
+    const onFocus = (e: Event) => react(tagged(e.target));
+    // no hover on touch screens: comment on tap
+    const onTap = (e: Event) => matchMedia('(hover: none)').matches && react(tagged(e.target));
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const onCat = (e: Event) => {
       const { kind, text } = (e as CustomEvent<{ kind: string; text?: string }>).detail;
@@ -162,11 +199,11 @@ export default function FloatingCat() {
       lock.current = true;
       walked = 0;
       setAction('bananaBones|sitDown');
-      say({ e: '😮‍💨', t: 'Estoy cansado, jefe…' }, REST_MS);
+      sys({ e: '😮‍💨', t: 'Estoy cansado, jefe…' }, REST_MS);
       later(() => setAction('bananaBones|sit'), 500);
       later(() => {
         setAction('bananaBones|standUp');
-        say({ e: '💪', t: '¡Here we go again!' });
+        sys({ e: '💪', t: '¡Here we go again!' }, 2200);
       }, REST_MS);
       later(() => {
         lock.current = false;
@@ -176,7 +213,8 @@ export default function FloatingCat() {
 
     const onScroll = () => {
       wake();
-      if (lock.current) return;
+      if (pt) track(...pt); // cards move under a still cursor
+      if (lock.current || reduced) return;
       const now = performance.now();
       if (last && now - last < 200) walked += now - last;
       last = now;
@@ -191,7 +229,9 @@ export default function FloatingCat() {
 
     const onMove = (e: MouseEvent) => {
       wake();
-      rotRef.current = -((e.clientX / window.innerWidth) * 2 - 1) * 0.5;
+      if (!reduced) rotRef.current = -((e.clientX / window.innerWidth) * 2 - 1) * 0.5;
+      pt = [e.clientX, e.clientY];
+      track(...pt);
       const el = document.elementFromPoint(e.clientX, e.clientY);
       if (el?.closest('a, button')) auto(LOOK);
       clearTimeout(mouseTimer.current);
@@ -204,7 +244,7 @@ export default function FloatingCat() {
     // greeting
     lock.current = true;
     setAction('bananaBones|hiiiiiiiii');
-    say({ e: '👋', t: '¡Hola! Soy Banana Cat' }, 3000);
+    sys({ e: '👋', t: '¡Hola! Soy Banana Cat' }, 3000);
     later(() => {
       lock.current = false;
       setAction(IDLE);
@@ -217,7 +257,7 @@ export default function FloatingCat() {
           const id = en.target.id;
           if (en.isIntersecting && !seen.has(id) && !lock.current) {
             seen.add(id);
-            say(SECTION_LINES[id], 3000);
+            sys(SECTION_LINES[id], 3000);
           }
         }),
       { threshold: 0.35 }
@@ -230,8 +270,8 @@ export default function FloatingCat() {
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('mousemove', onMove, { passive: true });
     window.addEventListener('keydown', wake);
-    document.addEventListener('mouseover', onOver);
-    document.addEventListener('focusin', onOver);
+    document.addEventListener('focusin', onFocus);
+    document.addEventListener('click', onTap);
     window.addEventListener('cat', onCat);
     arm();
     const pending = timers.current;
@@ -239,8 +279,8 @@ export default function FloatingCat() {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('mousemove', onMove);
       window.removeEventListener('keydown', wake);
-      document.removeEventListener('mouseover', onOver);
-      document.removeEventListener('focusin', onOver);
+      document.removeEventListener('focusin', onFocus);
+      document.removeEventListener('click', onTap);
       window.removeEventListener('cat', onCat);
       clearTimeout(idleT);
       io.disconnect();
@@ -330,7 +370,7 @@ export default function FloatingCat() {
           aria-live="polite"
           onPointerEnter={() => clearTimeout(bubbleTimer.current)}
           onPointerLeave={() => bubble.show && hideIn(2000)}
-          className={`absolute right-3 bottom-full mb-1 w-max max-w-[min(280px,calc(100vw-1.5rem))] origin-bottom-right transition duration-300 ease-[cubic-bezier(.2,.7,.2,1)] ${
+          className={`absolute right-3 bottom-full mb-1 w-max max-w-[min(280px,calc(100vw-1.5rem))] origin-bottom-right transition duration-300 motion-reduce:transition-none ease-[cubic-bezier(.2,.7,.2,1)] ${
             bubble.show ? 'scale-100 opacity-100' : 'pointer-events-none scale-90 opacity-0'
           }`}
         >
@@ -367,13 +407,15 @@ export default function FloatingCat() {
                   {bubble.cta.label} →
                 </Link>
               )}
-              <button
-                type="button"
-                onClick={toggleMute}
-                className="mt-0.5 cursor-pointer self-start text-[10px] text-dim transition-colors hover:text-bone"
-              >
-                No mostrar más
-              </button>
+              {!muted && (
+                <button
+                  type="button"
+                  onClick={toggleMute}
+                  className="mt-0.5 cursor-pointer self-end text-[10px] text-dim transition-colors hover:text-bone"
+                >
+                  No mostrar más
+                </button>
+              )}
             </div>
             <span className="absolute -bottom-1.25 right-8 size-2.5 rotate-45 border-r border-b border-accent/40 bg-background" />
           </div>

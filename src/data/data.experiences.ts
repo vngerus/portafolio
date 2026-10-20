@@ -29,6 +29,7 @@ export interface Experience {
   rolAbbr: string;
   durationMonths: number;
   brief: string;
+  catLine: string; // what Banana Cat says when hovering the card
   description: string[];
   tech: string[];
   highlights: ExperienceHighlight[];
@@ -46,15 +47,16 @@ export const experiences: Experience[] = [
     clearance: 'LV.3',
     syncRate: 87,
     status: 'ACTIVE',
-    location: 'CL · Hybrid',
+    location: 'CL · Híbrido',
     sigilLabel: 'B&B',
     sigilTone: '#a855f7',
     position: 'Front-end',
     team: 'Engineering',
-    mode: 'Hybrid',
+    mode: 'Híbrido',
     rolAbbr: 'FE',
     durationMonths: 16,
     brief: 'Modernización full-stack: migración VB→Python, intranet corporativa y APIs RESTful.',
+    catLine: 'De VB a Python… ¡valiente!',
     description: [
       'Modernización de servicios legacy (VB → Python) y migración de sistemas desktop a ElectronJS.',
       'Desarrollo y consumo de APIs RESTful, además de creación de procedimientos almacenados.',
@@ -81,22 +83,23 @@ export const experiences: Experience[] = [
   },
   {
     company: 'CIB',
-    role: 'Front-end Developer',
+    role: 'Desarrollador Front-end',
     duration: 'Mar 2024 — Ene 2025',
     opCode: 'OP_02',
     missionCode: 'MSN_017',
     clearance: 'LV.2',
     syncRate: 78,
     status: 'ARCHIVED',
-    location: 'CL · Remote',
+    location: 'CL · Remoto',
     sigilLabel: 'CIB',
     sigilTone: '#8a97a6',
     position: 'Front-end',
     team: 'Web Lab',
-    mode: 'Remote',
+    mode: 'Remoto',
     rolAbbr: 'FE',
     durationMonths: 11,
     brief: 'UI optimizadas para rendimiento y biblioteca de componentes reutilizables.',
+    catLine: 'Componentes reutilizables: mi tipo de pereza',
     description: [
       'Diseño y desarrollo de interfaces web optimizadas para rendimiento y usabilidad.',
       'Construcción de componentes reutilizables.',
@@ -123,22 +126,23 @@ export const experiences: Experience[] = [
   },
   {
     company: 'SEDSA',
-    role: 'Developer Intern',
+    role: 'Desarrollador en práctica',
     duration: 'Nov 2023 — Dic 2023',
     opCode: 'OP_03',
     missionCode: 'MSN_003',
     clearance: 'LV.1',
     syncRate: 65,
     status: 'ARCHIVED',
-    location: 'CL · On-site',
+    location: 'CL · Presencial',
     sigilLabel: 'SED',
     sigilTone: '#ffcc00',
     position: 'Intern',
     team: 'Comercial',
-    mode: 'On-site',
+    mode: 'Presencial',
     rolAbbr: 'INT',
     durationMonths: 2,
     brief: 'Análisis BI con Power BI/Python y prototipos web React + FastAPI.',
+    catLine: 'Power BI y React: el primer round',
     description: [
       'Gestión de bases de datos y análisis con Power BI y Python.',
       'Herramientas de optimización interna para el área comercial.',
