@@ -59,7 +59,7 @@ export const workCompanies: WorkCompany[] = [
         id: 'bb-boletas',
         title: 'Búsqueda de boletas',
         kind: 'Página web',
-        description: 'Landing pública para que clientes busquen sus boletas de forma rápida.',
+        description: 'Página pública para que clientes busquen sus boletas de forma rápida.',
         stack: ['Next.js', 'Tailwind CSS'],
         confidential: true,
       },
@@ -73,10 +73,10 @@ export const workCompanies: WorkCompany[] = [
     projects: [
       {
         id: 'cib-landing',
-        title: 'CIB Landing',
+        title: 'CIB Sitio web',
         kind: 'Sitio corporativo',
         description:
-          'Landing principal de Consultants in Blockchain. Diseño moderno alineado con la identidad blockchain, animaciones en scroll y secciones para destacar servicios y partners.',
+          'Sitio principal de Consultants in Blockchain. Diseño moderno alineado con la identidad blockchain, animaciones en scroll y secciones para destacar servicios y partners.',
         stack: ['React', 'Tailwind CSS', 'TypeScript', 'Framer Motion'],
         cover: '/project/CibBack.webp',
         link: 'https://cib.app',
@@ -97,7 +97,7 @@ export const workCompanies: WorkCompany[] = [
         title: 'Iny App',
         kind: 'Prototipo · Móvil primero',
         description:
-          'Landing de alto rendimiento y prototipo navegable. Sistema de componentes reutilizables y flow móvil completo.',
+          'Página de alto rendimiento y prototipo navegable. Sistema de componentes reutilizables y flow móvil completo.',
         stack: ['React', 'TypeScript', 'Tailwind CSS'],
         dev: true,
       },

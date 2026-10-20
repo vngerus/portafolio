@@ -2,35 +2,39 @@
 
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
-import type { WorkCompany } from '@/data';
+import { ui, type WorkCompany } from '@/data';
+import { useLang } from '@/components/LangProvider';
 
 const tag =
   'font-jetbrains rounded-full border border-edge px-2 py-0.5 text-[10px] tracking-[0.06em] text-muted';
 
 export default function ProjectArchive({ companies }: { companies: WorkCompany[] }) {
+  const { lang } = useLang();
+  const t = ui[lang].archive;
+  const tp = ui[lang].projects;
   const [filter, setFilter] = useState('all');
   const [openId, setOpenId] = useState<string | null>(null);
   const rows = companies
     .filter(c => filter === 'all' || c.id === filter)
     .flatMap(c => c.projects.map(p => ({ p, company: c.company, year: c.period.slice(0, 4) })));
-  const filters = [{ id: 'all', label: 'Todos' }, ...companies.map(c => ({ id: c.id, label: c.company }))];
+  const filters = [{ id: 'all', label: t.all }, ...companies.map(c => ({ id: c.id, label: c.company }))];
 
   return (
     <>
       <div className="mt-9 mb-12 flex flex-wrap items-end justify-between gap-6">
-        <div data-cat="El archivo completo, sin censura (casi)" data-cat-e="🧐" className="flex flex-col gap-3.5">
+        <div data-cat={t.catHead} data-cat-e="🧐" className="flex flex-col gap-3.5">
           <span className="font-jetbrains text-xs tracking-[0.08em] text-accent">
-            {rows.length} proyectos
+            {t.count(rows.length)}
           </span>
           <h1 className="text-[clamp(36px,6vw,64px)] leading-none font-semibold tracking-[-0.03em]">
-            Todos los proyectos
+            {t.title}
           </h1>
         </div>
         <div className="flex flex-wrap gap-1.5">
           {filters.map(f => (
             <button
               key={f.id}
-              data-cat={`Filtrar: ${f.label}`}
+              data-cat={t.catFilter(f.label)}
               data-cat-e="🤔"
               onClick={() => setFilter(f.id)}
               className={cn(
@@ -47,10 +51,10 @@ export default function ProjectArchive({ companies }: { companies: WorkCompany[]
       </div>
 
       <div className="font-jetbrains flex gap-4 border-b border-edge pb-3 text-[11px] tracking-widest text-dim">
-        <span className="basis-14">AÑO</span>
-        <span className="flex-1 basis-55">PROYECTO</span>
-        <span className="hidden basis-40 sm:block">EMPRESA</span>
-        <span className="hidden basis-50 md:block">TIPO</span>
+        <span className="basis-14">{t.year}</span>
+        <span className="flex-1 basis-55">{t.project}</span>
+        <span className="hidden basis-40 sm:block">{t.company}</span>
+        <span className="hidden basis-50 md:block">{t.type}</span>
         <span className="basis-5" />
       </div>
 
@@ -60,9 +64,7 @@ export default function ProjectArchive({ companies }: { companies: WorkCompany[]
         return (
           <div
             key={p.id}
-            data-cat={
-              p.dev ? `${p.title} sigue en desarrollo` : p.confidential ? `${p.title} es confidencial, shhh` : `${p.title}: ¡échale un vistazo!`
-            }
+            data-cat={p.dev ? tp.catDev(p.title) : p.confidential ? tp.catConf(p.title) : tp.catOk(p.title)}
             data-cat-e={p.dev ? '🚧' : p.confidential ? '🤫' : '👉'}
             className="relative border-b border-line"
           >
@@ -106,7 +108,7 @@ export default function ProjectArchive({ companies }: { companies: WorkCompany[]
                 href={href}
                 target="_blank"
                 rel="noreferrer"
-                aria-label={`Abrir ${p.title}`}
+                aria-label={tp.open(p.title)}
                 className="absolute top-4.5 right-0 text-base leading-none text-accent"
               >
                 ↗

@@ -28,7 +28,7 @@ export const cv = {
       org: 'CIB',
       period: 'Marzo 2024 - Enero 2025',
       bullets: [
-        'Entregué con React y Tailwind CSS el sitio corporativo principal, la landing de VPS, la del museo NFT, un sistema visual de vinos y una landing de IA.',
+        'Entregué con React y Tailwind CSS el sitio corporativo principal, la página de VPS, la del museo NFT, un sistema visual de vinos y una página de IA.',
         'Creé componentes reutilizables, apliqué enfoque UX/UI con Figma y optimicé el rendimiento en cada proyecto.',
       ],
     },

@@ -5,6 +5,8 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { Armchair, ArrowUp, Eye, Footprints, Hand, MessageSquare, MessageSquareOff, X, Zap, type LucideIcon } from 'lucide-react';
 import { emoteSrc } from '@/lib/emotes';
+import { ui } from '@/data';
+import { useLang } from '@/components/LangProvider';
 import type { ActionName } from '@/components/model/BananaCat';
 
 const CatCanvas = dynamic(() => import('@/components/CatCanvas'), { ssr: false });
@@ -17,21 +19,19 @@ const WALK: ActionName = 'bananaBones|walk';
 const LOOK: ActionName = 'bananaBones|lookAround';
 
 // ms = how long to hold the clip before going back to idle (clip lengths from the GLB).
-const ACTIONS: { label: string; say: Phrase[]; icon: LucideIcon; clip: ActionName; ms: number }[] = [
-  { label: 'Saludar', say: [{ e: '👋', t: '¡Hola! Soy Banana Cat' }, { e: '🤗', t: '¡Bienvenido al portafolio!' }], icon: Hand, clip: 'bananaBones|hiiiiiiiii', ms: 2000 },
-  { label: 'Saltar', say: [{ e: '🦘', t: '¡Hop!' }, { e: '🚀', t: '¡Más alto!' }], icon: ArrowUp, clip: 'bananaBones|jump', ms: 1800 },
-  { label: 'Caminar', say: [{ e: '😎', t: 'Voy a dar una vuelta…' }, { e: '👣', t: 'Paso a paso' }], icon: Footprints, clip: WALK, ms: 3000 },
-  { label: 'Mirar', say: [{ e: '👀', t: '¿Qué hay por aquí?' }, { e: '🤔', t: 'Mmm… interesante' }], icon: Eye, clip: LOOK, ms: 4100 },
-  { label: 'Sentarse', say: [{ e: '😌', t: 'Un descansito' }, { e: '☕', t: 'Zzz… ¿me traes un café?' }], icon: Armchair, clip: 'bananaBones|sit', ms: 3000 },
-  { label: 'Golpe', say: [{ e: '😵', t: '¡Auch!' }, { e: '💥', t: '¡Eso dolió!' }], icon: Zap, clip: 'bananaBones|damaged', ms: 700 },
+const ACTIONS: { icon: LucideIcon; clip: ActionName; ms: number }[] = [
+  { icon: Hand, clip: 'bananaBones|hiiiiiiiii', ms: 2000 },
+  { icon: ArrowUp, clip: 'bananaBones|jump', ms: 1800 },
+  { icon: Footprints, clip: WALK, ms: 3000 },
+  { icon: Eye, clip: LOOK, ms: 4100 },
+  { icon: Armchair, clip: 'bananaBones|sit', ms: 3000 },
+  { icon: Zap, clip: 'bananaBones|damaged', ms: 700 },
 ];
 
-// Said once, the first time each section scrolls into view.
-const SECTION_LINES: Record<string, Phrase> = {
-  experiencia: { e: '💻', t: 'Este es el camino recorrido' },
-  proyectos: { e: '🚀', t: 'Lo bueno: pasa el mouse por las tarjetas', cta: { label: 'Ver todos', href: '/proyectos' } },
-  'sobre-mi': { e: '😊', t: 'Un poco sobre quién escribe el código' },
-  contacto: { e: '💌', t: '¿Hablamos? Escríbele a Angel', cta: { label: 'Escribir mensaje', href: '/#contacto', focus: 'input[name="name"]' } },
+// Button targets for the section lines (texts live in the ui dictionary).
+const SECTION_CTA: Record<string, { href: string; focus?: string }> = {
+  proyectos: { href: '/proyectos' },
+  contacto: { href: '/#contacto', focus: 'input[name="name"]' },
 };
 
 const WALK_BUDGET_MS = 20000; // scrolling this long tires the cat out
@@ -44,15 +44,18 @@ const FAN = Array.from({ length: ACTIONS.length + 1 }, (_, i) => {
   return { x: Math.cos(a), y: Math.sin(a) };
 });
 
-// last words when muted
-const SAD: Phrase[] = [
-  { e: '🥺', t: '¿Estás seguro…?' },
-  { e: '😢', t: 'Okey… me quedo calladito' },
-  { e: '😭', t: 'Yo que quería contarte cosas…' },
-  { e: '💔', t: 'Ni un adiós, qué frío' },
-];
 
 export default function FloatingCat() {
+  const { lang } = useLang();
+  const t = ui[lang].cat;
+  const tRef = useRef(t); // read by the long-lived effect below, so a language switch applies without re-running it
+  tRef.current = t;
+
+  const sectionLine = (id: string): Phrase => {
+    const sec = tRef.current.sections[id];
+    const target = SECTION_CTA[id];
+    return { e: sec.e, t: sec.t, cta: sec.cta && target ? { label: sec.cta, ...target } : undefined };
+  };
   const [action, setAction] = useState<ActionName>(IDLE);
   const [open, setOpen] = useState(false);
   const [bubble, setBubble] = useState<{ emoji: string; text: string; cta?: Cta; show: boolean }>({ emoji: '', text: '', show: false });
@@ -88,6 +91,8 @@ export default function FloatingCat() {
   // bubbles with a button stay longer so there is time to click it
   const say = (line: Phrase, ms = 2200, force = false) => {
     if (mutedRef.current && !force) return;
+    // small screens: bubbles only when the user asked for them (tapping an action), never on their own
+    if (!force && window.matchMedia('(max-width: 767px)').matches) return;
     setBubble({ emoji: line.e, text: line.t, cta: line.cta, show: true });
     hideIn(line.cta ? Math.max(ms, 7000) : ms);
     ctaUntil.current = line.cta ? Date.now() + 7000 : 0;
@@ -127,8 +132,8 @@ export default function FloatingCat() {
     const next = !mutedRef.current;
     mutedRef.current = next;
     setMuted(next);
-    if (next) say(SAD[Math.floor(Math.random() * SAD.length)], 2800, true);
-    else say({ e: '😄', t: '¡Vuelvo a hablar!' }, 2200, true);
+    if (next) say(t.sad[Math.floor(Math.random() * t.sad.length)], 2800, true);
+    else say(t.back, 2200, true);
   };
 
   // Reacts to the page: greeting, scroll, cursor, hovered controls, tiredness, sections.
@@ -144,14 +149,14 @@ export default function FloatingCat() {
         if (lock.current) return arm();
         sleeping.current = true;
         setAction('bananaBones|sit');
-        sys({ e: '😴', t: 'Zzz…' }, 2500);
+        sys(tRef.current.sleep, 2500);
       }, 30000);
     };
     const wake = () => {
       if (sleeping.current) {
         sleeping.current = false;
         setAction(IDLE);
-        sys({ e: '👀', t: '¡Ah, sigues ahí!' }, 1500);
+        sys(tRef.current.wake, 1500);
       }
       arm();
     };
@@ -191,19 +196,19 @@ export default function FloatingCat() {
 
     const onCat = (e: Event) => {
       const { kind, text } = (e as CustomEvent<{ kind: string; text?: string }>).detail;
-      if (kind === 'celebrate') play('bananaBones|jump', 1800, [{ e: '🎉', t: text ?? '¡Genial!' }]);
-      if (kind === 'oops') play('bananaBones|damaged', 700, [{ e: '😬', t: text ?? 'Ups…' }]);
+      if (kind === 'celebrate') play('bananaBones|jump', 1800, [{ e: '🎉', t: text ?? tRef.current.celebrate }]);
+      if (kind === 'oops') play('bananaBones|damaged', 700, [{ e: '😬', t: text ?? tRef.current.oops }]);
     };
 
     const tire = () => {
       lock.current = true;
       walked = 0;
       setAction('bananaBones|sitDown');
-      sys({ e: '😮‍💨', t: 'Estoy cansado, jefe…' }, REST_MS);
+      sys(tRef.current.tired, REST_MS);
       later(() => setAction('bananaBones|sit'), 500);
       later(() => {
         setAction('bananaBones|standUp');
-        sys({ e: '💪', t: '¡Here we go again!' }, 2200);
+        sys(tRef.current.again, 2200);
       }, REST_MS);
       later(() => {
         lock.current = false;
@@ -244,7 +249,7 @@ export default function FloatingCat() {
     // greeting
     lock.current = true;
     setAction('bananaBones|hiiiiiiiii');
-    sys({ e: '👋', t: '¡Hola! Soy Banana Cat' }, 3000);
+    sys(tRef.current.greet, 3000);
     later(() => {
       lock.current = false;
       setAction(IDLE);
@@ -257,12 +262,12 @@ export default function FloatingCat() {
           const id = en.target.id;
           if (en.isIntersecting && !seen.has(id) && !lock.current) {
             seen.add(id);
-            sys(SECTION_LINES[id], 3000);
+            sys(sectionLine(id), 3000);
           }
         }),
       { threshold: 0.35 }
     );
-    Object.keys(SECTION_LINES).forEach(id => {
+    Object.keys(SECTION_CTA).concat(['experiencia', 'sobre-mi']).forEach(id => {
       const el = document.getElementById(id);
       if (el) io.observe(el);
     });
@@ -317,13 +322,15 @@ export default function FloatingCat() {
         <CatCanvas action={action} rotRef={rotRef} />
         <button
           type="button"
-          aria-label="Banana Cat: mostrar acciones"
+          aria-label={t.fanToggle}
           aria-expanded={open}
           onClick={() => setOpen(o => !o)}
           className="absolute inset-0 cursor-pointer rounded-full"
         />
 
-        {ACTIONS.map(({ label, icon: Icon, clip, ms, say: lines }, i) => (
+        {ACTIONS.map(({ icon: Icon, clip, ms }, i) => {
+          const { label, say: lines } = t.actions[i];
+          return (
           <button
             key={clip}
             type="button"
@@ -343,12 +350,13 @@ export default function FloatingCat() {
           >
             <Icon className="size-4 md:size-[18px]" />
           </button>
-        ))}
+          );
+        })}
 
         <button
           type="button"
-          title={muted ? 'Activar mensajes' : 'Silenciar mensajes'}
-          aria-label={muted ? 'Activar mensajes' : 'Silenciar mensajes'}
+          title={muted ? t.unmute : t.mute}
+          aria-label={muted ? t.unmute : t.mute}
           aria-pressed={muted}
           tabIndex={open ? 0 : -1}
           onClick={toggleMute}
@@ -377,7 +385,7 @@ export default function FloatingCat() {
           <div className="relative flex items-center gap-3 rounded-2xl border border-accent/40 bg-background/90 py-2.5 pr-8 pl-2.5 shadow-[0_8px_30px_-8px_rgba(210,143,255,0.45)] backdrop-blur-md">
             <button
               type="button"
-              aria-label="Cerrar mensaje"
+              aria-label={t.close}
               onClick={dismiss}
               className="absolute top-1.5 right-1.5 flex size-5 cursor-pointer items-center justify-center rounded-full text-dim transition-colors hover:bg-edge hover:text-bone"
             >
@@ -413,7 +421,7 @@ export default function FloatingCat() {
                   onClick={toggleMute}
                   className="mt-0.5 cursor-pointer self-end text-[10px] text-dim transition-colors hover:text-bone"
                 >
-                  No mostrar más
+                  {t.noMore}
                 </button>
               )}
             </div>

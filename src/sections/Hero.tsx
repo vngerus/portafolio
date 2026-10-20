@@ -1,14 +1,20 @@
+'use client';
+
 import Link from 'next/link';
 import { Mail } from 'lucide-react';
-import { cv } from '@/data';
+import { cv, ui } from '@/data';
 import { GithubIcon, LinkedinIcon } from '@/components/Icons';
 import { emoteSrc } from '@/lib/emotes';
+import { useLang } from '@/components/LangProvider';
 
 const chip = 'font-jetbrains rounded-full border border-edge px-3 py-[5px] text-[11px] text-muted';
 const social =
   'flex size-10 items-center justify-center rounded-full border border-edge text-muted transition-colors hover:border-accent hover:text-accent';
+const emote = 'inline-block size-[0.85em] align-[-0.08em]';
 
 export default function Hero() {
+  const { lang } = useLang();
+  const t = ui[lang].hero;
   const wave = emoteSrc('👋');
   const cat = emoteSrc('🐱');
   return (
@@ -19,66 +25,82 @@ export default function Hero() {
       <div className="flex flex-col gap-8">
         <div className="flex flex-col gap-5">
           <h1
-            data-cat="¡Ese es Angel!"
+            data-cat={t.catName}
             data-cat-e="🤩"
-            className="flex items-center gap-[0.2em] text-[clamp(44px,8vw,96px)] font-semibold leading-[1] tracking-[-0.03em]"
+            className="text-[clamp(44px,8vw,96px)] font-semibold leading-[1.05] tracking-[-0.03em]"
           >
-            Hola, soy Angel
+            {t.greeting}
             {wave && (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={wave} alt="" width={96} height={96} className="size-[0.9em] shrink-0" />
+              <img src={wave} alt="" width={96} height={96} className={`ml-[0.2em] ${emote}`} />
             )}
             {cat && (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={cat} alt="" width={96} height={96} className="-ml-[0.1em] size-[0.9em] shrink-0" />
+              <img src={cat} alt="" width={96} height={96} className={`ml-[-0.05em] ${emote}`} />
             )}
           </h1>
           <p
-            data-cat="Front-end primero, sin miedo al back-end"
+            data-cat={t.catTagline}
             data-cat-e="💻"
             className="max-w-[28ch] text-[clamp(20px,2.6vw,32px)] leading-[1.3] text-muted text-pretty"
           >
-            Desarrollador front-end que también construye el back-end.
+            {t.tagline}
           </p>
         </div>
 
         <div className="flex flex-wrap gap-2">
-          <span data-cat="Ahí trabaja Angel hoy" data-cat-e="💪" className={chip}>
-            Hoy en Books&amp;Bits
+          <span data-cat={t.catNow} data-cat-e="💪" className={chip}>
+            {t.chipNow}
           </span>
-          <span data-cat="Estudiando y construyendo a la vez" data-cat-e="🧐" className={chip}>
-            Analista Programador · INACAP
+          <span data-cat={t.catStudy} data-cat-e="🧐" className={chip}>
+            {t.chipStudy}
           </span>
-          <span data-cat="¡Hay espacio para colaborar!" data-cat-e="🤗" className={chip}>
-            Abierto a código abierto
+          <span data-cat={t.catOpen} data-cat-e="🤗" className={chip}>
+            {t.chipOpen}
           </span>
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
           <a
             href="#proyectos"
-            data-cat="¡Vamos a ver proyectos!"
+            data-cat={t.catProjects}
             data-cat-e="🚀"
             className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-medium text-background transition-colors hover:bg-[#e2b5ff]"
           >
-            Ver proyectos <span>↓</span>
+            {t.projects} <span>↓</span>
           </a>
           <Link
             href="/cv"
-            data-cat="Mi CV, en versión visual"
+            data-cat={t.catCv}
             data-cat-e="😉"
             className="inline-flex items-center gap-2 rounded-full border border-edge px-5 py-3 text-sm transition-colors hover:border-accent hover:text-accent"
           >
-            Ver CV <span className="font-jetbrains text-[11px]">→</span>
+            {t.cv} <span className="font-jetbrains text-[11px]">→</span>
           </Link>
           <span className="mx-1 hidden h-6 w-px bg-line sm:block" aria-hidden />
-          <a href="https://github.com/vngerus" target="_blank" rel="noreferrer" aria-label="GitHub" data-cat="Mi GitHub" data-cat-e="🤩" className={social}>
+          <a
+            href="https://github.com/vngerus"
+            target="_blank"
+            rel="noreferrer"
+            aria-label={t.github}
+            data-cat={t.catGithub}
+            data-cat-e="🤩"
+            className={social}
+          >
             <GithubIcon className="size-4" />
           </a>
-          <a href="https://www.linkedin.com/in/angelsmithl/" target="_blank" rel="noreferrer" aria-label="LinkedIn" data-cat="Mi LinkedIn" data-cat-e="🤝" className={social}>
+          <a
+            href="https://www.linkedin.com/in/angelsmithl/"
+            target="_blank"
+            rel="noreferrer"
+            aria-label={t.linkedin}
+            data-cat={t.catLinkedin}
+            data-cat-e="🤝"
+            className={social}
+          >
             <LinkedinIcon className="size-4" />
           </a>
-          <a href={`mailto:${cv.email}`} aria-label="Correo" data-cat="Escríbeme un correo" data-cat-e="💌" className={social}>
+          <a href={`mailto:${cv.email}`} aria-label={t.mail} data-cat={t.catMail} data-cat-e="💌" className={social}>
             <Mail className="size-4" />
           </a>
         </div>

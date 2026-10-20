@@ -70,7 +70,7 @@ export const experiences: Experience[] = [
       { tag: 'FRONT-END',     severity: 'success', text: 'Intranet corporativa con múltiples funciones.' },
     ],
     projects: [
-      'Landing para búsqueda de boletas',
+      'Página de búsqueda de boletas',
       'Intranet corporativa con múltiples funciones',
       'Migración del sistema de correos VB → Python',
       'Sistema de despachos con comandas',
@@ -112,9 +112,9 @@ export const experiences: Experience[] = [
       { tag: 'UX/UI',       severity: 'success', text: 'Flujos de trabajo optimizados.' },
     ],
     projects: [
-      'Landing page corporativa CIB',
+      'Sitio corporativo CIB',
       'Museum NFT page',
-      'Iny App — landing + prototipado',
+      'Iny App — página + prototipado',
       'Priveehost — página de hosting',
       'Tarotista — sitio personal',
     ],

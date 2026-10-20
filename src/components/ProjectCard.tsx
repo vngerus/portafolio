@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import type { WorkProject } from '@/data';
+import { ui, type WorkProject } from '@/data';
+import { useLang } from '@/components/LangProvider';
 
 const badge =
   'font-jetbrains absolute top-3 left-3 rounded-full border border-edge bg-background px-2.5 py-1 text-[10px] tracking-[0.08em] text-muted';
@@ -9,12 +10,12 @@ const badge =
 // Details open on click (not hover): nothing moves under the cursor while browsing.
 export default function ProjectCard({ p, company }: { p: WorkProject; company: string }) {
   const [open, setOpen] = useState(false);
+  const { lang } = useLang();
+  const t = ui[lang].projects;
   const href = p.link ?? p.github;
   return (
     <div
-      data-cat={
-        p.dev ? `${p.title} sigue en desarrollo` : p.confidential ? `${p.title} es confidencial, shhh` : `${p.title}: ¡échale un vistazo!`
-      }
+      data-cat={p.dev ? t.catDev(p.title) : p.confidential ? t.catConf(p.title) : t.catOk(p.title)}
       data-cat-e={p.dev ? '🚧' : p.confidential ? '🤫' : '👉'}
       className="flex min-w-0 flex-col gap-3.5"
     >
@@ -42,12 +43,12 @@ export default function ProjectCard({ p, company }: { p: WorkProject; company: s
           <p className="line-clamp-5 text-sm leading-normal text-pretty">{p.description}</p>
           <span className="font-jetbrains text-[11px] text-muted">{p.stack.join(' · ')}</span>
         </div>
-        {p.dev && <span className={badge}>EN DESARROLLO</span>}
-        {p.confidential && <span className={badge}>CONFIDENCIAL</span>}
+        {p.dev && <span className={badge}>{t.dev}</span>}
+        {p.confidential && <span className={badge}>{t.confidential}</span>}
         <button
           type="button"
           aria-expanded={open}
-          aria-label={`${open ? 'Ocultar' : 'Ver'} detalles de ${p.title}`}
+          aria-label={open ? t.hide(p.title) : t.show(p.title)}
           onClick={() => setOpen(o => !o)}
           className="absolute inset-0 cursor-pointer"
         />
@@ -64,7 +65,7 @@ export default function ProjectCard({ p, company }: { p: WorkProject; company: s
             href={href}
             target="_blank"
             rel="noreferrer"
-            aria-label={`Abrir ${p.title}`}
+            aria-label={t.open(p.title)}
             className="text-lg leading-none text-accent transition-transform duration-200 hover:-translate-y-px hover:translate-x-px"
           >
             ↗

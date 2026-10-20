@@ -1,4 +1,7 @@
-import { education, stackGroups } from '@/data';
+'use client';
+
+import { localizeEducation, localizeStack, ui } from '@/data';
+import { useLang } from '@/components/LangProvider';
 import Image from 'next/image';
 import SectionHead from '@/components/SectionHead';
 
@@ -6,47 +9,49 @@ const label = 'font-jetbrains text-[11px] tracking-widest text-dim';
 const pill = 'font-jetbrains rounded-full border border-edge px-3 py-[5px] text-[11px]';
 
 export default function About() {
+  const { lang } = useLang();
+  const t = ui[lang];
+  const a = t.about;
+  const education = localizeEducation(lang);
+  const stackGroups = localizeStack(lang);
   return (
     <section
       id="sobre-mi"
       className="mx-auto max-w-280 scroll-mt-18 border-t border-line px-[clamp(20px,4vw,40px)] py-[clamp(48px,8vw,96px)]"
     >
-      <SectionHead num="03" title="Sobre mí" />
-      <div className="grid gap-12 [grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))]">
-        <div data-cat="De front-end a sistemas completos" data-cat-e="💻" className="flex flex-col gap-4.5 text-[17px] leading-[1.6] text-muted">
+      <SectionHead num="03" title={t.sections.about} lang={lang} />
+      <div className="grid gap-12 grid-cols-[repeat(auto-fit,minmax(min(100%,320px),1fr))]">
+        <div data-cat={a.catBio} data-cat-e="💻" className="flex flex-col gap-4.5 text-[17px] leading-[1.6] text-muted">
           <div
-            data-cat="¡Ese es Angel!"
+            data-cat={a.catPhoto}
             data-cat-e="🤩"
             className="size-28 self-center overflow-hidden rounded-full border border-accent/40 md:size-40"
           >
             <Image
               src="/avatar.jpg"
-              alt="Foto de Angel Smith"
+              alt={a.photoAlt}
               width={320}
               height={320}
               className="size-full origin-[40%_20%] scale-[1.4] object-cover"
             />
           </div>
           <p className="text-pretty">
-            Hola, soy Angel Smith. Soy desarrollador con un enfoque fuerte en front-end, pero cada
-            vez más metido en el full stack: APIs, bases de datos y migraciones de sistemas.
+            {a.p1}
           </p>
           <p className="text-pretty">
-            Hoy trabajo en Books&amp;Bits y estudio Analista Programador en INACAP. Fuera del código
-            me gustan los gatos, el café de especialidad y algún jueguito. Estoy abierto a colaborar
-            en código abierto y en lo que venga.
+            {a.p2}
           </p>
           <div className="flex flex-wrap gap-2 pt-1.5">
-            <span data-cat="Inglés B2: puedo leer los errores en su idioma original" data-cat-e="😎" className={pill}>Inglés B2</span>
-            <span data-cat="Desde Santiago, con café" data-cat-e="☕" className={pill}>Santiago, CL</span>
+            <span data-cat={a.catEnglish} data-cat-e="😎" className={pill}>{a.english}</span>
+            <span data-cat={a.catCity} data-cat-e="☕" className={pill}>{a.city}</span>
           </div>
         </div>
         <div className="flex flex-col gap-8">
           <div className="flex flex-col gap-3.5">
-            <span className={label}>STACK</span>
-            <div className="grid gap-5 [grid-template-columns:repeat(auto-fit,minmax(150px,1fr))]">
+            <span className={label}>{a.stack}</span>
+            <div className="grid gap-5 grid-cols-[repeat(auto-fit,minmax(150px,1fr))]">
               {stackGroups.map(g => (
-                <div key={g.label} data-cat={`${g.label}: lo domina Angel`} data-cat-e="💪" data-cat-group="stack" className="flex flex-col gap-2">
+                <div key={g.label} data-cat={a.catStack(g.label)} data-cat-e="💪" data-cat-group="stack" className="flex flex-col gap-2">
                   <span className="text-[13px] text-accent">{g.label}</span>
                   {g.items.map(i => (
                     <span key={i} className="text-[15px]">
@@ -58,11 +63,11 @@ export default function About() {
             </div>
           </div>
           <div className="flex flex-col gap-3.5">
-            <span className={label}>FORMACIÓN Y CERTIFICACIONES</span>
+            <span className={label}>{a.education}</span>
             {education.map(e => (
               <div
                 key={e.name}
-                data-cat={`${e.name}: otro logro desbloqueado`}
+                data-cat={a.catEdu(e.name)}
                 data-cat-e="🎉"
                 data-cat-group="edu"
                 className="flex flex-wrap justify-between gap-4 border-b border-line pb-2.5"
