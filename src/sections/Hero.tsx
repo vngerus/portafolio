@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import SectionLink from '@/components/SectionLink';
 import { Mail } from 'lucide-react';
 import { cv, ui } from '@/data';
 import { GithubIcon, LinkedinIcon } from '@/components/Icons';
@@ -61,14 +62,14 @@ export default function Hero() {
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
-          <a
-            href="#proyectos"
+          <SectionLink
+            id="proyectos"
             data-cat={t.catProjects}
             data-cat-e="🚀"
             className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-medium text-background transition-colors hover:bg-[#e2b5ff]"
           >
             {t.projects} <span>↓</span>
-          </a>
+          </SectionLink>
           <Link
             href="/cv"
             data-cat={t.catCv}

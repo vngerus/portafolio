@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
+import SectionLink from '@/components/SectionLink';
 import { Menu, X } from 'lucide-react';
 
 type Item = { id: string; href: string; label: string; cat: string };
@@ -45,16 +45,16 @@ export default function MobileNav({ items, openLabel, closeLabel }: { items: Ite
         <ul className="mx-auto flex max-w-280 flex-col px-[clamp(20px,4vw,40px)] py-2">
           {items.map(i => (
             <li key={i.id} className="border-b border-line last:border-b-0">
-              <Link
-                href={i.href}
+              <SectionLink
+                id={i.id}
                 tabIndex={open ? 0 : -1}
                 data-cat={i.cat}
                 data-cat-e="👉"
-                onClick={() => setOpen(false)}
+                onNavigate={() => setOpen(false)}
                 className="block py-3.5 text-base text-muted transition-colors hover:text-bone"
               >
                 {i.label}
-              </Link>
+              </SectionLink>
             </li>
           ))}
         </ul>

@@ -7,6 +7,8 @@ import { Armchair, ArrowUp, Eye, Footprints, Hand, MessageSquare, MessageSquareO
 import { emoteSrc } from '@/lib/emotes';
 import { ui } from '@/data';
 import { useLang } from '@/components/LangProvider';
+import { usePathname, useRouter } from 'next/navigation';
+import { goToSection } from '@/lib/section-nav';
 import type { ActionName } from '@/components/model/BananaCat';
 
 const CatCanvas = dynamic(() => import('@/components/CatCanvas'), { ssr: false });
@@ -47,6 +49,8 @@ const FAN = Array.from({ length: ACTIONS.length + 1 }, (_, i) => {
 
 export default function FloatingCat() {
   const { lang } = useLang();
+  const pathname = usePathname();
+  const router = useRouter();
   const t = ui[lang].cat;
   const tRef = useRef(t); // read by the long-lived effect below, so a language switch applies without re-running it
   tRef.current = t;
@@ -405,8 +409,13 @@ export default function FloatingCat() {
               {bubble.cta && (
                 <Link
                   href={bubble.cta.href}
-                  onClick={() => {
+                  onClick={e => {
                     dismiss();
+                    const href = bubble.cta?.href ?? '';
+                    if (href.startsWith('/#')) {
+                      e.preventDefault();
+                      goToSection(href.slice(2), pathname === '/', router.push);
+                    }
                     const sel = bubble.cta?.focus;
                     if (sel) setTimeout(() => document.querySelector<HTMLElement>(sel)?.focus(), 500);
                   }}

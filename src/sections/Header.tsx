@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import SectionLink from '@/components/SectionLink';
 import { usePathname } from 'next/navigation';
 import LangToggle from '@/components/LangToggle';
 import MobileNav from '@/components/MobileNav';
@@ -37,9 +38,9 @@ export default function Header() {
         </Link>
         <nav className="hidden gap-7 text-sm sm:flex">
           {items.map(i => (
-            <Link key={i.id} href={i.href} data-cat={i.cat} data-cat-e="👉" className="text-muted transition-colors hover:text-bone">
+            <SectionLink key={i.id} id={i.id} data-cat={i.cat} data-cat-e="👉" className="text-muted transition-colors hover:text-bone">
               {i.label}
-            </Link>
+            </SectionLink>
           ))}
         </nav>
         <LangToggle />
