@@ -116,3 +116,11 @@ summary:focus-visible {
 .paw-stamp {
   animation: paw-stamp 1.8s ease-out infinite backwards;
 }
+
+@keyframes puff {
+  0% { transform: scale(0.3); opacity: 0.9; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+.smoke-puff {
+  animation: puff 1s ease-out forwards;
+}

@@ -134,6 +134,11 @@ const es = {
     wake: { e: '👀', t: '¡Ah, sigues ahí!' } as Phrase,
     tired: { e: '😮‍💨', t: 'Estoy cansado, jefe…' } as Phrase,
     again: { e: '💪', t: '¡Here we go again!' } as Phrase,
+    wander: { e: '🐾', t: '¡Fui a dar una vuelta y ya volví!' } as Phrase,
+    caught: { e: '😳', t: '¡Oh, me atraparon!' } as Phrase,
+    stark: { e: '🥺', t: 'No me siento bien, señor Stark…' } as Phrase,
+    smoke: { e: '💨', t: '¡Puf! Me esfumé' } as Phrase,
+    zap: { e: '✨', t: '¡Teletranspórtame, Scotty!' } as Phrase,
     celebrate: '¡Genial!',
     oops: 'Ups…',
     actions: [
@@ -292,6 +297,11 @@ const en: Dict = {
     wake: { e: '👀', t: 'Oh, you are still there!' },
     tired: { e: '😮‍💨', t: "I'm tired, boss…" },
     again: { e: '💪', t: 'Here we go again!' },
+    wander: { e: '🐾', t: 'Went for a stroll, and I’m back!' },
+    caught: { e: '😳', t: 'Oh, you caught me!' },
+    stark: { e: '🥺', t: "I don't feel so good, Mr. Stark…" },
+    smoke: { e: '💨', t: 'Poof! Gone in smoke' },
+    zap: { e: '✨', t: 'Beam me up, Scotty!' },
     celebrate: 'Awesome!',
     oops: 'Oops…',
     actions: [

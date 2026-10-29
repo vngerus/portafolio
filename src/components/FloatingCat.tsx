@@ -64,10 +64,13 @@ export default function FloatingCat() {
   const [open, setOpen] = useState(false);
   const [bubble, setBubble] = useState<{ emoji: string; text: string; cta?: Cta; show: boolean }>({ emoji: '', text: '', show: false });
   const rootRef = useRef<HTMLDivElement>(null);
+  const fxRef = useRef<HTMLDivElement>(null); // wraps the canvas only, so vanish effects don't fade the speech bubble
+  const [puff, setPuff] = useState(0); // bumps to replay the smoke puff
   const bubbleRef = useRef<HTMLDivElement>(null);
   const [muted, setMuted] = useState(false);
   const mutedRef = useRef(false);
   const sleeping = useRef(false);
+  const wandering = useRef(false); // true while the cat walks off one side and comes back from the other
   const ctaUntil = useRef(0); // a bubble with a button is protected from hover comments until then
   const quietUntil = useRef(0); // system lines (greeting, sleep, section...) are not pre-empted by hover comments
   const rotRef = useRef(0); // target Y rotation, follows the cursor
@@ -120,6 +123,7 @@ export default function FloatingCat() {
   const play = (clip: ActionName, ms: number, lines: Phrase[]) => {
     timers.current.forEach(clearTimeout);
     timers.current.clear();
+    if (wandering.current) endWander();
     setOpen(false);
     sleeping.current = false;
     lock.current = true;
@@ -129,6 +133,115 @@ export default function FloatingCat() {
       lock.current = false;
       setAction(IDLE);
     }, ms);
+  };
+
+  // puts the cat back at its spot (also used when a manual action interrupts the stroll)
+  const endWander = () => {
+    const el = rootRef.current;
+    if (el) {
+      el.style.transition = '';
+      el.style.transform = '';
+    }
+    const fx = fxRef.current;
+    if (fx) {
+      fx.style.transition = '';
+      fx.style.opacity = '';
+      fx.style.filter = '';
+      fx.style.transform = '';
+    }
+    rotRef.current = 0;
+    wandering.current = false;
+  };
+
+  // walks off to the right, reappears from the left and walks back home
+  const wander = () => {
+    const el = rootRef.current;
+    if (!el || wandering.current) return;
+    timers.current.forEach(clearTimeout);
+    timers.current.clear();
+    sleeping.current = false;
+    const w = window.innerWidth;
+    const back = Math.round(w / 110); // seconds to cross the screen
+    wandering.current = true;
+    lock.current = true;
+    dismiss();
+    setOpen(false);
+    rotRef.current = -1.1; // face right
+    setAction(WALK);
+    el.style.transition = 'transform 2s linear';
+    el.style.transform = 'translateX(240px)';
+    later(() => {
+      setAction(IDLE);
+      el.style.transition = 'none';
+      el.style.transform = `translateX(${-w}px)`;
+    }, 2600);
+    later(() => {
+      setAction(WALK);
+      el.style.transition = `transform ${back}s linear`;
+      el.style.transform = 'translateX(0)';
+    }, 5000);
+    later(() => {
+      endWander();
+      lock.current = false;
+      setAction(IDLE);
+      sys(tRef.current.wander, 2500);
+    }, 5000 + back * 1000 + 100);
+  };
+
+  // clicked while strolling: startled, then it vanishes (one of a few ways) and reappears at its spot
+  const caught = () => {
+    const el = rootRef.current;
+    const fx = fxRef.current;
+    if (!el || !fx) return;
+    timers.current.forEach(clearTimeout);
+    timers.current.clear();
+    rotRef.current = 0;
+    // freeze where it is: re-targeting the same translateX would not restart the running transition
+    const x = new DOMMatrix(getComputedStyle(el).transform).m41; // read before cancelling the transition
+    el.style.transition = 'none';
+    el.style.transform = `translateX(${x}px)`;
+    void el.offsetWidth;
+    setAction('bananaBones|damaged');
+    say(tRef.current.caught, 1800, true);
+
+    const fade = (transition: string, to: Partial<CSSStyleDeclaration>) => {
+      fx.style.transition = transition;
+      Object.assign(fx.style, to);
+    };
+    // jump to the home spot (hidden as `from`) and fade back in
+    const appearHome = (from: Partial<CSSStyleDeclaration>, transition: string) => {
+      el.style.transition = 'none';
+      el.style.transform = '';
+      fade('none', from);
+      void fx.offsetWidth;
+      fade(transition, { opacity: '', filter: '', transform: '' });
+      setPuff(n => n + 1);
+      setAction(IDLE);
+    };
+
+    const kind = (['stark', 'smoke', 'zap'] as const)[Math.floor(Math.random() * 3)];
+    const end = { stark: 5500, smoke: 3500, zap: 3500 }[kind];
+    later(() => {
+      say(tRef.current[kind], 2800, true);
+      if (kind === 'stark') {
+        setAction('bananaBones|sit');
+        fade('opacity 2.4s ease-in, filter 2.4s ease-in', { opacity: '0', filter: 'blur(5px) grayscale(1)' });
+        later(() => appearHome({ opacity: '0', filter: 'blur(5px)' }, 'opacity 0.7s, filter 0.7s'), 3300);
+      } else if (kind === 'smoke') {
+        setPuff(n => n + 1);
+        fade('opacity 0.15s', { opacity: '0' });
+        later(() => appearHome({ opacity: '0' }, 'opacity 0.2s'), 1500);
+      } else {
+        const squash = { transform: 'scale(0.04, 1.5)', opacity: '0' };
+        fade('transform 0.3s ease-in, opacity 0.3s ease-in', squash);
+        later(() => appearHome(squash, 'transform 0.35s ease-out, opacity 0.35s'), 1500);
+      }
+    }, 1400);
+    later(() => {
+      endWander();
+      lock.current = false;
+      setAction(IDLE);
+    }, end);
   };
 
   // mute lasts for this visit only (in memory): nothing is stored in the browser
@@ -170,7 +283,7 @@ export default function FloatingCat() {
     const groupAt = new Map<string, number>();
     const tagged = (t: EventTarget | null) => (t as Element | null)?.closest?.<HTMLElement>('[data-cat]') ?? null;
     const react = (el: HTMLElement | null) => {
-      if (!el) return;
+      if (!el || wandering.current) return;
       const now = Date.now();
       if (now < ctaUntil.current || now < quietUntil.current) return;
       if (now - (seenAt.get(el) ?? 0) < 1500) return;
@@ -247,11 +360,11 @@ export default function FloatingCat() {
 
     const onMove = (e: MouseEvent) => {
       wake();
-      if (!reduced) rotRef.current = -((e.clientX / window.innerWidth) * 2 - 1) * 0.5;
+      if (!reduced && !wandering.current) rotRef.current = -((e.clientX / window.innerWidth) * 2 - 1) * 0.5;
       track(e.clientX, e.clientY);
       clearTimeout(mouseTimer.current);
       mouseTimer.current = setTimeout(() => {
-        rotRef.current = 0;
+        if (!wandering.current) rotRef.current = 0;
         auto(IDLE);
       }, 2000);
     };
@@ -282,6 +395,22 @@ export default function FloatingCat() {
       if (el) io.observe(el);
     });
 
+    // now and then the cat wanders off and comes back from the other side (desktop, idle, no reduced motion)
+    let wanderT: ReturnType<typeof setTimeout>;
+    const schedule = (ms: number) => {
+      wanderT = setTimeout(() => {
+        const ok =
+          !reduced &&
+          !lock.current &&
+          !sleeping.current &&
+          document.visibilityState === 'visible' &&
+          matchMedia('(min-width: 768px)').matches;
+        if (ok) wander();
+        schedule(ok ? 60000 + Math.random() * 60000 : 15000);
+      }, ms);
+    };
+    schedule(45000 + Math.random() * 30000);
+
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('mousemove', onMove, { passive: true });
     window.addEventListener('keydown', wake);
@@ -298,6 +427,7 @@ export default function FloatingCat() {
       document.removeEventListener('click', onTap);
       window.removeEventListener('cat', onCat);
       clearTimeout(idleT);
+      clearTimeout(wanderT);
       cancelAnimationFrame(raf);
       io.disconnect();
       pending.forEach(clearTimeout);
@@ -330,12 +460,21 @@ export default function FloatingCat() {
   return (
     <div ref={rootRef} className="fixed right-0 bottom-3 z-30 [--r:80px] md:-right-2 md:bottom-6 md:[--r:122px]">
       <div className="relative h-[106px] w-[84px] md:h-[213px] md:w-[167px]">
-        <CatCanvas action={action} rotRef={rotRef} />
+        <div ref={fxRef} className="absolute inset-0">
+          <CatCanvas action={action} rotRef={rotRef} />
+        </div>
+        {puff > 0 && (
+          <div key={puff} aria-hidden className="pointer-events-none absolute top-1/2 left-1/2">
+            <span className="smoke-puff absolute -top-6 -left-8 size-14 rounded-full bg-[#d9d2e3]/70 blur-lg" />
+            <span className="smoke-puff absolute -top-10 left-0 size-16 rounded-full bg-[#d9d2e3]/60 blur-lg [animation-delay:0.1s]" />
+            <span className="smoke-puff absolute -top-2 left-2 size-12 rounded-full bg-accent/50 blur-lg [animation-delay:0.2s]" />
+          </div>
+        )}
         <button
           type="button"
           aria-label={t.fanToggle}
           aria-expanded={open}
-          onClick={() => setOpen(o => !o)}
+          onClick={() => (wandering.current ? caught() : setOpen(o => !o))}
           className="absolute inset-0 cursor-pointer rounded-full"
         />
 
@@ -348,7 +487,7 @@ export default function FloatingCat() {
             title={label}
             aria-label={label}
             tabIndex={open ? 0 : -1}
-            onClick={() => play(clip, ms, lines)}
+            onClick={() => (clip === WALK ? wander() : play(clip, ms, lines))}
             style={{
               transform: open
                 ? `translate(calc(${FAN[i].x} * var(--r)), calc(${FAN[i].y} * var(--r)))`
