@@ -104,7 +104,7 @@ const es = {
   },
   footer: {
     rights: '© 2026 Angel Smith',
-    made: 'Hecho con Next.js · Santiago, Chile · Emotes:',
+    made: 'Hecho con café de especialidad · Impulsado por gatos',
     catEnd: 'Ya llegaste al final…',
     catMade: 'Hecho con cariño (y café)',
   },
@@ -262,7 +262,7 @@ const en: Dict = {
   },
   footer: {
     rights: '© 2026 Angel Smith',
-    made: 'Built with Next.js · Santiago, Chile · Emotes:',
+    made: 'Built on specialty coffee · Powered by cats',
     catEnd: 'You made it to the end…',
     catMade: 'Made with love (and coffee)',
   },

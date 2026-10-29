@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
+import ProjectIcon from '@/components/ProjectIcon';
 import { ui, type WorkProject } from '@/data';
 import { useLang } from '@/components/LangProvider';
 
@@ -25,14 +25,10 @@ export default function ProjectCard({ p, company }: { p: WorkProject; company: s
           open ? 'border-accent' : 'border-line'
         }`}
       >
-        {p.cover ? (
-          <Image src={p.cover} alt={p.title} fill sizes="(min-width: 1120px) 340px, (min-width: 640px) 45vw, 100vw" className="object-cover" />
-        ) : (
-          <span className="font-jetbrains text-xs tracking-[0.08em] text-dim">{p.title}</span>
-        )}
+        <ProjectIcon title={p.title} icon={p.icon} className="size-24 rounded-3xl text-3xl" />
         <div
           aria-hidden={!open}
-          className={`pointer-events-none absolute inset-0 flex flex-col justify-between gap-3 bg-background/95 p-5 transition duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:translate-y-0 ${
+          className={`pointer-events-none absolute inset-0 flex flex-col justify-between gap-3 bg-background p-5 transition duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:translate-y-0 ${
             open ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'
           }`}
         >

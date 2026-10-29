@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import ProjectIcon from '@/components/ProjectIcon';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { ui, type WorkCompany } from '@/data';
@@ -77,19 +77,7 @@ export default function ProjectArchive({ companies }: { companies: WorkCompany[]
             >
               <span className="font-jetbrains basis-14 text-xs text-dim">{year}</span>
               <div className="flex min-w-0 flex-1 basis-55 items-center gap-3">
-                <div className="flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-[10px] border border-edge bg-surface1">
-                  {p.cover ? (
-                    <Image src={p.cover} alt="" fill sizes="36px" className="object-cover" />
-                  ) : (
-                    <span className="font-jetbrains text-[13px] text-accent">
-                      {p.title
-                        .split(/\s+/)
-                        .slice(0, 2)
-                        .map(w => w[0].toUpperCase())
-                        .join('')}
-                    </span>
-                  )}
-                </div>
+                <ProjectIcon title={p.title} icon={p.icon} className="size-9 rounded-[10px] text-[13px]" />
                 <span className={cn('text-lg font-semibold transition-colors duration-200', isOpen && 'text-accent')}>
                   {p.title}
                 </span>
