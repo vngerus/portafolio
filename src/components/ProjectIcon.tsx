@@ -11,7 +11,7 @@ export default function ProjectIcon({ title, icon, className }: { title: string;
       )}
     >
       {icon ? (
-        <Image src={icon} alt="" fill sizes="96px" className="object-cover" />
+        <Image src={icon} alt="" fill sizes="96px" className="object-contain p-1" />
       ) : (
         <span aria-hidden>
           {title

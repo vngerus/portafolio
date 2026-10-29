@@ -14,7 +14,7 @@ const es = {
     goTo: (label: string) => `Ir a ${label}`,
   },
   hero: {
-    greeting: 'Hola, soy Angel S.',
+    greeting: 'Oi, soy Angel S.',
     tagline: 'Desarrollador front-end que también construye el back-end.',
     projects: 'Ver proyectos',
     cv: 'Ver CV',
@@ -65,7 +65,7 @@ const es = {
     metaTitle: 'Proyectos - Ángel Smith',
   },
   about: {
-    p1: 'Hola, soy Angel Smith. Soy desarrollador con un enfoque fuerte en front-end, pero cada vez más metido en el full stack: APIs, bases de datos y migraciones de sistemas.',
+    p1: 'Oi, soy Angel Smith. Soy desarrollador con un enfoque fuerte en front-end, pero cada vez más metido en el full stack: APIs, bases de datos y migraciones de sistemas.',
     p2: 'Hoy trabajo en Books&Bits y estudio Analista Programador en INACAP. Fuera del código me gustan los gatos, el café de especialidad y algún jueguito. Estoy abierto a colaborar en código abierto y en lo que venga.',
     english: 'Inglés B2',
     city: 'Santiago, CL',
@@ -128,7 +128,7 @@ const es = {
     mute: 'Silenciar mensajes',
     unmute: 'Activar mensajes',
     noMore: 'No mostrar más',
-    greet: { e: '👋', t: '¡Hola! Soy Banana Cat' } as Phrase,
+    greet: { e: '👋', t: '¡Oi! Soy Banana Cat' } as Phrase,
     back: { e: '😄', t: '¡Vuelvo a hablar!' } as Phrase,
     sleep: { e: '😴', t: 'Zzz…' } as Phrase,
     wake: { e: '👀', t: '¡Ah, sigues ahí!' } as Phrase,
@@ -137,7 +137,7 @@ const es = {
     celebrate: '¡Genial!',
     oops: 'Ups…',
     actions: [
-      { label: 'Saludar', say: [{ e: '👋', t: '¡Hola! Soy Banana Cat' }, { e: '🤗', t: '¡Bienvenido al portafolio!' }] },
+      { label: 'Saludar', say: [{ e: '👋', t: '¡Oi! Soy Banana Cat' }, { e: '🤗', t: '¡Bienvenido al portafolio!' }] },
       { label: 'Saltar', say: [{ e: '🦘', t: '¡Hop!' }, { e: '🚀', t: '¡Más alto!' }] },
       { label: 'Caminar', say: [{ e: '😎', t: 'Voy a dar una vuelta…' }, { e: '👣', t: 'Paso a paso' }] },
       { label: 'Mirar', say: [{ e: '👀', t: '¿Qué hay por aquí?' }, { e: '🤔', t: 'Mmm… interesante' }] },

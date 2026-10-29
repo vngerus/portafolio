@@ -106,3 +106,13 @@ summary:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
 }
+
+@keyframes paw-stamp {
+  0% { transform: scale(1.5) rotate(var(--paw-r)); opacity: 0; }
+  15% { transform: scale(1) rotate(var(--paw-r)); opacity: 0.7; }
+  60% { opacity: 0.35; }
+  100% { transform: scale(1) rotate(var(--paw-r)); opacity: 0; }
+}
+.paw-stamp {
+  animation: paw-stamp 1.8s ease-out infinite backwards;
+}

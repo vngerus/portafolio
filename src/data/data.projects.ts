@@ -4,6 +4,7 @@ export interface WorkProject {
   kind: string;
   description: string;
   stack: string[];
+  cover?: string; // app screenshot / background (public path)
   icon?: string; // app icon (public path); placeholder initials until set
   link?: string;
   github?: string;
@@ -78,6 +79,8 @@ export const workCompanies: WorkCompany[] = [
         description:
           'Sitio principal de Consultants in Blockchain. Diseño moderno alineado con la identidad blockchain, animaciones en scroll y secciones para destacar servicios y partners.',
         stack: ['React', 'Tailwind CSS', 'TypeScript', 'Framer Motion'],
+        cover: '/project/CibBack.webp',
+        icon: '/project/CIB.webp',
         link: 'https://cib.app',
         github: 'https://github.com/vngerus',
         featured: true,
@@ -115,6 +118,8 @@ export const workCompanies: WorkCompany[] = [
         description:
           'Explora rutas, humedales y áreas verdes cercanas a la ciudad. Promueve el redescubrimiento de espacios naturales y destaca la conservación de fauna autóctona.',
         stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
+        cover: '/project/AvidaBack.webp',
+        icon: '/project/Avida.webp',
         link: 'https://avida.vercel.app',
         github: 'https://github.com/vngerus',
         featured: true,

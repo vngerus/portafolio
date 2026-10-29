@@ -77,7 +77,7 @@ export default function ProjectArchive({ companies }: { companies: WorkCompany[]
             >
               <span className="font-jetbrains basis-14 text-xs text-dim">{year}</span>
               <div className="flex min-w-0 flex-1 basis-55 items-center gap-3">
-                <ProjectIcon title={p.title} icon={p.icon} className="size-9 rounded-[10px] text-[13px]" />
+                <ProjectIcon title={p.title} icon={p.icon} className="size-9 rounded-full text-[13px]" />
                 <span className={cn('text-lg font-semibold transition-colors duration-200', isOpen && 'text-accent')}>
                   {p.title}
                 </span>
