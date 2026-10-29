@@ -31,7 +31,7 @@ export default function MobileNav({ items, openLabel, closeLabel }: { items: Ite
         aria-controls="mobile-nav"
         aria-label={open ? closeLabel : openLabel}
         onClick={() => setOpen(o => !o)}
-        className="flex size-9 cursor-pointer items-center justify-center rounded-full border border-edge text-muted transition-colors hover:border-accent hover:text-accent"
+        className="flex size-11 cursor-pointer items-center justify-center rounded-full border border-edge text-muted transition-colors hover:border-accent hover:text-accent"
       >
         {open ? <X className="size-4" /> : <Menu className="size-4" />}
       </button>

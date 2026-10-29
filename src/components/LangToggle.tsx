@@ -19,7 +19,7 @@ export default function LangToggle() {
           type="button"
           aria-pressed={lang === l}
           onClick={() => setLang(l)}
-          className={`cursor-pointer rounded-full px-2 py-0.5 uppercase transition-colors duration-200 ${
+          className={`cursor-pointer rounded-full px-3 py-1.5 uppercase transition-colors duration-200 ${
             lang === l ? 'bg-accent text-background' : 'text-muted hover:text-bone'
           }`}
         >

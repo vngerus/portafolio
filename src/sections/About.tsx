@@ -48,7 +48,7 @@ export default function About() {
         </div>
         <div className="flex flex-col gap-8">
           <div className="flex flex-col gap-3.5">
-            <span className={label}>{a.stack}</span>
+            <h3 className={label}>{a.stack}</h3>
             <div className="grid gap-5 grid-cols-[repeat(auto-fit,minmax(150px,1fr))]">
               {stackGroups.map(g => (
                 <div key={g.label} data-cat={a.catStack(g.label)} data-cat-e="💪" data-cat-group="stack" className="flex flex-col gap-2">
@@ -63,7 +63,7 @@ export default function About() {
             </div>
           </div>
           <div className="flex flex-col gap-3.5">
-            <span className={label}>{a.education}</span>
+            <h3 className={label}>{a.education}</h3>
             {education.map(e => (
               <div
                 key={e.name}

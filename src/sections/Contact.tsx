@@ -17,8 +17,9 @@ const links = [
 ];
 
 const rowCls = 'flex justify-between border-b border-line py-3.5 text-base';
+const linkRowCls = `${rowCls} transition-colors hover:text-accent`;
 const fieldCls =
-  'rounded-[10px] border border-edge bg-background px-3.5 py-3 text-[15px] text-bone outline-none placeholder:text-dim focus:border-accent';
+  'rounded-[10px] border border-edge bg-background px-3.5 py-3 text-[15px] text-bone outline-none placeholder:text-dim focus:border-accent focus-visible:ring-2 focus-visible:ring-accent/40';
 
 const SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
@@ -37,12 +38,8 @@ export default function Contact() {
   const boxRef = useRef<HTMLDivElement>(null);
   const widgetId = useRef<string>(undefined);
 
-  // send stays disabled until every field is filled (valid email) and the captcha passed
-  const ready =
-    form.name.trim() !== '' &&
-    /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(form.email.trim()) &&
-    form.message.trim() !== '' &&
-    (!SITE_KEY || !!token);
+  // fields use native validation (inline browser messages); only the captcha gates the button
+  const ready = !SITE_KEY || !!token;
 
   const mountCaptcha = () => {
     const ts = getTurnstile();
@@ -92,7 +89,7 @@ export default function Contact() {
       id="contacto"
       className="mx-auto max-w-280 scroll-mt-18 border-t border-line px-[clamp(20px,4vw,40px)] py-[clamp(48px,8vw,96px)]"
     >
-      <Toaster position="bottom-right" theme="dark" />
+      <Toaster position="top-center" theme="dark" />
       <div className="grid gap-12 grid-cols-[repeat(auto-fit,minmax(min(100%,360px),1fr))]">
         <div className="flex flex-col gap-5">
           <SectionHead num="04" title={ui[lang].sections.contact} lang={lang} />
@@ -115,7 +112,7 @@ export default function Contact() {
                   rel="noreferrer"
                   data-cat={t.catFollow(l.name)}
                   data-cat-e="🤩"
-                  className={rowCls}
+                  className={linkRowCls}
                 >
                   {inner}
                 </a>
@@ -143,6 +140,8 @@ export default function Contact() {
               name="email"
               placeholder={t.phEmail}
               type="email"
+              inputMode="email"
+              spellCheck={false}
               required
               maxLength={120}
               autoComplete="email"

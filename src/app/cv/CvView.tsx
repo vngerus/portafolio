@@ -48,7 +48,7 @@ export default function CvView() {
   return (
     <>
       <Header />
-      <main className="mx-auto flex max-w-280 flex-col gap-10 px-[clamp(20px,4vw,40px)] pt-[clamp(28px,5vw,56px)] pb-[clamp(48px,8vw,96px)]">
+      <main id="main" className="mx-auto flex max-w-280 flex-col gap-10 px-[clamp(20px,4vw,40px)] pt-[clamp(28px,5vw,56px)] pb-[clamp(48px,8vw,96px)]">
         <Link
           href="/"
           data-cat={h.catHome}

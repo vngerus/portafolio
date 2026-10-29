@@ -13,7 +13,7 @@ export default function ProyectosView() {
   return (
     <>
       <Header />
-      <main className="mx-auto max-w-280 px-[clamp(20px,4vw,40px)] pt-[clamp(28px,5vw,56px)] pb-[clamp(48px,8vw,96px)]">
+      <main id="main" className="mx-auto max-w-280 px-[clamp(20px,4vw,40px)] pt-[clamp(28px,5vw,56px)] pb-[clamp(48px,8vw,96px)]">
         <Link
           href="/"
           data-cat={t.catHome}

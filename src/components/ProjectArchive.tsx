@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { ui, type WorkCompany } from '@/data';
@@ -78,12 +79,7 @@ export default function ProjectArchive({ companies }: { companies: WorkCompany[]
               <div className="flex min-w-0 flex-1 basis-55 items-center gap-3">
                 <div className="flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-[10px] border border-edge bg-surface1">
                   {p.cover ? (
-                    <div
-                      role="img"
-                      aria-label={p.title}
-                      className="size-full bg-cover bg-center"
-                      style={{ backgroundImage: `url(${p.cover})` }}
-                    />
+                    <Image src={p.cover} alt="" fill sizes="36px" className="object-cover" />
                   ) : (
                     <span className="font-jetbrains text-[13px] text-accent">
                       {p.title

@@ -187,11 +187,20 @@ export default function FloatingCat() {
     // pointer detection polls the element under the cursor on every move (robust to overlays/tilt)
     let hovered: HTMLElement | null = null;
     let pt: [number, number] | null = null;
+    let raf = 0;
     const track = (x: number, y: number) => {
-      const el = tagged(document.elementFromPoint(x, y));
-      if (el === hovered) return;
-      hovered = el;
-      react(el);
+      pt = [x, y];
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        if (!pt) return;
+        const hit = document.elementFromPoint(...pt);
+        const el = tagged(hit);
+        if (hit?.closest('a, button')) auto(LOOK);
+        if (el === hovered) return;
+        hovered = el;
+        react(el);
+      });
     };
     const onFocus = (e: Event) => react(tagged(e.target));
     // no hover on touch screens: comment on tap
@@ -239,10 +248,7 @@ export default function FloatingCat() {
     const onMove = (e: MouseEvent) => {
       wake();
       if (!reduced) rotRef.current = -((e.clientX / window.innerWidth) * 2 - 1) * 0.5;
-      pt = [e.clientX, e.clientY];
-      track(...pt);
-      const el = document.elementFromPoint(e.clientX, e.clientY);
-      if (el?.closest('a, button')) auto(LOOK);
+      track(e.clientX, e.clientY);
       clearTimeout(mouseTimer.current);
       mouseTimer.current = setTimeout(() => {
         rotRef.current = 0;
@@ -292,6 +298,7 @@ export default function FloatingCat() {
       document.removeEventListener('click', onTap);
       window.removeEventListener('cat', onCat);
       clearTimeout(idleT);
+      cancelAnimationFrame(raf);
       io.disconnect();
       pending.forEach(clearTimeout);
       pending.clear();
@@ -379,7 +386,7 @@ export default function FloatingCat() {
 
         <div
           ref={bubbleRef}
-          aria-live="polite"
+          inert={!bubble.show}
           onPointerEnter={() => clearTimeout(bubbleTimer.current)}
           onPointerLeave={() => bubble.show && hideIn(2000)}
           className={`absolute right-3 bottom-full mb-1 w-max max-w-[min(280px,calc(100vw-1.5rem))] origin-bottom-right transition duration-300 motion-reduce:transition-none ease-[cubic-bezier(.2,.7,.2,1)] ${
@@ -404,7 +411,7 @@ export default function FloatingCat() {
               )}
             </span>
             <div className="flex flex-col gap-0.5">
-              <span className="font-jetbrains text-[9px] tracking-[0.14em] text-accent">BANANA CAT</span>
+              <span className="font-jetbrains text-[11px] tracking-[0.14em] text-accent">BANANA CAT</span>
               <span className="text-sm leading-tight text-bone">{bubble.text}</span>
               {bubble.cta && (
                 <Link
@@ -428,7 +435,7 @@ export default function FloatingCat() {
                 <button
                   type="button"
                   onClick={toggleMute}
-                  className="mt-0.5 cursor-pointer self-end text-[10px] text-dim transition-colors hover:text-bone"
+                  className="mt-0.5 cursor-pointer self-end text-xs text-dim transition-colors hover:text-bone"
                 >
                   {t.noMore}
                 </button>

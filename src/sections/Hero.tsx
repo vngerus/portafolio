@@ -8,7 +8,6 @@ import { GithubIcon, LinkedinIcon } from '@/components/Icons';
 import { emoteSrc } from '@/lib/emotes';
 import { useLang } from '@/components/LangProvider';
 
-const chip = 'font-jetbrains rounded-full border border-edge px-3 py-[5px] text-[11px] text-muted';
 const social =
   'flex size-10 items-center justify-center rounded-full border border-edge text-muted transition-colors hover:border-accent hover:text-accent';
 const emote = 'inline-block size-[0.85em] align-[-0.08em]';
@@ -49,18 +48,6 @@ export default function Hero() {
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-2">
-          <span data-cat={t.catNow} data-cat-e="💪" className={chip}>
-            {t.chipNow}
-          </span>
-          <span data-cat={t.catStudy} data-cat-e="🧐" className={chip}>
-            {t.chipStudy}
-          </span>
-          <span data-cat={t.catOpen} data-cat-e="🤗" className={chip}>
-            {t.chipOpen}
-          </span>
-        </div>
-
         <div className="flex flex-wrap items-center gap-3">
           <SectionLink
             id="proyectos"
@@ -68,7 +55,7 @@ export default function Hero() {
             data-cat-e="🚀"
             className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-medium text-background transition-colors hover:bg-[#e2b5ff]"
           >
-            {t.projects} <span>↓</span>
+            {t.projects} <span aria-hidden>↓</span>
           </SectionLink>
           <Link
             href="/cv"
@@ -76,7 +63,7 @@ export default function Hero() {
             data-cat-e="😉"
             className="inline-flex items-center gap-2 rounded-full border border-edge px-5 py-3 text-sm transition-colors hover:border-accent hover:text-accent"
           >
-            {t.cv} <span className="font-jetbrains text-[11px]">→</span>
+            {t.cv} <span aria-hidden className="font-jetbrains text-[11px]">→</span>
           </Link>
           <span className="mx-1 hidden h-6 w-px bg-line sm:block" aria-hidden />
           <a

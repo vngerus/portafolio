@@ -34,7 +34,7 @@ export default function Header() {
           data-cat-e="😎"
           className="font-jetbrains mr-auto text-[15px] tracking-widest text-accent sm:tracking-[0.18em]"
         >
-          vngerus
+          <span translate="no">vngerus</span>
         </Link>
         <nav className="hidden gap-7 text-sm sm:flex">
           {items.map(i => (

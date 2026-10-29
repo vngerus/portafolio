@@ -1,11 +1,12 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { ui, type WorkProject } from '@/data';
 import { useLang } from '@/components/LangProvider';
 
 const badge =
-  'font-jetbrains absolute top-3 left-3 rounded-full border border-edge bg-background px-2.5 py-1 text-[10px] tracking-[0.08em] text-muted';
+  'font-jetbrains absolute top-3 left-3 rounded-full border border-edge bg-background px-2.5 py-1 text-[11px] tracking-[0.08em] text-muted';
 
 // Details open on click (not hover): nothing moves under the cursor while browsing.
 export default function ProjectCard({ p, company }: { p: WorkProject; company: string }) {
@@ -25,12 +26,7 @@ export default function ProjectCard({ p, company }: { p: WorkProject; company: s
         }`}
       >
         {p.cover ? (
-          <div
-            role="img"
-            aria-label={p.title}
-            className="size-full bg-cover bg-center"
-            style={{ backgroundImage: `url(${p.cover})` }}
-          />
+          <Image src={p.cover} alt={p.title} fill sizes="(min-width: 1120px) 340px, (min-width: 640px) 45vw, 100vw" className="object-cover" />
         ) : (
           <span className="font-jetbrains text-xs tracking-[0.08em] text-dim">{p.title}</span>
         )}
@@ -45,6 +41,12 @@ export default function ProjectCard({ p, company }: { p: WorkProject; company: s
         </div>
         {p.dev && <span className={badge}>{t.dev}</span>}
         {p.confidential && <span className={badge}>{t.confidential}</span>}
+        <span
+          aria-hidden
+          className="font-jetbrains absolute right-3 bottom-3 flex size-6 items-center justify-center rounded-full border border-edge bg-background text-sm text-muted"
+        >
+          {open ? '−' : '+'}
+        </span>
         <button
           type="button"
           aria-expanded={open}
@@ -66,9 +68,9 @@ export default function ProjectCard({ p, company }: { p: WorkProject; company: s
             target="_blank"
             rel="noreferrer"
             aria-label={t.open(p.title)}
-            className="text-lg leading-none text-accent transition-transform duration-200 hover:-translate-y-px hover:translate-x-px"
+            className="-m-2 p-2 text-lg leading-none text-accent transition-transform duration-200 hover:-translate-y-px hover:translate-x-px"
           >
-            ↗
+            <span aria-hidden>↗</span>
           </a>
         )}
       </div>

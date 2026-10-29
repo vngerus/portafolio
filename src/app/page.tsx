@@ -9,15 +9,17 @@ import ScrollToPending from '@/components/ScrollToPending';
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background text-bone">
+    <div className="min-h-screen bg-background text-bone">
       <ScrollToPending />
       <Header />
-      <Hero />
-      <Experiences />
-      <Projects />
-      <About />
-      <Contact />
+      <main id="main">
+        <Hero />
+        <Experiences />
+        <Projects />
+        <About />
+        <Contact />
+      </main>
       <Footer />
-    </main>
+    </div>
   );
 }
